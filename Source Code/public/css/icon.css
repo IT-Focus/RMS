@@ -1,0 +1,260 @@
+.icon-bus{
+    background-image: url( ../images/icons/bus.png ) !important;
+}
+.icon-staff{
+    background-image: url( ../images/icons/staff.png ) !important;
+}
+.icon-assign{
+    background-image: url( ../images/icons/assign.png ) !important;
+}
+.icon-list{
+    background-image: url( ../images/icons/list.png ) !important;
+}
+.icon-add{
+    background-image: url( ../images/icons/add.png ) !important;
+}
+.icon-edit{
+    background-image: url( ../images/icons/edit.png ) !important;
+}
+.icon-delete{
+    background-image: url( ../images/icons/delete.png ) !important;
+}
+.icon-save{
+    background-image: url( ../images/icons/save.png ) !important;
+}
+
+.icon-cancel{
+    background-image: url( ../images/icons/cancel.png ) !important;
+}
+.icon-map{
+    background-image: url( ../images/icons/map.png ) !important;
+}
+.icon-route{
+    background-image: url( ../images/icons/route.png ) !important;
+}
+.icon-logout{
+    background-image: url( ../images/icons/logout.png ) !important;
+}
+.icon-login{
+    background-image: url( ../images/icons/login.png ) !important;
+}
+.icon-excel{
+    background-image: url( ../images/icons/excel.png ) !important;
+}
+.icon-transfer{
+    background-image: url( ../images/icons/transfer.png ) !important;
+}
+.icon-pdf{
+    background-image: url( ../images/icons/pdf.png ) !important;
+}
+.icon-revise{
+    background-image: url( ../images/icons/revise.png ) !important;
+}
+.icon-pay{
+    background-image: url( ../images/icons/pay.png ) !important;
+}
+.icon-submit{
+    background-image: url( ../images/icons/submit.png ) !important;
+}
+.icon-transferDeposit{
+    background-image: url( ../images/icons/transferDeposit.png ) !important;
+}
+.icon-refresh {
+    background-image: url( ../images/icons/refresh.png ) !important;
+}
+.icon-schedule {
+    background-image: url( ../images/icons/schedule.png ) !important;
+}
+.icon-switch_user {
+    background-image: url( ../images/icons/switch_user.png ) !important;
+}
+.icon-simulator {
+    background-image: url( ../images/icons/simulator.png ) !important;
+}
+
+
+.icon-add {
+    background-image: url( ../images/icons/add.png ) !important;
+}
+.icon-audittrail {
+    background-image: url( ../images/icons/audittrail.png ) !important;
+}
+.icon-contractlist {
+    background-image: url( ../images/icons/contractlist.png ) !important;
+}
+.icon-delete {
+    background-image: url( ../images/icons/delete.png ) !important;
+}
+.icon-ok{
+    background-image:url(../images/icons/Ok.png) !important;
+}
+.icon-nonetrade {
+    background-image: url( ../images/icons/nonetrade.png ) !important;
+}
+.icon-changeproduct {
+    background-image: url( ../images/icons/changeproduct.png ) !important;
+}
+.icon-depositlist {
+    background-image: url( ../images/icons/depositlist.png ) !important;
+}
+.icon-cancel {
+    background-image: url( ../images/icons/cancel.png ) !important;
+}
+.icon-edit {
+    background-image: url( ../images/icons/edit.png ) !important;
+}
+.icon-add-money{
+        background-image:url(../images/icons/money_add.png) !important;
+}
+.icon-preview{
+        background-image:url(../images/icons/preview.png) !important;
+}
+.icon-printer{
+        background-image:url(../images/icons/printer.png) !important;
+}
+.icon-save {
+    background-image: url( ../images/icons/saved.png ) !important;
+}
+.icon-lead{
+     background-image: url( ../images/icons/people.png ) !important;
+    }
+.icon-customer {
+    background-image: url( ../images/icons/customer.png ) !important;
+}
+.icon-monitor {
+    background-image: url( ../images/icons/monitor.png ) !important;
+}
+.icon-List {
+    background-image: url( ../images/icons/List.png ) !important;
+}
+.icon-map {
+    background-image: url( ../images/icons/mape.png ) !important;
+}
+.icon-product {
+    background-image: url( ../images/icons/product.png ) !important;
+}
+.icon-customermanage {
+    background-image: url( ../images/icons/customermanage.png ) !important;
+}
+.icon-signup {
+    background-image: url( ../images/icons/signup.png ) !important;
+}
+.icon-finaceManagement {
+    background-image: url( ../images/icons/finaceManagement.png ) !important;
+}
+.icon-payment {
+    background-image: url( ../images/icons/payment.png ) !important;
+}
+.icon-creditmonitor {
+    background-image: url( ../images/icons/creditmonitor.png ) !important;
+}
+.icon-opencash {
+    background-image: url( ../images/icons/opencash.png ) !important;
+}
+.icon-closecash {
+    background-image: url( ../images/icons/closecash.png ) !important;
+}
+.icon-cashtransfer {
+    background-image: url( ../images/icons/cashtransfer.png ) !important;
+}
+.icon-productcatalogue {
+    background-image: url( ../images/icons/productcatalogue.png ) !important;
+}
+.icon-productlist {
+    background-image: url( ../images/icons/productlist.png ) !important;
+}
+.icon-setting {
+    background-image: url( ../images/icons/setting.png ) !important;
+}
+.icon-cashdrawer {
+    background-image: url( ../images/icons/cashdrawer.png ) !important;
+}
+.icon-paymentmethod {
+    background-image: url( ../images/icons/paymentmethod.png ) !important;
+}
+.icon-usermanager {
+    background-image: url( ../images/icons/usermanger.png ) !important;
+}
+.icon-cashcontrol {
+    background-image: url( ../images/icons/cashcontrol.png ) !important;
+}
+.icon-inventory {
+    background-image: url( ../images/icons/inventory.png ) !important;
+}
+.icon-report {
+    background-image: url( ../images/icons/report.png ) !important;
+}
+.icon-revenue {
+    background-image: url( ../images/icons/revenue.png ) !important;
+}
+.icon-cashcollection {
+    background-image: url( ../images/icons/cashcollection.png ) !important;
+}
+.icon-deposit {
+    background-image: url( ../images/icons/deposit.png ) !important;
+}
+.icon-department {
+    background-image: url( ../images/icons/department.png ) !important;
+}
+.icon-extend{
+        background-image:url(../images/icons/extend.png) !important;
+}
+ .icon-approval{
+        background-image:url(../images/icons/approval.png) !important;
+}
+ .icon-changename{
+        background-image:url(../images/icons/changename.png) !important;
+}
+.icon-newContract{
+    background-image:url(../images/icons/newContract.png) !important;
+    
+}
+.icon-refund{
+    background-image:url(../images/icons/refund.png) !important;
+    
+}
+.ctmDisable input{
+    color:gray;
+    
+}
+.icon-grid{
+    background-image:url(../images/icons/grid.png) !important;
+    
+}
+.icon-search{
+    background-image:url(../images/icons/Search.png) !important;
+    
+}
+.icon-leadList{
+    background-image:url(../images/icons/leadList.png) !important;
+    
+}
+.icon-property{
+    background-image:url(../images/icons/Home.png) !important;
+    
+}
+.icon-applyPermission{
+    background-image:url(../images/icons/applyPermission.png) !important;
+}
+.icon-terminateAccount{
+    background-image:url(../images/icons/terminate_account.png) !important;
+}
+
+/* sale system */
+.icon-m-list{
+    background-image:url(../images/icons/medium/list.png) !important;   
+}
+
+.icon-maintenance{
+    background-image:url(../images/icons/maintenance.png) !important;
+}
+
+.icon-lead{
+    background-image:url(../images/icons/lead.png) !important;
+}
+.icon-approve{
+    background-image:url(../images/icons/approve.png) !important;
+}
+.icon-invoice{
+    background-image:url(../images/icons/invoice.png) !important;
+}

@@ -1,0 +1,2 @@
+class CfgUtilityController < ApplicationController
+end
