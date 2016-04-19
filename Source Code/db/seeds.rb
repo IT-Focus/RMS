@@ -8,8 +8,8 @@
 
 # System Administrator
 
-	SysUser.create first_name:'System',last_name:'Administration',phone:'',email:'',username:'admin',password:'admin',is_active:true,is_admin:true , department_id:1 , role_id:1 , pin_code:12345
-	SysUser.create first_name:'System',last_name:'Default',phone:'',email:'',username:'default',password:'123456',is_active:true,is_admin:false , department_id:1 , role_id:1 , pin_code:1234
+	SysUser.create first_name:'System',last_name:'Administration',phone:'',email:'',username:'admin',encrypted_password:'admin',is_active:true,is_admin:true , department_id:1 , role_id:1 , pin_code:12345
+	SysUser.create first_name:'System',last_name:'Default',phone:'',email:'',username:'default',encrypted_password:'123456',is_active:true,is_admin:false , department_id:1 , role_id:1 , pin_code:1234
 
 # Menu System Administration
 	SysMenu.create id:1,menu:'System Administration',icon_cls:'',expand:1,is_leaf:0,is_active:true
