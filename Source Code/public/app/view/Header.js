@@ -15,7 +15,7 @@ Ext.define('App.view.Header', {
         	   border:false,
         	   xtype:'label',
              flex:1,
-        	   text:'Sample System',
+        	   text:'Guest House Management System',
     		   style:'font-weight: bold;font-size: 20px;margin-top:10px'
 //        	   html:'<h3> Document Management System</h3>',
            },{
