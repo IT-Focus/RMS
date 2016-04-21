@@ -11,8 +11,8 @@ class LicenseController < ApplicationController
   		@license_service = License::LicenseSv.new
   		if @license_service.check_secret_key(secret_key) == true
   			@license_service.write_license_key secret_key
-  			@message_ok ="License activate success"
-  		else 
+        @message_ok ="License activate success"
+      else 
   			@message_error ="Your license incorrect please contact to admin"
   		end 
   		render "index"

@@ -1,7 +1,7 @@
-Ext.define('App.store.combo.Category', {
+Ext.define('App.store.combo.Categories', {
     extend: 'Ext.data.Store',
 //    queryMode: 'local',
-    autoLoad:true,
+    autoLoad:false,
     model: 'App.model.setup.CategoryMaster',
      proxy: {
         		type: 'rest',
