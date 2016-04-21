@@ -22,11 +22,48 @@ Ext.define('App.controller.Login', {
 	    	},
 	    	'fmHeader button[action=logout]':{
 	    		click: this.logout
-	    	}
+	    	},
+
+	    	//============Option
+	    	'fmHeader button[action=changePassword]':{
+	    		click: this.showFormChangePassword
+	    	},
+	    	'userChangePassword button[action=Cancel]':{
+	    		click: Util.closeWindow
+	    	},
+	    	'userChangePassword button[action=Save]':{
+	    		click: this.saveChangePassword
+	    	},
 	    });
 
 
 	    
+	},
+	showFormChangePassword:function(btn){
+		win = Ext.create("App.view.admin.user.ChangePassword")
+		win.show()
+		win.center()
+		win.down("textfield").focus(true , 200 )
+	},
+	saveChangePassword:function(btn){
+		win = btn.up('window')
+		form = win.down('form')
+		value = form.getValues()
+
+		if (form.getForm().isValid()) {
+			params = {
+				newPassword:value.new_password,
+				confirmPassword:value.confirm_password
+			}
+
+			Util.ajax("/SysUsers/changePassword", params , this.afterChangePassword , win )
+		}else{
+			Util.msg("Please correct data entry")
+		};
+
+	},
+	afterChangePassword:function(obj , win ){
+		win.close() ;
 	},
 	logout:function(btn){
 		this.showPageLogin();		
@@ -73,6 +110,8 @@ Ext.define('App.controller.Login', {
 			this.password= password;
 			// this.showPageCustomer();
 			Util.ajax('Login/login',{username:username,password:password},this.resultLogin,this);	
+			
+
 		}
 		
 
@@ -99,7 +138,7 @@ Ext.define('App.controller.Login', {
 		if (form.getForm().isValid()) {
 			var values = form.getValues();
 			this.logInProcess(values.username, values.password);
-
+			
 		}else{
 			Ext.Msg.alert('Inform', 'Please entry Username and Password');
 		};

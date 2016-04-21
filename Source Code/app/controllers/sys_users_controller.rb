@@ -1,6 +1,6 @@
 
 class SysUsersController < ApplicationController
-
+    @@s_pss = User::ChangePassword.new()
     def index
         @data = SysUser.where is_admin:false
         # SysUser.all = select * from SysUser
@@ -34,6 +34,18 @@ class SysUsersController < ApplicationController
 
         render json:{ data:@data ,success:true}
 
+    end
+    def changePassword
+        begin
+            if @@s_pss.change_password(params,session[:user_id]) == true
+                render json:{ success:true , message:"Change Password Success "}
+            else
+                render json:{ success:false , message:"Change Password Unsuccess "}
+            end
+
+        rescue Exception => e
+            render json:{success:false , message:e.message }
+        end
     end
     def destroy
 

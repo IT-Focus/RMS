@@ -120,6 +120,7 @@ Ext.define('App.controller.admin.User', {
 			})
 
 // ========== main menu
+			if (subItemMenu.length>0){
 			itemObj={
 				title:eachMainMenu.menu,
    				xtype:'menu',
@@ -129,7 +130,8 @@ Ext.define('App.controller.admin.User', {
 			}
 			items.push(itemObj)
 
-
+		}
+		
 		})
 		// debugger;
 		view.add(items)

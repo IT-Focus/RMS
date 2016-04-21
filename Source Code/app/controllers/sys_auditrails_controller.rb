@@ -1,0 +1,2 @@
+class SysAuditrailsController < ApplicationController
+end

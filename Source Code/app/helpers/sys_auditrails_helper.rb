@@ -1,0 +1,2 @@
+module SysAuditrailsHelper
+end

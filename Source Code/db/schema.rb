@@ -11,7 +11,42 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 1) do
+ActiveRecord::Schema.define(version: 20160419023552) do
+
+  create_table "auditrails", force: :cascade do |t|
+    t.string   "module",      limit: 45
+    t.text     "action",      limit: 65535
+    t.text     "description", limit: 65535
+    t.string   "created_by",  limit: 45
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "category_masters", force: :cascade do |t|
+    t.string   "code",                      limit: 45
+    t.string   "name",                      limit: 45
+    t.boolean  "is_include_tax"
+    t.float    "tariff",                    limit: 24
+    t.float    "tax",                       limit: 24
+    t.integer  "no_persons",                limit: 4
+    t.float    "rent_for_single",           limit: 24
+    t.float    "tax_for_single",            limit: 24
+    t.float    "extra_person_charge",       limit: 24
+    t.float    "tariff_hour",               limit: 24
+    t.float    "tax_hour",                  limit: 24
+    t.float    "rent_for_single_hour",      limit: 24
+    t.float    "tax_for_single_hour",       limit: 24
+    t.float    "tariff_month",              limit: 24
+    t.float    "tax_month",                 limit: 24
+    t.float    "rent_for_single_month",     limit: 24
+    t.float    "tax_for_single_month",      limit: 24
+    t.float    "extra_person_charge_month", limit: 24
+    t.integer  "user_id",                   limit: 4
+    t.string   "created_by",                limit: 45
+    t.string   "edited_by",                 limit: 45
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+  end
 
   create_table "cfg_auditrail_types", force: :cascade do |t|
     t.string "name",        limit: 45
@@ -45,12 +80,68 @@ ActiveRecord::Schema.define(version: 1) do
     t.text     "description",  limit: 65535
   end
 
+  create_table "check_ins", force: :cascade do |t|
+    t.string   "code",                limit: 45
+    t.datetime "arrival_date"
+    t.integer  "no_person",           limit: 4
+    t.integer  "adult",               limit: 4
+    t.integer  "children",            limit: 4
+    t.integer  "male",                limit: 4
+    t.integer  "female",              limit: 4
+    t.integer  "no_days",             limit: 4
+    t.float    "balance",             limit: 24
+    t.integer  "room_master_id",      limit: 4
+    t.integer  "extra_person",        limit: 4
+    t.float    "charge",              limit: 24
+    t.datetime "check_in_time"
+    t.date     "dob"
+    t.text     "address",             limit: 65535
+    t.string   "city",                limit: 45
+    t.string   "phone",               limit: 45
+    t.string   "mobile",              limit: 45
+    t.float    "discount",            limit: 24
+    t.datetime "hourly_check_in"
+    t.datetime "monthly_check_out"
+    t.float    "estimated_check_out", limit: 24
+    t.string   "created_by",          limit: 45
+    t.string   "edited_by",           limit: 45
+    t.text     "description",         limit: 65535
+    t.datetime "created_at",                        null: false
+    t.datetime "updated_at",                        null: false
+  end
+
+  create_table "day_ends", force: :cascade do |t|
+    t.datetime "day_end"
+    t.string   "created_by", limit: 45
+    t.string   "edited_by",  limit: 45
+    t.datetime "created_at",            null: false
+    t.datetime "updated_at",            null: false
+  end
+
+  create_table "default_colors", force: :cascade do |t|
+    t.string   "reserved",      limit: 45
+    t.string   "occupied",      limit: 45
+    t.string   "late_checkout", limit: 45
+    t.string   "free",          limit: 45
+    t.string   "edited_by",     limit: 45
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
+  end
+
   create_table "departments", force: :cascade do |t|
     t.string   "name",        limit: 255
     t.string   "description", limit: 255
     t.boolean  "is_active",               null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "floors", force: :cascade do |t|
+    t.string   "code",        limit: 45
+    t.string   "name",        limit: 45
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "rel_menu_roles", force: :cascade do |t|
@@ -64,6 +155,28 @@ ActiveRecord::Schema.define(version: 1) do
     t.string   "name",        limit: 255
     t.text     "description", limit: 65535
     t.boolean  "is_active"
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "room_masters", force: :cascade do |t|
+    t.string   "room_no",     limit: 45
+    t.integer  "category_id", limit: 4
+    t.integer  "floor_id",    limit: 4
+    t.integer  "status",      limit: 4
+    t.string   "extn_no",     limit: 45
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
+  end
+
+  create_table "room_service_masters", force: :cascade do |t|
+    t.integer  "code",           limit: 4
+    t.string   "service_name",   limit: 45
+    t.string   "indicatoer",     limit: 45
+    t.boolean  "is_include_tax"
+    t.float    "tax",            limit: 24
+    t.string   "created_by",     limit: 45
+    t.string   "edited_by",      limit: 45
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end

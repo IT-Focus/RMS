@@ -1,0 +1,2 @@
+class RoomServiceMasterController < ApplicationController
+end
