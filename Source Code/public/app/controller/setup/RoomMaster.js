@@ -7,9 +7,10 @@ Ext.define('App.controller.setup.RoomMaster', {
 
 	],
 	stores:[
-	 // 'setup.RoomMaster'
+	 	'setup.RoomMaster',
 		'combo.Categories',
-		'combo.Floor'
+		'combo.Floor',
+		'combo.Status'
 	],
 	init: function() {
 
@@ -25,6 +26,12 @@ Ext.define('App.controller.setup.RoomMaster', {
 	    	},
 	    	'roomMasterForm button[action=Cancel]':{
 	    		click: this.cancel
+	    	},
+	    	'roomMasterIndex combo[name=searchBy]' : {
+	    		change: this.advanceSearch
+	    	},
+	    	'roomMasterIndex textfield[name=string]' : {
+	    		change: this.advanceSearch
 	    	}
 
 	    });
@@ -34,7 +41,7 @@ Ext.define('App.controller.setup.RoomMaster', {
 			form = field.up('gridpanel'),
 			searchBy = form.down('combo[name=searchBy]').getValue(),
 			searchString = form.down('textfield[name=string]').getValue()
-			store = me.getSetupFloorStore();
+			store = me.getSetupRoomMasterStore();
 
 			Util.loadStore(store,{searchString:searchString,searchBy:searchBy});
 	},
@@ -45,7 +52,7 @@ Ext.define('App.controller.setup.RoomMaster', {
 	edit:function(btn){
 		var rec = Util.getRecord(btn,"Please select record for edit ");
 		if (rec) {
-			var win = Ext.create("App.view.setup.floor.Form");
+			var win = Ext.create("App.view.setup.roomMaster.Form");
 			win.show();
 			win.center();
 			win.down('form').getForm().loadRecord(rec);
@@ -62,9 +69,9 @@ Ext.define('App.controller.setup.RoomMaster', {
 	},
 
 	save :function(btn){
-		var store = this.getSetupFloorStore();
+		var store = this.getSetupRoomMasterStore();
 		var me = this ;
-		Util.save(btn,store,'setup.Floor');
+		Util.save(btn,store,'setup.RoomMaster');
 
 
 	},

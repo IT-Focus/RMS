@@ -7,7 +7,7 @@ Ext.define('App.controller.setup.CategoryMaster', {
 
 	],
 	stores:[
-		'setup.CategoryMaster'
+		'setup.CategoryMaster',
 	],
 	init: function() {
 

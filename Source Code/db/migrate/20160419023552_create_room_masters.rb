@@ -4,7 +4,7 @@ class CreateRoomMasters < ActiveRecord::Migration
       t.string :room_no,limit:45
       t.integer :category_id
       t.integer :floor_id
-      t.integer :status
+      t.integer :status_id
       t.string :extn_no,limit:45
       t.timestamps null: false
     end

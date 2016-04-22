@@ -35,7 +35,7 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     fieldLabel: 'Room No'
                 }, {
                     xtype: 'combo',
-                    name: 'name',
+                    name: 'category_id',
                     store: 'combo.Categories',
                     valueField: 'id',
                     displayField: 'name',
@@ -57,10 +57,10 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     // labelAlign: 'right',
                 }, {
                     xtype: 'combo',
-                    name: 'status',
-                    // store: 'combo.Categories',
+                    name: 'status_id',
+                    store: 'combo.Status',
                     valueField: 'id',
-                    displayField: 'name',
+                    displayField: 'status_type',
                     triggerAction: 'all',
                     allowBlank: false,
                     editable: false,
