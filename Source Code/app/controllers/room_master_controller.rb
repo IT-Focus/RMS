@@ -14,7 +14,7 @@ class RoomMasterController < ApplicationController
             RoomMaster.transaction do
                 @data = RoomMaster.new(permit_data)
                 # SysAuditrail.create  description:"Create Floor= #{@data.name}", user_id:session[:user_id]
-                @data.status_id = RoomMaster.statuses[:Available]
+                @data.status_id = RoomMaster.statuses[:available]
                 @data.save
 
                 render json:{ data:@data ,success:true}
