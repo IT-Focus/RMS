@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160419023552) do
+ActiveRecord::Schema.define(version: 20160421132249) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module",      limit: 45
@@ -179,6 +179,15 @@ ActiveRecord::Schema.define(version: 20160419023552) do
     t.string   "edited_by",      limit: 45
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "statuses", force: :cascade do |t|
+    t.string   "status_type", limit: 255
+    t.string   "name",        limit: 255
+    t.integer  "seq_num",     limit: 4
+    t.string   "description", limit: 255
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "sys_auditrails", force: :cascade do |t|
