@@ -32,7 +32,7 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     xtype: 'textfield',
                     name: 'room_no',
                     allowBlank: false,
-                    fieldLabel: 'Room No'
+                    fieldLabel: 'Room No'+redStar
                 }, {
                     xtype: 'combo',
                     name: 'category_id',
@@ -42,7 +42,7 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     triggerAction: 'all',
                     allowBlank: false,
                     editable: false,
-                    fieldLabel: 'Category',
+                    fieldLabel: 'Category'+redStar
                     // labelAlign: 'right',
                 }, {
                     xtype: 'combo',
@@ -53,7 +53,7 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     triggerAction: 'all',
                     allowBlank: false,
                     editable: false,
-                    fieldLabel: 'Floor',
+                    fieldLabel: 'Floor'+redStar
                     // labelAlign: 'right',
                 }, {
                     xtype: 'combo',
@@ -64,13 +64,13 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     triggerAction: 'all',
                     allowBlank: false,
                     editable: false,
-                    fieldLabel: 'Status',
+                    fieldLabel: 'Status'+redStar
                     // labelAlign: 'right',
                 }, {
                     xtype: 'textfield',
                     name: 'extn_no',
                     allowBlank: false,
-                    fieldLabel: 'Extenstion No'
+                    fieldLabel: 'Extenstion No'+redStar
                 }
 
             ]

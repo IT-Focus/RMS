@@ -94,13 +94,13 @@ Ext.define('App.view.admin.menuProfile.Form', {
                     xtype:'textfield',
                     name:"view_index",
                     fieldLabel:'View Index'+redStar,
-                    allowBlank:false ,
+                    allowBlank:true ,
                     tooltip:'Name space folder to index file (admin.user)'
                 },{
                     xtype:'textfield',
                     name:"controller",
                     fieldLabel:'Controller'+redStar,
-                    allowBlank:false ,
+                    allowBlank:true ,
                     tooltip:'Name space folder and file (admin.User)'
                 },{
                     xtype:'textarea',

@@ -48,7 +48,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             },
             items: [{
                 xtype: 'textfield',
-                fieldLabel: 'Name',
+                fieldLabel: 'Name'+redStar,
                 name: 'name'
             }, {
                 xtype: 'checkbox',
@@ -57,7 +57,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 checkedValue: 1
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Code',
+                fieldLabel: 'Code'+redStar,
                 hideTrigger: true,
                 allowNegative: false,
                 name: 'code'
@@ -85,7 +85,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             },
             items: [{
                 xtype: 'numberfield',
-                fieldLabel: 'Tariff',
+                fieldLabel: 'Tariff'+redStar,
                 name: 'tariff',
                 allowNegative: false,
                 hideTrigger: true,
@@ -106,7 +106,6 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 allowNegative: false,
                 hideTrigger: true,
                 maxLength: 20,
-                allowBlank: false,
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Tax for Single',
@@ -114,10 +113,9 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 allowNegative: false,
                 hideTrigger: true,
                 maxLength: 20,
-                allowBlank: false,
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Number of Person',
+                fieldLabel: 'Number of Person'+redStar,
                 name: 'no_persons',
                 allowNegative: false,
                 hideTrigger: true,
@@ -151,7 +149,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 },
                 items: [{
                         xtype: 'numberfield',
-                        fieldLabel: 'Tariff Hour',
+                        fieldLabel: 'Tariff Hour'+redStar,
                         name: 'tariff_hour',
                         allowNegative: false,
                         hideTrigger: true,
@@ -164,7 +162,6 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
-                        allowBlank: false,
                     }, {
                         xtype: 'numberfield',
                         fieldLabel: 'Tax Hour',
@@ -172,7 +169,6 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
-                        allowBlank: false,
                     },
                     {
                         xtype: 'numberfield',
@@ -181,11 +177,10 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
-                        allowBlank: false,
                     },
                     {
                         xtype: 'numberfield',
-                        fieldLabel: 'Extra Person Charge Hour',
+                        fieldLabel: 'Extra Person Charge Hour'+redStar,
                         name: 'extra_person_charge',
                         allowNegative: false,
                         hideTrigger: true,
@@ -221,7 +216,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 },
                 items: [{
                         xtype: 'numberfield',
-                        fieldLabel: 'Tariff Monthly',
+                        fieldLabel: 'Tariff Monthly'+redStar,
                         name: 'tariff_month',
                         allowNegative: false,
                         hideTrigger: true,
@@ -234,7 +229,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
-                        allowBlank: false,
+                        
                     }, {
                         xtype: 'numberfield',
                         fieldLabel: 'Tax Month',
@@ -242,7 +237,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
-                        allowBlank: false,
+                        
                     },
                     {
                         xtype: 'numberfield',
@@ -251,11 +246,11 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
-                        allowBlank: false,
+                        
                     },
                     {
                         xtype: 'numberfield',
-                        fieldLabel: 'Extra Person Charge Month',
+                        fieldLabel: 'Extra Person Charge Month'+redStar,
                         name: 'extra_person_charge_month',
                         allowNegative: false,
                         hideTrigger: true,

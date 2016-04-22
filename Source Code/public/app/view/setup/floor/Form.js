@@ -35,12 +35,12 @@ Ext.define('App.view.setup.floor.Form', {
                     xtype:'textfield',
                     name:'code',
                     allowBlank:false,
-                    fieldLabel:'Code'
+                    fieldLabel:'Code'+redStar
                 }, {
                     xtype:'textfield',
                     name:'name',
                     allowBlank:false,
-                    fieldLabel:'Name'
+                    fieldLabel:'Name'+redStar
                 },{
                     xtype:'textarea',
                     name:'description',
