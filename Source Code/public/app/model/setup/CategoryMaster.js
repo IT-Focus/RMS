@@ -1,4 +1,4 @@
-Ext.define('App.model.setup.Floor', {
+Ext.define('App.model.setup.CategoryMaster', {
     extend: 'Ext.data.Model',
     fields: [
       

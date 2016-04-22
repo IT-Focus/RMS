@@ -36,7 +36,7 @@ Ext.define('App.view.setup.roomMaster.Form', {
                 }, {
                     xtype: 'combo',
                     name: 'name',
-                    store: 'combo.Category',
+                    store: 'combo.Categories',
                     valueField: 'id',
                     displayField: 'name',
                     triggerAction: 'all',
