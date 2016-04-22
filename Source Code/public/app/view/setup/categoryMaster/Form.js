@@ -22,126 +22,116 @@ Ext.define('App.view.setup.categoryMaster.Form', {
     initComponent: function() {
         Ext.apply(this, {
             items: [
-                this.getForm(),
+                this.getDetailForm(),
                 this.singleForm(),
                 this.hourForm(),
                 this.monthlyForm()
+
+                
 
             ]
         });
         this.callParent(arguments);
     },
-
-    getForm: function() {
-
-        searchreturn = {
-            xtype: 'form',
+    getDetailForm: function() {
+        test = {
+            xtype: 'container',
             style: 'margin:0px auto;text-align:left;',
             width: '100%',
+            defaults: {
+               width: '98%',
+               style: 'margin-left:10px'
+            },
+            layout: {
+                type: 'table',
+                columns: 2
+            },
             items: [{
-              
-                layout: {
-                    type: 'table',
-                    columns: 2
-                },
-                defaults: {
-                    width: '98%',
-                    style: 'margin-left:10px'
-                },
-                items: [
-                    {
-                        xtype: 'textfield',
-                        fieldLabel: 'Name',
-                        name: 'name'
-                    }, {
-                        xtype: 'checkbox',
-                        fieldLabel: 'Inclue VAT?',
-                        name: 'is_include_tax',
-                        checkValue:1
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Code',
-                        name:'code'
-                    },
+                xtype: 'textfield',
+                fieldLabel: 'Name',
+                name: 'name'
+            }, {
+                xtype: 'checkbox',
+                fieldLabel: 'Inclue VAT?',
+                name: 'is_include_tax',
+                checkedValue: 1
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Code',
+                hideTrigger: true,
+                allowNegative: false,
+                name: 'code'
+            }, ]
 
-                ]
-            }],
         }
-        return searchreturn
-
+        return test
     },
     singleForm: function() {
-        singleForm = {
-            xtype: 'form',
-            style: 'margin:0px auto;text-align:left;',
+        test = {
+            xtype: 'fieldset',
+            title: 'Sigle Charge',
+            padding: 10,
             width: '100%',
+            layout: {
+                type: 'table',
+
+                columns: 2
+            },
+            defaults: {
+                // style:'margin:10px',
+                allowBlank: false,
+                width: '98%',
+                style: 'margin-left:10px'
+            },
             items: [{
-                xtype: 'fieldset',
-                title: 'Single Charge',
-                padding: 10,
-                height: '100%',
-                layout: {
-                    type: 'table',
-                    columns: 2
-                },
+                xtype: 'numberfield',
+                fieldLabel: 'Tariff',
+                name: 'tariff',
+                allowNegative: false,
+                hideTrigger: true,
+                maxLength: 20,
+                allowBlank: false,
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Rent for Single',
+                name: 'rent_for_single',
+                allowNegative: false,
+                hideTrigger: true,
+                maxLength: 20,
+                allowBlank: false,
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Tax',
+                name: 'tax',
+                allowNegative: false,
+                hideTrigger: true,
+                maxLength: 20,
+                allowBlank: false,
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Tax for Single',
+                name: 'tax_for_single',
+                allowNegative: false,
+                hideTrigger: true,
+                maxLength: 20,
+                allowBlank: false,
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Number of Person',
+                name: 'no_persons',
+                allowNegative: false,
+                hideTrigger: true,
+                maxLength: 20,
+                allowBlank: false,
+            }, ]
 
-                defaults: {
-                    // style:'margin:10px',
-                    width: '98%',
-                    style: 'margin-left:10px'
-                },
-                items: [{
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tariff',
-                        name: 'tariff',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Rent for Single',
-                        name:'rent_for_single',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tax',
-                        name:'tax',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
-                    },
-                    {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tax for Single',
-                        name: 'tax_for_single',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
-                    },
-                    {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Number of Person',
-                        name: 'number_of_person',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
-                    },
 
-                ]
-            }],
+
         }
-        return singleForm
+        return test
     },
     hourForm: function() {
         hourForm = {
-            xtype: 'form',
             style: 'margin:0px auto;text-align:left;',
             width: '100%',
             items: [{
@@ -196,7 +186,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                     {
                         xtype: 'numberfield',
                         fieldLabel: 'Extra Person Charge Hour',
-                        name: 'extra_person_charge_hour',
+                        name: 'extra_person_charge',
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
@@ -211,7 +201,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
 
     monthlyForm: function() {
         hourForm = {
-            xtype: 'form',
+
             style: 'margin:0px auto;text-align:left;',
             width: '100%',
             items: [{

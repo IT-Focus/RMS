@@ -53,26 +53,26 @@ Ext.define('App.controller.setup.CategoryMaster', {
 	edit:function(btn){
 		var rec = Util.getRecord(btn,"Please select record for edit ");
 		if (rec) {
-			var win = Ext.create("App.view.setup.floor.Form");
-			win.show();
-			win.center();
-			win.down('form').getForm().loadRecord(rec);
-			win.down('textfield[name=name]').focus(true , 300 );
+			var conatiner = btn.up('categoryMasterIndex');
+			var form = conatiner.down('categoryMasterForm');
+			form.getForm().loadRecord(rec);
+			conatiner.setActiveItem(form);
 		};
 
 	},
 	add:function(btn){
 		var conatiner = btn.up('categoryMasterIndex');
 		var form = conatiner.down('categoryMasterForm');
-		// form.getForm().reset();
+		form.getForm().reset();
 		conatiner.setActiveItem(form);
 
 	},
 
 	save :function(btn){
-		var store = this.getSetupFloorStore();
+		var store = this.getSetupCategoryMasterStore();
 		var me = this ;
-		Util.save(btn,store,'setup.Floor');
+		Util.saveForm(btn,store,'setup.CategoryMaster', me);
+
 
 
 	},

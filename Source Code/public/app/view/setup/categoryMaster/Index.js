@@ -55,9 +55,29 @@ Ext.define('App.view.setup.categoryMaster.Index', {
                     dataIndex: 'name',
                     width: 200
                 }, {
-                    header: 'Description',
-                    dataIndex: 'description',
-                    flex: 1
+                    header: 'Single Charge',
+                    dataIndex: 'tariff',
+                    flex: 1,
+                    renderer: function(value){
+                             amount =  Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                            return "<span style='color:black'><b>"+amount+"</b></span>"
+                        }
+                },{
+                    header: 'Hour Charge',
+                    dataIndex: 'tariff_hour',
+                    flex: 1,
+                    renderer: function(value){
+                             amount =  Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                            return "<span style='color:black'><b>"+amount+"</b></span>"
+                        }
+                },{
+                    header: 'Monthly Charge',
+                    dataIndex: 'tariff_month',
+                    flex: 1,
+                    renderer: function(value){
+                             amount =  Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                            return "<span style='color:black'><b>"+amount+"</b></span>"
+                        }
                 }],
                 bbar: Ext.create('Ext.PagingToolbar', {
                     store: 'setup.CategoryMaster',
