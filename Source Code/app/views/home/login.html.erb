@@ -35,7 +35,7 @@ html {
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   border-radius: 5px;
-  background-color: rgba(250,250,250,10);
+  background-color: rgba(250,250,250,0.5);
   max-width: 320px;
   width: 100%;
   /*border-top: 10px solid #7aba3e;*/
@@ -96,7 +96,7 @@ html {
 }
 .form-module .login:hover {
   /*background: #178ab4;*/
-  background-color: silver;
+  background-color: rgba(250,250,250,0.5);
 }
 
 
@@ -112,7 +112,7 @@ html {
         <!-- <div class="tooltip">Click Me</div> -->
       </div>
       <div class="form">
-         <center><img src="img/hamony.png" width="190"></center>
+         <center><img src="/images/hotel/The-Guest-House-Logo-small.png" width="190"></center>
          <h2>LOGIN</h2>
         <form method="post" action="/home/login">
           <%= text_field_tag :username,@username , placeholder:"Username " %>
