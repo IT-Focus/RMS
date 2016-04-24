@@ -6,7 +6,7 @@ Ext.define('App.view.Header', {
   alias: 'widget.fmHeader',
   layout: 'hbox',
   id: 'header',
-  bodyStyle: 'background-color:#0F4471;color:white',
+  bodyStyle: 'background-color:#0F4471 ;color:white',
   bodyPadding: 5,
   items: [
 
