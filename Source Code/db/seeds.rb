@@ -17,8 +17,25 @@
     SysMenu.create id:3,menu:'Role',icon_cls:'icon-applyPermission',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.role',controller:'admin.Role'
     SysMenu.create id:4,menu:'Department',icon_cls:'icon-department',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.department',controller:'admin.Department'
     SysMenu.create id:5, menu:'System Configuration',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.CfgUtilities',controller:'admin.CfgUtilities'
+    SysMenu.create id:6, menu:'Menu Profile',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.menuProfile',controller:'admin.MenuProfile'
+    
+    # SysMenu.create id:7,menu:'System Setup',icon_cls:'',expand:1,is_leaf:0,is_active:true
+    # SysMenu.create id:8, menu:'Floor',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:7,action:'',is_active:true,view_index:'setup.floor',controller:'setup.Floor'
+    # SysMenu.create id:9, menu:'Category Master',icon_cls:'icon-systemconfig',expand:0,is_leaf:7,parent_id:7,action:'',is_active:true,view_index:'setup.categoryMaster',controller:'setup.CategoryMaster'
+    # SysMenu.create id:10, menu:'Room Master',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:7,action:'',is_active:true,view_index:'setup.roomMaster',controller:'setup.RoomMaster'
+    # SysMenu.create id:11, menu:'Room Service Master',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:7,action:'',is_active:true,view_index:'setup.roomServiceMaster',controller:'setup.RoomServiceMaster'
+    
+    # SysMenu.create id:7,menu:'Room Transaction',icon_cls:'',expand:1,is_leaf:0,is_active:true
+    # SysMenu.create id:12, menu:'System Configuration',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.CfgUtilities',controller:'admin.CfgUtilities'
+    # SysMenu.create id:13, menu:'System Configuration',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.CfgUtilities',controller:'admin.CfgUtilities'
+    # SysMenu.create id:14, menu:'System Configuration',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.CfgUtilities',controller:'admin.CfgUtilities'
+    # SysMenu.create id:15, menu:'System Configuration',icon_cls:'icon-systemconfig',expand:0,is_leaf:1,parent_id:1,action:'',is_active:true,view_index:'admin.CfgUtilities',controller:'admin.CfgUtilities'
+	
 
-	Department.create name:'Administration' , description:'Created by system', is_active:true
+
+
+
+    Department.create name:'Administration' , description:'Created by system', is_active:true
 	Role.create name:'Administration' , description:'Role for admin user' , is_active:true
 
  	CfgCompany.create legal_name:'BDK Tel.co,ltd',legal_name_khmer: 'បីឌីខេតែល​,​ខូលអិលធីឌី',company_name:'Y5net' ,
@@ -60,3 +77,26 @@
     CfgUtility.create id:15 , util_name:'Early Open Drawer', util_int:15,util_string:'', util_boolean:false,util_date:'',description:''
     CfgUtility.create id:16 , util_name:'Service Tax', util_int:0,util_string:'', util_boolean:false,util_date:'',description:''
     CfgUtility.create id:17 , util_name:'Service Tax Value', util_int:0,util_string:'', util_boolean:false,util_date:'',description:''
+
+    #Table Status
+
+    Status.create id:1 , code:1, status_type:'Free', name:'Active', seq_num:1, description:"Created by system"
+    Status.create id:2 , code:2, status_type:'Reserved', name:'Active', seq_num:2, description:"Created by system"
+    Status.create id:3 , code:3, status_type:'Occupied', name:'Active', seq_num:3, description:"Created by system"
+    Status.create id:4 , code:4, status_type:'Late Checkout', name:'Active', seq_num:4, description:"Created by system"
+
+    #RoomServiceMaster
+
+    RoomServiceMaster.create id:1, code:'001', service_name:'MISCELLANEOUS', abbr:'MIS', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:2, code:'002', service_name:'DAMAGES', abbr:'DAM', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:3, code:'003', service_name:'GUIDE BILL', abbr:'GIB', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:4, code:'004', service_name:'TAXI CHARGER', abbr:'TXC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:5, code:'005', service_name:'LAUNDRY CHARGES', abbr:'LDC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:6, code:'006', service_name:'OTHER CHARGES', abbr:'OHC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:7, code:'007', service_name:'OUTSTANDING BILLS', abbr:'OSC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:8, code:'008', service_name:'MINISTORE PURCHASES', abbr:'MSP', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:9, code:'009', service_name:'EXTRA BED CHARGES', abbr:'EBC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:10, code:'010', service_name:'EXTRA PERSON CHARGES', abbr:'EPC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:11, code:'011', service_name:'RESTAURANT FOOD BILL', abbr:'RFB', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:12, code:'012', service_name:'COMMISION PAY', abbr:'CMP', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''
+    RoomServiceMaster.create id:13, code:'013', service_name:'ROOM SERVICE CHARGES', abbr:'RSC', is_include_tax:'', tax:'', charge_amount:'', created_by:'', edited_by:''

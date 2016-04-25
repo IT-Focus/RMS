@@ -36,7 +36,7 @@ Ext.define('App.view.admin.menuProfile.Form', {
                 },{
                     xtype:'textfield',
                     name:'icon_cls',
-                    allowBlank:false,
+                    allowBlank:true,
                     fieldLabel:'Icon Name'+redStar
                 },{
                     xtype:"combo", 

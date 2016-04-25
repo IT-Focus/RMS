@@ -29,7 +29,7 @@ Ext.define('App.view.Header', {
       text: 'Option',
       xtype: 'button',
       widht: 250,
-      iconCls: 'icon-config',
+      iconCls: 'icon-option',
       menu: {
         xtype: 'menu',
         plain: true,
