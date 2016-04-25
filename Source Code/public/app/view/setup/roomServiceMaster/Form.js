@@ -51,7 +51,7 @@ Ext.define('App.view.setup.roomServiceMaster.Form', {
                     xtype: 'numberfield',
                     name: 'tax',
                     fieldLabel: 'Tax',
-                    hidden:true,
+                    visible:false,
                 },
 
             ]
