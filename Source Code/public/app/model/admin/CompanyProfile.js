@@ -14,6 +14,7 @@ Ext.define('App.model.admin.CompanyProfile', {
 		'address',
 		'address_khmer',
 		'logo_url',
+		'background_url',
 		'account_no',
 		'account_name',
 		'bank_name',

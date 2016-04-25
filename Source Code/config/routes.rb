@@ -13,6 +13,8 @@ Rails.application.routes.draw do
     resources :role, :department, :menu, :cfg_company, :cfg_utility, :sys_menus, :sys_users
 # Setup
 	resources :floor, :category_master, :room_master, :room_service_master, :status
+# Image
+	resources :images
     get ':controller(/:action(/:id))'
     post ':controller(/:action(/:id))'
 end

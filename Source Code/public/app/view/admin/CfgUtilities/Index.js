@@ -1,49 +1,53 @@
 Ext.define('App.view.admin.CfgUtilities.Index', {
     extend: 'Ext.panel.Panel',
     alias: 'widget.CfgUtilitiesIndex',
-    // bodyPadding: 10,
-    // border: true,
-    autoScroll:true,
+    bodyPadding: 10,
+    border: true,
+    autoScroll: true,
     layout: {
-                type: 'table',
-                columns: 2
-            },
+        type: 'table',
+        columns: 3
+    },
     initComponent: function() {
+        var me = this
         Ext.apply(this, {
-           items: [{
+            items: [{
                 xtype: 'tabpanel',
                 // bodyPadding: 10,
+                width: '100%',
                 items: [{
-                    title: 'Company Profile',
+                    xtype: 'form',
+                    title: 'Hotel Profile',
                     items: [
                         this.CompanyProfile(),
-                        this.formLogo()
+                        this.formLogo(),
+                        // this.formBackground()
                     ],
-                },{
-                    title: 'test Profile',
-                    items: [
-                        // this.CompanyProfile(),
-                    ],
+                    buttons: [{
+                        text: 'Update',
+                        iconCls: 'icon-save',
+                        action: 'save_company_profile'
+                    }]
                 }]
             }]
         });
         this.callParent(arguments);
+
+        me.down("textfield").focus(true, 200);
+        Util.ajax("cfg_company", {}, me.loadValueToForm, me)
     },
     CompanyProfile: function() {
         CompanyProfile = {
-            xtype: 'fieldset',
-            title: 'Company Profile',
-            name: "companyProfileForm",
+
+            title: 'Hotel Profile',
+            // name: "companyProfileForm",
             layout: {
                 type: 'table',
                 columns: 2
             },
-            // border: true,
+
             style: '  margin-top:2%; border-radius:5px',
-            width: 900,
-            height: 500,
-            // height: '100%',
-            // bodyPadding: 20,
+            width: '100%',
             defaultType: 'textfield',
             defaults: {
                 width: 400,
@@ -55,33 +59,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                     name: 'legal_name',
                     fieldLabel: 'Legal Name<span style="color:red">*</span>',
                     allowBlank: false
-                }, 
-                // {
-                //     xtype: 'form',
-                //     style: 'margin-left:10px',
-                //     width: 400,
-                //     items: [{
-                //         xtype: 'image',
-                //         name: 'companyProfileImage',
-                //         width: 300,
-                //         height: 200,
-                //         style: 'border: 1px solid gray; border-radius:10px',
-                //     }, {
-                //         xtype: 'hiddenfield',
-                //         name: 'image_url'
-                //     }],
-                //     rowspan: 8,
-                //     bbar: [{
-                //         xtype: 'filefield',
-                //         name: 'image',
-                //         width: 50,
-                //         buttonOnly: true,
-                //     }, '->', {
-                //         text: 'Remove',
-                //         action: 'Remove',
-                //     }],
-                // }, 
-                {
+                }, {
                     name: 'legal_name_khmer',
                     fieldLabel: 'Legal Name Kh<span style="color:red">*</span>',
                     allowBlank: false
@@ -133,44 +111,61 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                     colspan: 1,
                     name: 'address_khmer',
                     fieldLabel: 'Address Kh<span style="color:red">*</span>',
-                    allowBlank: false
+                    allowBlank: true
                 }
 
             ],
-            buttons: [{
-                text: 'Save',
-                iconCls: 'icon-save',
-                action: 'save_company_profile'
-            }]
+
         }
 
         return CompanyProfile
     },
 
-    formLogo: function(){
+    formLogo: function() {
         logo = {
-            xtype: 'fieldset',
-            title: 'Company Logo',
-            name: "companyProfileForm",
-            // layout: {
-            //     type: 'table',
-            //     columns: 1
-            // },
-            // border: true,
+            layout: {
+                type: 'table',
+                columns: 2
+            },
             style: '  margin-top:2%; border-radius:5px',
-            width: '100%',
-            height:'100%',
-            // height: '100%',
-            // bodyPadding: 20,
             items: [
 
                 {
-                    xtype: 'form',
-                    style: 'margin-left:10px',
-                    width: 400,
+
+                    // xtype: 'form',
+                    // name: 'companyImage',
+                    title: 'Hotel Logo',
+                    style: 'margin-left:10px;',
+                    height: '100%',
                     items: [{
                         xtype: 'image',
                         name: 'companyProfileImage',
+                        width: 300,
+                        height: 200,
+                        style: 'border: 1px solid gray; border-radius:10px',
+                    }, {
+                        xtype: 'hiddenfield',
+                        name: 'image_url'
+                    }],
+                    bbar: [{
+                        xtype: 'filefield',
+                        name: 'image',
+                        width: 50,
+                        buttonOnly: true,
+                    }, {
+                        style: 'margin-left:130px',
+                        text: 'Remove',
+                        action: 'Remove_logo',
+                    }],
+                }, 
+                {
+                    xtype: 'form',
+                    title: 'Hotel Background',
+                    style: 'margin-left:400px',
+
+                    items: [{
+                        xtype: 'image',
+                        name: 'companyBacgroundImage',
                         width: 300,
                         height: 200,
                         style: 'border: 1px solid gray; border-radius:10px',
@@ -186,17 +181,28 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         buttonOnly: true,
                     }, '->', {
                         text: 'Remove',
-                        action: 'Remove',
+                        action: 'Remove_background',
                     }],
-                }, 
+                },
 
             ],
         }
         return logo
     },
-    formBackground: function(){
 
-    }
+    loadValueToForm: function(obj, me) {
+        if (obj.success) {
+            var form = me.down('form');
+            // var form  = me.down('form[name=companyProfileForm]')
+            form.getForm().setValues(obj.data);
+            //debugger;
+            form.down('image[name=companyProfileImage]').setSrc(obj.data.logo_url);
+            form.down('hiddenfield[name=image_url]').setValue(obj.data.logo_url);
+            form.down('image[name=companyBacgroundImage]').setSrc(obj.data.background_url);
+            form.down('hiddenfield[name=image_url]').setValue(obj.data.background_url);
+        }
+    },
+
 
 
 });
