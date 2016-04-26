@@ -15,6 +15,8 @@ Rails.application.routes.draw do
 	resources :floor, :category_master, :room_master, :room_service_master, :status, :cities, :currencies, :workshifts
 # Image
 	resources :images
+# Cashiers
+  resources :cashiers
     get ':controller(/:action(/:id))'
     post ':controller(/:action(/:id))'
 end

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160425141204) do
+ActiveRecord::Schema.define(version: 20160426045155) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module",      limit: 45
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20160425141204) do
     t.string   "created_by",  limit: 45
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "cashiers", force: :cascade do |t|
+    t.integer  "user_id",      limit: 4
+    t.integer  "workshift_id", limit: 4
+    t.time     "start_time"
+    t.float    "obda",         limit: 24
+    t.boolean  "is_active"
+    t.datetime "created_at",              null: false
+    t.datetime "updated_at",              null: false
   end
 
   create_table "category_masters", force: :cascade do |t|
@@ -115,6 +125,16 @@ ActiveRecord::Schema.define(version: 20160425141204) do
     t.string   "city",       limit: 255
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+  end
+
+  create_table "currencies", force: :cascade do |t|
+    t.string   "currency_name", limit: 255
+    t.string   "currencysyb",   limit: 255
+    t.float    "rate",          limit: 24
+    t.float    "exchange_rate", limit: 24
+    t.integer  "seq_num",       limit: 4
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
   end
 
   create_table "day_ends", force: :cascade do |t|
@@ -251,5 +271,15 @@ ActiveRecord::Schema.define(version: 20160425141204) do
 
   add_index "sys_users", ["department_id"], name: "fk_users_departments_idx", using: :btree
   add_index "sys_users", ["role_id"], name: "fk_users_roles1_idx", using: :btree
+
+  create_table "workshifts", force: :cascade do |t|
+    t.string   "abbr",        limit: 255
+    t.string   "name",        limit: 255
+    t.time     "start_time"
+    t.time     "end_time"
+    t.text     "description", limit: 65535
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
 end

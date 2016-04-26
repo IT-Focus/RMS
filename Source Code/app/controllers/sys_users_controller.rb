@@ -47,6 +47,14 @@ class SysUsersController < ApplicationController
             render json:{success:false , message:e.message }
         end
     end
+
+    def get_user
+         @data = SysUser.where is_admin:false, is_active:true
+        # SysUser.all = select * from SysUser
+        # SysUser.find(1 ) = select * from SysUser where id=1
+        render json:{ data:@data , success:true}
+    end
+    
     def destroy
 
     end
