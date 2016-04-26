@@ -1,9 +1,21 @@
 class CashiersController < ApplicationController
+@@service = CashierService::Search.new()
 def index
-    @@service = CashierService::Search.new()
     search_string = params[:searchString]
 
     @Search = @@service.search search_string
+    render json:{data:@Search, success:true}
+end
+
+def get_openAmount
+    cashier_id = params[:cashier_id]
+    cashier = Cashier.find_by id:cashier_id, is_active:true
+    open_amount = cashier.obda
+    render json:{open_balance:open_amount, success:true}
+end
+
+def get_cashier
+    @Search = @@service.search ""
     render json:{data:@Search, success:true}
 end
 

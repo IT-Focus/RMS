@@ -1,0 +1,2 @@
+module CashierBalancesHelper
+end

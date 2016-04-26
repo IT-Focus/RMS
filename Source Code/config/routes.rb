@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 # Image
 	resources :images
 # Cashiers
-  resources :cashiers
+  resources :cashiers, :cashier_balances
     get ':controller(/:action(/:id))'
     post ':controller(/:action(/:id))'
 end

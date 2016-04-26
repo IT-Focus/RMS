@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426045155) do
+ActiveRecord::Schema.define(version: 20160426085523) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module",      limit: 45
@@ -20,6 +20,16 @@ ActiveRecord::Schema.define(version: 20160426045155) do
     t.string   "created_by",  limit: 45
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "cashier_balances", force: :cascade do |t|
+    t.integer  "cashier_id",    limit: 4
+    t.datetime "opened_date"
+    t.datetime "closed_date"
+    t.float    "open_balance",  limit: 24
+    t.float    "close_balance", limit: 24
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "cashiers", force: :cascade do |t|
