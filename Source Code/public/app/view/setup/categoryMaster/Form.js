@@ -57,10 +57,10 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 checkedValue: 1
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Code'+redStar,
-                hideTrigger: true,
+                fieldLabel: 'Person Allowance'+redStar,
+                // hideTrigger: true,
                 allowNegative: false,
-                name: 'code'
+                name: 'no_persons'
             }, ]
 
         }
@@ -69,7 +69,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
     singleForm: function() {
         test = {
             xtype: 'fieldset',
-            title: 'Sigle Charge',
+            title: 'Define Rent Per Day',
             padding: 10,
             width: '100%',
             layout: {
@@ -85,38 +85,38 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             },
             items: [{
                 xtype: 'numberfield',
-                fieldLabel: 'Tariff'+redStar,
+                fieldLabel: 'Renter Per Day'+redStar,
                 name: 'tariff',
                 allowNegative: false,
-                hideTrigger: true,
+                // hideTrigger: true,
                 maxLength: 20,
                 allowBlank: false,
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Rent for Single',
+                fieldLabel: 'Rent for Single Person',
                 name: 'rent_for_single',
                 allowNegative: false,
-                hideTrigger: true,
+                // hideTrigger: true,
                 maxLength: 20,
                 allowBlank: false,
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Tax',
+                fieldLabel: 'Tax Rate',
                 name: 'tax',
                 allowNegative: false,
-                hideTrigger: true,
+                // hideTrigger: true,
                 maxLength: 20,
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Tax for Single',
+                fieldLabel: 'Tax Rate for Single',
                 name: 'tax_for_single',
                 allowNegative: false,
                 hideTrigger: true,
                 maxLength: 20,
             }, {
                 xtype: 'numberfield',
-                fieldLabel: 'Number of Person'+redStar,
-                name: 'no_persons',
+                fieldLabel: 'Extra Person Charge'+redStar,
+                name: 'extra_person_charge',
                 allowNegative: false,
                 hideTrigger: true,
                 maxLength: 20,
@@ -134,7 +134,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             width: '100%',
             items: [{
                 xtype: 'fieldset',
-                title: 'Hour Charge',
+                title: 'Define Rent Per Hour',
                 padding: 10,
                 height: '100%',
                 layout: {
@@ -149,30 +149,30 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 },
                 items: [{
                         xtype: 'numberfield',
-                        fieldLabel: 'Tariff Hour'+redStar,
+                        fieldLabel: 'Renter Per Hour'+redStar,
                         name: 'tariff_hour',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                         allowBlank: false,
                     }, {
                         xtype: 'numberfield',
-                        fieldLabel: 'Rent for Single Hour',
+                        fieldLabel: 'Rent for Single Person',
                         name: 'rent_for_single_hour',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                     }, {
                         xtype: 'numberfield',
-                        fieldLabel: 'Tax Hour',
+                        fieldLabel: 'Tax Rate',
                         name: 'tax_hour',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                     },
                     {
                         xtype: 'numberfield',
-                        fieldLabel: 'Tax for Single Hour',
+                        fieldLabel: 'Tax Rate For Single',
                         name: 'tax_for_single_hour',
                         allowNegative: false,
                         hideTrigger: true,
@@ -180,8 +180,8 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                     },
                     {
                         xtype: 'numberfield',
-                        fieldLabel: 'Extra Person Charge Hour'+redStar,
-                        name: 'extra_person_charge',
+                        fieldLabel: 'Extra Person Charge'+redStar,
+                        name: '',
                         allowNegative: false,
                         hideTrigger: true,
                         maxLength: 20,
@@ -201,7 +201,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             width: '100%',
             items: [{
                 xtype: 'fieldset',
-                title: 'Monthly Charge',
+                title: 'Define Rent Per Month',
                 padding: 10,
                 height: '100%',
                 layout: {
@@ -216,41 +216,41 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 },
                 items: [{
                         xtype: 'numberfield',
-                        fieldLabel: 'Tariff Monthly'+redStar,
+                        fieldLabel: 'Renter Per Month'+redStar,
                         name: 'tariff_month',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                         allowBlank: false,
                     }, {
                         xtype: 'numberfield',
-                        fieldLabel: 'Rent for Single Month',
+                        fieldLabel: 'Rent for Single Person',
                         name: 'rent_for_single_month',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                         
                     }, {
                         xtype: 'numberfield',
-                        fieldLabel: 'Tax Month',
+                        fieldLabel: 'Tax Rate',
                         name:'tax_month',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                         
                     },
                     {
                         xtype: 'numberfield',
-                        fieldLabel: 'Tax for Single Month',
+                        fieldLabel: 'Tax Rate For Single',
                         name: 'tax_for_single_month',
                         allowNegative: false,
-                        hideTrigger: true,
+                        // hideTrigger: true,
                         maxLength: 20,
                         
                     },
                     {
                         xtype: 'numberfield',
-                        fieldLabel: 'Extra Person Charge Month'+redStar,
+                        fieldLabel: 'Extra Person Charge'+redStar,
                         name: 'extra_person_charge_month',
                         allowNegative: false,
                         hideTrigger: true,

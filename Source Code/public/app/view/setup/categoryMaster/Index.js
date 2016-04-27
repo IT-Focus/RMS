@@ -55,7 +55,7 @@ Ext.define('App.view.setup.categoryMaster.Index', {
                     dataIndex: 'name',
                     width: 200
                 }, {
-                    header: 'Single Charge',
+                    header: 'Rent Per Day',
                     dataIndex: 'tariff',
                     flex: 1,
                     renderer: function(value){
@@ -63,7 +63,7 @@ Ext.define('App.view.setup.categoryMaster.Index', {
                             return "<span style='color:black'><b>"+amount+"</b></span>"
                         }
                 },{
-                    header: 'Hour Charge',
+                    header: 'Rent Per Hour',
                     dataIndex: 'tariff_hour',
                     flex: 1,
                     renderer: function(value){
@@ -71,7 +71,7 @@ Ext.define('App.view.setup.categoryMaster.Index', {
                             return "<span style='color:black'><b>"+amount+"</b></span>"
                         }
                 },{
-                    header: 'Monthly Charge',
+                    header: 'Rent Per Month',
                     dataIndex: 'tariff_month',
                     flex: 1,
                     renderer: function(value){
