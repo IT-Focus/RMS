@@ -28,6 +28,11 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         iconCls: 'icon-save',
                         action: 'save_company_profile'
                     }]
+                }, {
+                    title: 'Next Code',
+                    items: [
+                        this.newCodeForm()
+                    ]
                 }]
             }]
         });
@@ -157,8 +162,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         text: 'Remove',
                         action: 'Remove_logo',
                     }],
-                }, 
-                {
+                }, {
                     xtype: 'form',
                     title: 'Hotel Background',
                     style: 'margin-left:400px',
@@ -202,6 +206,77 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             form.down('hiddenfield[name=image_url]').setValue(obj.data.background_url);
         }
     },
+
+    newCodeForm: function() {
+        PosNextCode = {
+            tools: [{
+                    fieldLabel: 'Search',
+                    xtype: 'textfield',
+                    name: 'Search',
+                    emptyText: '-- Search Record --'
+                },
+                // '->',
+                {
+                    action: 'add_next_code',
+                    xtype: 'button',
+                    style: 'margin-left:5px',
+                    iconCls: 'icon-add',
+                    tooltip: 'Add New '
+                }, {
+                    xtype: 'button',
+                    action: 'edit_next_code',
+                    tooltip: 'Edit Next Code',
+                    style: 'margin-left:5px',
+                    iconCls: 'icon-edit'
+                }
+            ],
+            xtype: 'grid',
+            border: true,
+            name: 'index',
+            height: 500,
+            width: '100%',
+            title: 'Next Code',
+            style: 'margin-top:2%; border-radius:5px;border:1px solid silver;',
+            store: 'admin.NextCode',
+            columns: [{
+                    header: 'NO',
+                    xtype: 'rownumberer',
+                    width: 50,
+                    align: 'center'
+                }, {
+                    header: 'Module',
+                    flex: 1,
+                    dataIndex: 'module'
+                }, {
+                    header: 'Code Inclue Tax',
+                    flex: 1,
+                    dataIndex: 'cit'
+                }, {
+                    header: 'Code Exclude Tax',
+                    flex: 1,
+                    dataIndex: 'cet'
+                }, {
+                    header: 'Prefix ',
+                    flex: 1,
+                    dataIndex: 'prefix'
+                }, {
+                    header: 'Suffix ',
+                    flex: 1,
+                    dataIndex: 'suffix'
+                },
+
+
+            ],
+            bbar: Ext.create('Ext.PagingToolbar', {
+                store: 'admin.NextCode',
+                displayInfo: true,
+                displayMsg: 'view {0} - {1} of {2}',
+                emptyMsg: "view 0"
+            })
+
+        }
+        return PosNextCode;
+    }
 
 
 

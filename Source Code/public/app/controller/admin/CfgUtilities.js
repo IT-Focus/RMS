@@ -3,16 +3,24 @@ Ext.define('App.controller.admin.CfgUtilities', {
 	extend: 'Ext.app.Controller',
 	views:[
 		'admin.CfgUtilities.Index',
+		'admin.CfgUtilities.NextCodeForm'
 
 	],	
+	model :[
+		'admin.NextCode'
+	],
 	stores:[
-		'admin.CompanyProfile'
+		'admin.CompanyProfile',
+		'admin.NextCode'
+
 	],
 	init: function() {
 		
 	    this.control({
 	    	'CfgUtilitiesIndex filefield[name=image]': {
 				change: this.uploadLogoImage
+			},'CfgUtilitiesIndex button[action=save_company_profile]': {
+				click: this.save
 			},
 			'CfgUtilitiesIndex button[action=Remove_logo]': {
 				click: this.removeImage
@@ -20,12 +28,48 @@ Ext.define('App.controller.admin.CfgUtilities', {
 			'CfgUtilitiesIndex button[action=Remove_background]': {
 				click: this.removeImage
 			},
-			'CfgUtilitiesIndex button[action=save_company_profile]': {
-				click: this.save
+			'CfgUtilitiesIndex button[action=add_next_code]': {
+				click: this.add_next_code
+			},
+			'nextCodetForm button[action=Save]': {
+				click: this.save_next_code
+			},
+			'CfgUtilitiesIndex button[action=edit_next_code]': {
+				click: this.edit_next_code
+			},
+			'nextCodetForm button[action=Cancel]': {
+				click: this.cancel
 			},
 
 
 	    });
+	},
+
+	add_next_code: function(btn){
+		var win = Ext.create("App.view.admin.CfgUtilities.NextCodeForm");
+		win.show();
+		win.center();
+	},
+
+	save_next_code :function(btn){
+		var store = this.getAdminNextCodeStore();
+		var me = this ;
+		Util.save(btn,store,'admin.NextCode');
+
+
+	},
+	edit_next_code :function(btn){
+		var rec = Util.getRecord(btn,"Please select record for edit ");
+		if (rec) {
+			var win = Ext.create("App.view.admin.CfgUtilities.NextCodeForm");
+			win.show();
+			win.center();
+			win.down('form').getForm().loadRecord(rec);
+			win.down('textfield[name=module]').focus(true , 300 );
+		};
+	},
+	cancel:function(btn){
+		btn.up('window').close();
 	},
 
 	uploadLogoImage: function(field) {

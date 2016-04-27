@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160426085523) do
+ActiveRecord::Schema.define(version: 20160427080727) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module",      limit: 45
@@ -188,6 +188,17 @@ ActiveRecord::Schema.define(version: 20160426085523) do
     t.string   "image_content_type", limit: 255
     t.integer  "image_file_size",    limit: 4
     t.datetime "image_updated_at"
+  end
+
+  create_table "next_codes", force: :cascade do |t|
+    t.integer  "module",     limit: 4
+    t.integer  "cit",        limit: 4
+    t.integer  "cet",        limit: 4
+    t.string   "prefix",     limit: 255
+    t.string   "suffix",     limit: 255
+    t.integer  "length",     limit: 4
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "rel_menu_roles", force: :cascade do |t|

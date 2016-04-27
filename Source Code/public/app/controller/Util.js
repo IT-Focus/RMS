@@ -200,7 +200,9 @@ Ext.define('App.controller.Util', {
 			Ext.MessageBox.wait("Please wait system is processing.........", "Saving Data")
 
 			store.sync({
+
 				success: function() {
+					debugger;
 					Ext.MessageBox.hide();
 					win.close();
 					store.load();
