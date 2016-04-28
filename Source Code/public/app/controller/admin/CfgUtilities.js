@@ -37,12 +37,24 @@ Ext.define('App.controller.admin.CfgUtilities', {
 			'CfgUtilitiesIndex button[action=edit_next_code]': {
 				click: this.edit_next_code
 			},
+			'CfgUtilitiesIndex textfield[name=Search_naxt_code]': {
+				change: this.search_next_code
+			},
 			'nextCodetForm button[action=Cancel]': {
 				click: this.cancel
 			},
 
 
 	    });
+	},
+
+	search_next_code: function(field){
+		var me = this,
+			form = field.up('gridpanel'),
+			searchString = form.down('textfield[name=Search_naxt_code]').getValue()
+			store = me.getAdminNextCodeStore();
+
+			Util.loadStore(store,{searchString:searchString});
 	},
 
 	add_next_code: function(btn){

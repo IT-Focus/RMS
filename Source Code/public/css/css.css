@@ -17,3 +17,12 @@ a:hover{
     display: none;
 }
 
+.x-grid3-cell.user-online
+{
+    background-color: #9fc;
+}
+.x-grid3-cell.user-offline
+{
+    background-color: #ffc;
+}
+.x.GetCmp<Store>("setup.DefaultColor").GetById(id).Set("dataIndex", "reserved");

@@ -212,7 +212,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             tools: [{
                     fieldLabel: 'Search',
                     xtype: 'textfield',
-                    name: 'Search',
+                    name: 'Search_naxt_code',
                     emptyText: '-- Search Record --'
                 },
                 // '->',

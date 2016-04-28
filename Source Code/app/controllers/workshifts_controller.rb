@@ -1,5 +1,5 @@
 class WorkshiftsController < ApplicationController
-	def index
+def index
     @@service = WorkshiftService::Search.new()
     search_string = params[:searchString]
 

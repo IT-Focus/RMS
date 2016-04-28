@@ -12,7 +12,7 @@ Rails.application.routes.draw do
 # administrator menu
     resources :role, :department, :menu, :cfg_company, :cfg_utility, :sys_menus, :sys_users
 # Setup
-	resources :floor, :category_master, :room_master, :room_service_master, :status, :cities, :currencies, :workshifts, :next_code
+	resources :floor, :category_master, :room_master, :room_service_master, :status, :cities, :currencies, :workshifts, :next_code, :default_color
 # Image
 	resources :images
 # Cashiers
