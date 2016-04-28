@@ -264,3 +264,37 @@
 .icon-option{
    background-image:url(../images/icons/config.png) !important; 
 }
+.icon-menuprofile{
+   background-image:url(../images/icons/menu_setup.png) !important; 
+}
+.icon-floors{
+   background-image:url(../images/icons/floors.png) !important; 
+}
+.icon-categorymaster{
+   background-image:url(../images/icons/floor.png) !important; 
+}
+.icon-roommaster{
+   background-image:url(../images/icons/room_master.png) !important; 
+}
+.icon-service{
+   background-image:url(../images/icons/service.png) !important; 
+}
+.icon-currency{
+   background-image:url(../images/icons/currency.png) !important; 
+}
+.icon-defaul_color{
+   background-image:url(../images/icons/defaul_color.png) !important; 
+}
+.icon-cashier{
+   background-image:url(../images/icons/cashier.png) !important; 
+}
+.icon-workshift{
+   background-image:url(../images/icons/workshift.png) !important; 
+}
+.icon-open_cash_drawer{
+   background-image:url(../images/icons/open_cash_drawer.png) !important; 
+}
+.icon-close_cash_drawer{
+   background-image:url(../images/icons/close_cash_drawer.png) !important; 
+}
+
