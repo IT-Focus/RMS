@@ -22,7 +22,7 @@ Ext.define('App.view.setup.roomServiceMaster.Form', {
             xtype: 'form',
             layout: {
                 type: 'table',
-                columns: 2
+                columns: 1
             },
             defaults: {
                 width: 350,
@@ -35,6 +35,11 @@ Ext.define('App.view.setup.roomServiceMaster.Form', {
                     allowBlank: false,
                     fieldLabel: 'Service Name'+redStar
                 }, {
+                    xtype: 'textfield',
+                    name: 'abbr',
+                    allowBlank: false,
+                    fieldLabel: "Abbr"+redStar
+                },{
                     xtype: 'numberfield',
                     name: 'code',
                     allowBlank: false,
@@ -44,15 +49,15 @@ Ext.define('App.view.setup.roomServiceMaster.Form', {
                     name: 'is_include_tax',
                     fieldLabel: 'Include tax?',
                 }, {
-                    xtype: 'textfield',
-                    name: 'indicatoer',
-                    fieldLabel: 'Indicatoer'
-                }, {
                     xtype: 'numberfield',
                     name: 'tax',
                     fieldLabel: 'Tax',
                     visible:false,
-                },
+                },{
+                    xtype: 'numberfield',
+                    name: 'charge_amount',
+                    fieldLabel: 'Charge Amount'+redStar
+                }, ,
 
             ]
         }

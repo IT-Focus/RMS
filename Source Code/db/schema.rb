@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160427080727) do
+ActiveRecord::Schema.define(version: 20160428134215) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module",      limit: 45
@@ -229,13 +229,14 @@ ActiveRecord::Schema.define(version: 20160427080727) do
   create_table "room_service_masters", force: :cascade do |t|
     t.integer  "code",           limit: 4
     t.string   "service_name",   limit: 45
-    t.string   "indicatoer",     limit: 45
+    t.string   "abbr",           limit: 255
+    t.float    "charge_amount",  limit: 24
     t.boolean  "is_include_tax"
     t.float    "tax",            limit: 24
     t.string   "created_by",     limit: 45
     t.string   "edited_by",      limit: 45
-    t.datetime "created_at",                null: false
-    t.datetime "updated_at",                null: false
+    t.datetime "created_at",                 null: false
+    t.datetime "updated_at",                 null: false
   end
 
   create_table "statuses", force: :cascade do |t|

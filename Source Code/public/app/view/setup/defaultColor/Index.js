@@ -4,7 +4,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
     // bodyPadding: 10,
     border: true,
     modal:true,
-    layout: 'card',
+    // layout: 'card',
     initComponent: function() {
         var me = this
         Ext.apply(this, {
@@ -47,6 +47,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                 width:350,
                 style:'margin-left:5px',
             },
+            bodyPadding: 50,
             items: [Ext.create('Ext.ux.ColorPicker', {
                     luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                     spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',

@@ -12,10 +12,10 @@ class RoomService::AdvanceSearch
    				text = '%' + search_string +'%'
    				data = data.where("room_service_masters.code like '#{text}'")
    			end
-   		when 'Indicatoer'
+   		when 'Abbr'
    			if !search_string.nil?
    				text = '%' + search_string +'%'
-   				data = data.where("room_service_masters.Indicatoer like '#{text}'")
+   				data = data.where("room_service_masters.abbr like '#{text}'")
    			end
 		end
 		return data

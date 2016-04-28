@@ -51,6 +51,8 @@ class RoomServiceMasterController < ApplicationController
            	:indicatoer,
            	:is_include_tax,
            	:tax,
+            :abbr,
+            :charge_amount,
            	:created_by,
            	:edited_by,
         )
@@ -60,11 +62,12 @@ class RoomServiceMasterController < ApplicationController
             :id,
            	:code,
            	:service_name,
-           	:indicatoer,
            	:is_include_tax,
            	:tax,
            	:created_by,
            	:edited_by,
+            :abbr,
+            :charge_amount,
         )
     end
 

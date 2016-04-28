@@ -16,7 +16,7 @@ Ext.define('App.view.setup.roomServiceMaster.Index', {
                     {
                         xtype: 'combo',
                         fieldLabel: '<b>Search By</b>',
-                        store: ['Code', 'Service Name', 'Indicatoer'],
+                        store: ['Code', 'Service Name', 'Abbr'],
                         value: 'Code',
                         labelAlign: 'right',
                         name: 'searchBy',
@@ -59,11 +59,15 @@ Ext.define('App.view.setup.roomServiceMaster.Index', {
                     flex:1
                     
                 },{
-                    header: 'Indicatoer',
-                    dataIndex: 'indicatoer',
+                    header: 'Abbr',
+                    dataIndex: 'abbr',
                     width: 200,
                     flex:1
                     
+                }, {
+                    header:'Charge Amount',
+                    dataIndex: 'charge_amount',
+                    flex:1
                 }],
                 bbar: Ext.create('Ext.PagingToolbar', {
                     store: 'setup.RoomServiceMaster',
