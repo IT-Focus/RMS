@@ -56,11 +56,19 @@ Ext.define('App.controller.account.OpenCashDrawer', {
 		btn.up('window').close();
 	},
 	open_cash_drawer:function(btn){
-		var win = Ext.create("App.view.account.openCashDrawer.Form");
-		win.show();
-		win.center();
-		// win.down('textfield[name=user_id]').focus(true , 300 );
+		var me = this;
+		Util.ajax("/CashierBalances/open_cash_drawer" , {} , me.checkOpenCashDrawer, me )
 
+	},
+
+	checkOpenCashDrawer: function(obj,me){
+		if(obj.success == true){
+			var win = Ext.create("App.view.account.openCashDrawer.Form");
+			win.show();
+			win.center();
+		}else{
+			alert("false")
+		}	
 	},
 
 	save :function(btn){

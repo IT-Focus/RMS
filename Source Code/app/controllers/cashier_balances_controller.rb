@@ -5,7 +5,19 @@ def index
     render json:{data:@data, success:true}
 end
 
+def open_cash_drawer 
+    @@service = CashierBalanceService::OpenCashDrawer.new()
+    user = session[:user_id]
+    puts "==================user=#{user}"
 
+    @CheckCashDrawer = @@service.check_cash_drawer user
+    if @CheckCashDrawer == true
+        render json:{success:false, message:"Note: You have openned cash drawer, Please close before open again"}
+    else
+        render json:{success:true}
+    end
+
+end
 
 def create
 
