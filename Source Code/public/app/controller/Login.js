@@ -99,6 +99,7 @@ Ext.define('App.controller.Login', {
 	},
 	showPageCustomer:function(){
 		var page = Ext.getCmp('mainPage');
+		Ext.getCmp('loggedin').update('Logged in as: ' + ' <b>' + obj.data.username + '</b>');
 		page.getLayout().setActiveItem(1);
 	},
 	logInProcess:function(username, password){
@@ -121,9 +122,10 @@ Ext.define('App.controller.Login', {
 		
 		if (obj.success) {
 		
-			// Ext.get('loggedin').setText(obj.data.first_name +" "+ obj.data.last_name);
 			me.showPageCustomer();
+			Ext.getCmp('loggedin').update('Logged in as:');
 			Ext.MessageBox.hide();
+
 			
 		}else{
 			Ext.MessageBox.hide();
@@ -138,6 +140,7 @@ Ext.define('App.controller.Login', {
 		if (form.getForm().isValid()) {
 			var values = form.getValues();
 			this.logInProcess(values.username, values.password);
+			// Ext.get('loggedin').setText(values.first_name +" "+ values.last_name);
 			
 		}else{
 			Ext.Msg.alert('Inform', 'Please entry Username and Password');
