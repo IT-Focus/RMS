@@ -1,19 +1,21 @@
 class CfgCompanyController < ApplicationController
 	def index
 		data = CfgCompany.find(1)
-		render json:{ data:data , success:true}
+		render json:{ data:data , success:true , message:'index'}
 	end	
 
 	def create
 		data = CfgCompany.find(1)
 		data.update_attributes(permit_data)
-		render json:{ data:data , success:true }
+		data.save
+		render json:{ data:data , success:true , message:'create'}
 	end
 	def update
 		data = CfgCompany.find(1)
 		data.update_attributes(permit_data)
 		if data.valid?
-			render json:{data:data , success:true}	
+			data.save
+			render json:{data:data , success:true , message:'update'}	
 		else
 			render json:{error:data.errors , success:false}	
 
@@ -21,7 +23,7 @@ class CfgCompanyController < ApplicationController
 	end
 	private 
 	def permit_data
-		params.permit(		
+		params.require(:data).permit(		
 		:legal_name,
 		:legal_name_khmer,
 		:company_name,
