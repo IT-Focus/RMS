@@ -66,6 +66,9 @@ Ext.define('App.controller.account.OpenCashDrawer', {
 			var win = Ext.create("App.view.account.openCashDrawer.Form");
 			win.show();
 			win.center();
+			if(obj.is_admin!=true){
+				win.down("combo[name=cashier_id]").setValue(obj.data.id)
+			}
 		}else{
 			alert("false")
 		}	

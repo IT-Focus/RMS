@@ -8,7 +8,7 @@ Ext.define('App.view.account.openCashDrawer.Form', {
     buttons: [
 
         {
-            text: 'Save',
+            text: 'Open Cash Drawer',
             iconCls: 'icon-save',
             action: 'Save'
         }, {
@@ -36,6 +36,7 @@ Ext.define('App.view.account.openCashDrawer.Form', {
                     displayField: 'username',
                     triggerAction: 'all',
                     allowBlank: false,
+                    // disabled:true,
                     editable: false,
                     fieldLabel: 'Cashier'+redStar
                     // labelAlign: 'right',
