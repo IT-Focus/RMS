@@ -19,7 +19,11 @@ Ext.define('App.controller.admin.CfgUtilities', {
 	    this.control({
 	    	'CfgUtilitiesIndex filefield[name=image]': {
 				change: this.uploadLogoImage
-			},'CfgUtilitiesIndex button[action=save_company_profile]': {
+			},
+			// 'CfgUtilitiesIndex filefield[name=image_background]': {
+			// 	change: this.uploadLogoImage
+			// },
+			'CfgUtilitiesIndex button[action=save_company_profile]': {
 				click: this.save
 			},
 			'CfgUtilitiesIndex button[action=Remove_logo]': {
@@ -93,7 +97,26 @@ Ext.define('App.controller.admin.CfgUtilities', {
 				success: function(formPanel, action) {
 					var data = Ext.decode(action.response.responseText);
 					form.down('image').setSrc(data.image_url);
-					form.down('hiddenfield[name=image_url]').setValue(data.image_url);
+					form.down('hiddenfield').setValue(data.image_url);
+				},
+				failure: function(formPanel, action) {
+					var data = Ext.decode(action.response.responseText);
+					alert("Failure: " + data.data);
+				}
+
+			});
+		}
+	},
+	uploadBackGroundImage: function(field) {
+		var form = field.up('form');
+		if (form.getForm().isValid()) {
+			form.getForm().submit({
+				url: '/Images/upload_image',
+				waitMsg: 'Uploading Image ...',
+				success: function(formPanel, action) {
+					var data = Ext.decode(action.response.responseText);
+					form.down('image').setSrc(data.image_url)
+					form.down('hiddenfield').setValue(data.image_url);
 				},
 				failure: function(formPanel, action) {
 					var data = Ext.decode(action.response.responseText);
@@ -109,7 +132,6 @@ Ext.define('App.controller.admin.CfgUtilities', {
 	},
 
 	save: function(btn){
-		debugger;
 		var form = btn.up('form').getForm(),
 			// frm = btn.up('form'),
 			me = this,

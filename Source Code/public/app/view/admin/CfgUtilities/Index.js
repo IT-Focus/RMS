@@ -137,8 +137,8 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
 
                 {
 
-                    // xtype: 'form',
-                    // name: 'companyImage',
+                    xtype: 'form',
+                    name: 'companyImage',
                     title: 'Hotel Logo',
                     style: 'margin-left:10px;',
                     height: '100%',
@@ -150,7 +150,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         style: 'border: 1px solid gray; border-radius:10px',
                     }, {
                         xtype: 'hiddenfield',
-                        name: 'image_url'
+                        name: 'logo_url'
                     }],
                     bbar: [{
                         xtype: 'filefield',
@@ -164,6 +164,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                     }],
                 }, {
                     xtype: 'form',
+                    name:'background',
                     title: 'Hotel Background',
                     style: 'margin-left:400px',
 
@@ -175,7 +176,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         style: 'border: 1px solid gray; border-radius:10px',
                     }, {
                         xtype: 'hiddenfield',
-                        name: 'image_url'
+                        name: 'background_url'
                     }],
                     rowspan: 8,
                     bbar: [{
@@ -201,9 +202,9 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             form.getForm().setValues(obj.data);
             //debugger;
             form.down('image[name=companyProfileImage]').setSrc(obj.data.logo_url);
-            form.down('hiddenfield[name=image_url]').setValue(obj.data.logo_url);
+            form.down('hiddenfield[name=logo_url]').setValue(obj.data.logo_url);
             form.down('image[name=companyBacgroundImage]').setSrc(obj.data.background_url);
-            form.down('hiddenfield[name=image_url]').setValue(obj.data.background_url);
+            form.down('hiddenfield[name=background_url]').setValue(obj.data.background_url);
         }
     },
 
