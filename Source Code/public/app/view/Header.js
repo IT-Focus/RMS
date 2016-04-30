@@ -26,6 +26,14 @@ Ext.define('App.view.Header', {
       margin: '10 0 0 0',
 
     }, {
+      xtype: 'label',
+      style: 'font-size: 15px;margin-top:10px; margin-right:20px',
+      text: "Current Date:"+"    "+Ext.Date.format(new Date(), 'j-M-Y')
+    },{
+      xtype: 'label',
+      style: 'font-size: 15px;margin-top:10px; margin-right:20px',
+      text: "Current Time:"+"    "+Ext.Date.format(new Date(), 'h:i A')
+    }, {
       text: 'Option',
       xtype: 'button',
       widht: 250,
@@ -45,43 +53,44 @@ Ext.define('App.view.Header', {
 
           },
           items: [
-          // {
-          //   iconCls: 'icon-kh',
-          //   action: 'langauge',
-          //   xtype: 'button',
-          //   width: 100,
-          //   text: 'ខ្មែរ',
+            // {
+            //   iconCls: 'icon-kh',
+            //   action: 'langauge',
+            //   xtype: 'button',
+            //   width: 100,
+            //   text: 'ខ្មែរ',
 
-          //   name: 'kh'
-          // }, {
-          //   iconCls: 'icon-en',
-          //   action: 'langauge',
-          //   xtype: 'button',
-          //   text: 'English',
-          //   name: 'en',
-          //   width: 100
-          // }, 
-          // {
-          //   text: 'Sale Panel',
-          //   xtype: 'button',
-          //   action: 'SalePanel',
-          //   colspan: 2,
-          //   iconCls: 'icon-sale',
-          // }, 
-          {
-            id:'logoutButton',
-            xtype:'button',
-            iconAlign:'right',
-            iconCls:'icon-logout',
-            text:'Logout',
-            margin:'5 0 0 5',
-            action:'logout'
-          }, {
-            text: "ChangePassword",
-            colspan: 2,
-            iconCls: 'icon-edit',
-            action: 'changePassword'
-          }]
+            //   name: 'kh'
+            // }, {
+            //   iconCls: 'icon-en',
+            //   action: 'langauge',
+            //   xtype: 'button',
+            //   text: 'English',
+            //   name: 'en',
+            //   width: 100
+            // }, 
+            // {
+            //   text: 'Sale Panel',
+            //   xtype: 'button',
+            //   action: 'SalePanel',
+            //   colspan: 2,
+            //   iconCls: 'icon-sale',
+            // }, 
+            {
+              id: 'logoutButton',
+              xtype: 'button',
+              iconAlign: 'right',
+              iconCls: 'icon-logout',
+              text: 'Logout',
+              margin: '5 0 0 5',
+              action: 'logout'
+            }, {
+              text: "ChangePassword",
+              colspan: 2,
+              iconCls: 'icon-edit',
+              action: 'changePassword'
+            }
+          ]
         }
       }
     }

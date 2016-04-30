@@ -16,7 +16,7 @@ Ext.define('App.view.account.cashier.Index', {
                         xtype: 'textfield',
                         name: 'string',
                         emptyText: '------workshift/Cashier------',
-                        width: 300,
+                        autoWidth:true,
                     },
 
                     {
@@ -40,27 +40,29 @@ Ext.define('App.view.account.cashier.Index', {
                 }, {
                     header: 'User',
                     dataIndex: 'username',
-                    width: 200,
+                     autoWidth:true,
                 }, {
                     header: 'Workshift',
                     dataIndex: 'workshift_name',
-                    width: 200
+                     autoWidth:true,
                 }, {
                     header: 'Start Time',
                     dataIndex: 'start_time',
-                    flex: 1,
+                     autoWidth:true,
                     renderer: Ext.util.Format.dateRenderer('H:i'),
                 }, {
                     header: 'Open Balance',
                     dataIndex: 'obda',
-                    flex: 1,
+                     autoWidth:true,
+                     flex:1,
                     renderer: function(value) {
                         amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
                         return "<span style='color:black'><b>" + amount + "</b></span>"
                     }
                 }, {
                     header: 'STATUS',
-                    width: 100,
+                     autoWidth:true,
+                     flex:1,
                     dataIndex: 'is_active',
 
                     renderer: function(val, meta, record) {

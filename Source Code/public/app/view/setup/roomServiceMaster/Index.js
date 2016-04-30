@@ -12,8 +12,7 @@ Ext.define('App.view.setup.roomServiceMaster.Index', {
                 name: 'index',
                 store: 'setup.RoomServiceMaster',
                 title: 'Room Service Master Management',
-                tools: [
-                    {
+                tools: [{
                         xtype: 'combo',
                         fieldLabel: '<b>Search By</b>',
                         store: ['Code', 'Service Name', 'Abbr'],
@@ -21,11 +20,12 @@ Ext.define('App.view.setup.roomServiceMaster.Index', {
                         labelAlign: 'right',
                         name: 'searchBy',
                         editable: false,
-                        style: 'padding-right:10px'
+                        style: 'padding-right:10px',
+                        autoWidth: true,
                     }, {
                         xtype: 'textfield',
                         name: 'string',
-                        width: 300,
+                        autoWidth: true,
                     },
 
                     {
@@ -39,7 +39,7 @@ Ext.define('App.view.setup.roomServiceMaster.Index', {
                         style: 'margin-left:5px',
                         iconCls: 'icon-edit',
                         tooltip: 'Edit Room'
-                    }, 
+                    },
                 ],
                 columns: [{
                     header: 'NO',
@@ -49,25 +49,24 @@ Ext.define('App.view.setup.roomServiceMaster.Index', {
                 }, {
                     header: 'Code',
                     dataIndex: 'code',
-                    width: 200,
                     locked: true,
-                    flex:1
-                },{
+                }, {
                     header: 'Service Name',
                     dataIndex: 'service_name',
                     width: 200,
-                    flex:1
-                    
-                },{
+                    flex: 1
+
+                }, {
                     header: 'Abbr',
                     dataIndex: 'abbr',
-                    width: 200,
-                    flex:1
-                    
+                    autoWidth: true,
+                    flex: 1
+
                 }, {
-                    header:'Charge Amount',
+                    header: 'Charge Amount',
                     dataIndex: 'charge_amount',
-                    flex:1
+                    autoWidth: true,
+                    flex: 1
                 }],
                 bbar: Ext.create('Ext.PagingToolbar', {
                     store: 'setup.RoomServiceMaster',

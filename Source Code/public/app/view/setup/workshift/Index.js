@@ -12,12 +12,11 @@ Ext.define('App.view.setup.workshift.Index', {
                 name: 'workshiftGrid',
                 store: 'setup.Workshift',
                 title: 'Workshift Management',
-                tools: [
-                    {
+                tools: [{
                         xtype: 'textfield',
                         name: 'string',
                         emptyText: '------workshift------',
-                        width: 300,
+                        autoWidth: true,
                     },
 
                     {
@@ -31,7 +30,7 @@ Ext.define('App.view.setup.workshift.Index', {
                         style: 'margin-left:5px',
                         iconCls: 'icon-edit',
                         tooltip: 'Edit Floor'
-                    }, 
+                    },
                 ],
                 columns: [{
                     header: 'NO',
@@ -41,24 +40,27 @@ Ext.define('App.view.setup.workshift.Index', {
                 }, {
                     header: 'Abbr',
                     dataIndex: 'abbr',
-                    width: 200,
+                    autoWidth: true,
                 }, {
                     header: 'Name',
                     dataIndex: 'name',
-                    width: 200
+                    autoWidth: true,
                 }, {
                     header: 'Start Time',
                     dataIndex: 'start_time',
+                    autoWidth: true,
                     flex: 1,
                     renderer: Ext.util.Format.dateRenderer('H:i'),
-                },{
+                }, {
                     header: 'End Time',
                     dataIndex: 'end_time',
                     renderer: Ext.util.Format.dateRenderer('H:i'),
+                    autoWidth: true,
                     flex: 1
-                },{
+                }, {
                     header: 'Description',
                     dataIndex: 'description',
+                    autoWidth: true,
                     flex: 1
                 }],
                 bbar: Ext.create('Ext.PagingToolbar', {

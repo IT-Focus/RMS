@@ -48,12 +48,12 @@ Ext.define('App.view.setup.categoryMaster.Index', {
                 }, {
                     header: 'Code',
                     dataIndex: 'code',
-                    width: 200,
+                    autoWidth:true,
                     locked: true
                 }, {
                     header: 'Name',
                     dataIndex: 'name',
-                    width: 200
+                    autoWidth:true,
                 }, {
                     header: 'Rent Per Day',
                     dataIndex: 'tariff',

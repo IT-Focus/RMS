@@ -12,8 +12,7 @@ Ext.define('App.view.setup.floor.Index', {
                 name: 'floorGrid',
                 store: 'setup.Floor',
                 title: 'Floor Management',
-                tools: [
-                    {
+                tools: [{
                         xtype: 'combo',
                         fieldLabel: '<b>Search By</b>',
                         store: ['Code', 'Name'],
@@ -21,11 +20,12 @@ Ext.define('App.view.setup.floor.Index', {
                         labelAlign: 'right',
                         name: 'searchBy',
                         editable: false,
+                        autoWidth: true,
                         style: 'padding-right:10px'
                     }, {
                         xtype: 'textfield',
                         name: 'string',
-                        width: 300,
+                        autoWidth: true,
                     },
 
                     {
@@ -39,7 +39,7 @@ Ext.define('App.view.setup.floor.Index', {
                         style: 'margin-left:5px',
                         iconCls: 'icon-edit',
                         tooltip: 'Edit Floor'
-                    }, 
+                    },
                 ],
                 columns: [{
                     header: 'NO',
