@@ -202,7 +202,6 @@ Ext.define('App.controller.Util', {
 			store.sync({
 
 				success: function() {
-					debugger;
 					Ext.MessageBox.hide();
 					win.close();
 					store.load();

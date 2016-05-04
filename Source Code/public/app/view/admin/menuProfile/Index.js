@@ -38,29 +38,35 @@ Ext.define('App.view.admin.menuProfile.Index', {
                         },{
                             header:'Menu Profile',
                             dataIndex:'menu',
-                            width:200
+                            flex:1,
+                            autoWidth:true
                         },{
                             header:"Parent Menu",
-                            dataIndex:'parent_menu_name',                              
-                            width:200
+                            dataIndex:'parent_menu_name',
+                            flex:1,                              
+                            autoWidth:true
 
                         },{
                             header:"View Index",
                             dataIndex:'view_index' ,
-                             width:200
+                            flex:1,
+                            autoWidth:true
                         },{
                             header:'Controller ',
                             dataIndex:'controller',
-                             width:200
+                            flex:1,
+                            autoWidth:true
                         },{
                             header:"Status", 
                             dataIndex:'is_active',
+                            autoWidth:true,
                             renderer:function(value){
                                 return value == true ? "<span style='color:green'>Active</span>" : "<span style='color:red'>Deactive</span>";
                             }
                         },{
                             header:'Description',
                             dataIndex:'description',
+                            autoWidth:true,
                             flex:1
                         }
                     ],

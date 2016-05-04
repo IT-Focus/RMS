@@ -1,0 +1,2 @@
+module CheckInDetailHelper
+end

@@ -11,13 +11,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160428134215) do
+ActiveRecord::Schema.define(version: 20160504172500) do
 
   create_table "auditrails", force: :cascade do |t|
-    t.string   "module",      limit: 45
+    t.string   "module_name", limit: 255
     t.text     "action",      limit: 65535
     t.text     "description", limit: 65535
     t.string   "created_by",  limit: 45
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
+
+  create_table "cancel_check_ins", force: :cascade do |t|
+    t.string   "code",          limit: 255
+    t.string   "check_in_code", limit: 255
+    t.date     "check_in_date"
+    t.string   "room_no",       limit: 255
+    t.date     "cancel_date"
+    t.string   "reason",        limit: 255
+    t.string   "cancelled_by",  limit: 255
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
   end
@@ -90,6 +102,7 @@ ActiveRecord::Schema.define(version: 20160428134215) do
     t.string "account_name",       limit: 100
     t.string "bank_name",          limit: 100
     t.string "vatin",              limit: 45
+    t.string "email",              limit: 255
   end
 
   create_table "cfg_utilities", force: :cascade do |t|
@@ -99,6 +112,27 @@ ActiveRecord::Schema.define(version: 20160428134215) do
     t.boolean  "util_boolean"
     t.datetime "util_date"
     t.text     "description",  limit: 65535
+  end
+
+  create_table "check_in_details", force: :cascade do |t|
+    t.integer  "check_in_id",        limit: 4
+    t.string   "room_no",            limit: 255
+    t.datetime "check_in_date"
+    t.datetime "check_out_date"
+    t.string   "description",        limit: 255
+    t.integer  "qty",                limit: 4
+    t.float    "unit_price",         limit: 24
+    t.float    "total_amount",       limit: 24
+    t.float    "discount",           limit: 24
+    t.float    "discount_amount",    limit: 24
+    t.float    "tax",                limit: 24
+    t.float    "tax_amount",         limit: 24
+    t.float    "grand_total_amount", limit: 24
+    t.string   "created_by",         limit: 255
+    t.string   "edited_by",          limit: 255
+    t.string   "tran_type",          limit: 255
+    t.datetime "created_at",                     null: false
+    t.datetime "updated_at",                     null: false
   end
 
   create_table "check_ins", force: :cascade do |t|

@@ -32,11 +32,13 @@ def create
 
         begin
             CashierBalance.transaction do
-                @data = CashierBalance.new(permit_data)
-                # SysAuditrail.create  description:"Create CashierBalance= #{@data.name}", user_id:session[:user_id]
-                @data.save
-
-                render json:{ data:@data ,success:true}
+                @@service = CashierBalanceService::OpenCashDrawer.new()
+        
+                    @data = CashierBalance.new(permit_data)
+                    @data.save
+                    render json:{ data:@data ,success:true}
+              
+                
             end
 
         rescue Exception => e
