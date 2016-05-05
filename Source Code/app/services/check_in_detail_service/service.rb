@@ -1,7 +1,7 @@
 class CheckInDetailService::Service
 
 	def get_room
-		@data = CheckInDetail.joins("left join room_masters on room_masters.id = check_in_details.room_no").where.not(room_no:nil)
+		@data = CheckInDetail.joins("left join room_masters on room_masters.id = check_in_details.room_no").where.not(room_no:nil).where("room_masters.status_id=#{2}")
 		@result =  @data.select("room_masters.id as id,room_masters.room_no as room_no")
 		return @result
 	end
