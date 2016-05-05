@@ -72,70 +72,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
 
     },
 
-    fn:function(field){
-        var controllerName = field.cn ;
-        var viewName = field.vn ;
-        if (controllerName) {
-            // check if form already load
-            App.app.getController('Menu').loadStore( controllerName, viewName+".Index");
-        }
-
-        if (viewName) {
-            App.app.getController('Menu').showPage(viewName+".Index");
-
-        };
-
-
-    },
-    getMenuList:function(view){
-        Util.ajax("/Menu/get_menu_by_user" ,{menu:0}, this.applyMenuList , view)
-    },
-    applyMenuList:function(obj , view){
-        main_menu = obj.main
-        sub_menu = obj.sub
-        items = new Array()
-        me = App.app.getAdminUserController()
-
-        main_menu.forEach(function(eachMainMenu){
-
-            main_id = eachMainMenu.id
-            subItemMenu = new Array()
-// =========== sub menu
-            sub_menu.forEach(function(eachSubMenu){
-                if (eachSubMenu.parent_id == main_id ) {
-                    subObj={
-                        text: eachSubMenu.menu ,
-                        style:'font-weight:bold',
-                        iconCls:eachSubMenu.icon_cls,
-                        handler:me.fn,
-                        cn:eachSubMenu.controller,
-                        vn:eachSubMenu.view_index
-
-                    }
-                    subItemMenu.push(subObj)
-                };
-
-            })
-
-// ========== main menu
-            if (subItemMenu.length>0){
-            itemObj={
-                title:eachMainMenu.menu,
-                xtype:'menu',
-                cls:'my-menu',
-                iconCls:eachMainMenu.icon_cls ,
-                items:subItemMenu
-            }
-            items.push(itemObj)
-
-        }
-        
-        })
-        // debugger;
-        view.add(items)
-
-    }
-
+      
 
 
 })
