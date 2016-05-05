@@ -1,4 +1,8 @@
 <!DOCTYPE html>
+<% @company = CfgCompany.find(1)
+   logo = @company.logo_url
+   background = @company.background_url
+%>
 <html>
 <head>
 <title>HTML5 log in form</title>
@@ -18,7 +22,7 @@ html {
   color: #666666;
   font-family:Arial, Helvetica, sans-serif;
   font-size: 14px;
-  background: url(/images/hotel/seaside-hotels.jpg) no-repeat center center fixed; 
+  background: url(<%=background%>) no-repeat center center fixed; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -112,7 +116,7 @@ html {
         <!-- <div class="tooltip">Click Me</div> -->
       </div>
       <div class="form">
-         <center><img src="/images/hotel/The-Guest-House-Logo-small.png" width="190"></center>
+         <center><img src=<%=logo%> width="190"></center>
          <h2>LOGIN</h2>
         <form method="post" action="/home/login">
           <%= text_field_tag :username,@username , placeholder:"Username " %>

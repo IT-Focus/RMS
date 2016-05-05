@@ -14,7 +14,8 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             items: [{
                 xtype: 'tabpanel',
                 // bodyPadding: 10,
-                width: '100%',
+                autoWidth:true,
+                height:'100%',
                 items: [{
                     xtype: 'form',
                     title: 'Hotel Profile',
@@ -52,11 +53,11 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             },
 
             style: '  margin-top:2%; border-radius:5px',
-            width: '100%',
+            // width: '100%',
             defaultType: 'textfield',
             defaults: {
-                width: 400,
-                style: 'margin-left:10px',
+                // autoWidth:true,
+                style: 'margin-left:10px;margin-top:5%',
             },
             items: [
 
@@ -102,18 +103,18 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                     fieldLabel: 'Account No'
                 }, {
                     name: "vatin",
-                    fieldLabel: 'VAT TIN'
+                    fieldLabel: 'VAT TIN',
                 }, {
                     xtype: 'textarea',
-                    width: 400,
-                    colspan: 1,
+                   
+                    // colspan: 1,
                     name: 'address',
                     fieldLabel: 'Address<span style="color:red">*</span>',
                     allowBlank: false
                 }, {
                     xtype: 'textarea',
-                    width: 400,
-                    colspan: 1,
+                    colspan:2,
+                    width: 565,
                     name: 'address_khmer',
                     fieldLabel: 'Address Kh<span style="color:red">*</span>',
                     allowBlank: true
@@ -137,11 +138,12 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
 
                 {
 
-                    // xtype: 'form',
-                    // name: 'companyImage',
+                    xtype: 'form',
+                    name: 'companyImage',
                     title: 'Hotel Logo',
-                    style: 'margin-left:10px;',
+                    // style: 'margin-left:10px;',
                     height: '100%',
+                    width: '100%',
                     items: [{
                         xtype: 'image',
                         name: 'companyProfileImage',
@@ -150,7 +152,7 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         style: 'border: 1px solid gray; border-radius:10px',
                     }, {
                         xtype: 'hiddenfield',
-                        name: 'image_url'
+                        name: 'logo_url'
                     }],
                     bbar: [{
                         xtype: 'filefield',
@@ -164,8 +166,11 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                     }],
                 }, {
                     xtype: 'form',
+                    height: '100%',
+                    width: '100%',
+                    name:'background',
                     title: 'Hotel Background',
-                    style: 'margin-left:400px',
+                    style: 'margin-left:8px',
 
                     items: [{
                         xtype: 'image',
@@ -175,9 +180,9 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                         style: 'border: 1px solid gray; border-radius:10px',
                     }, {
                         xtype: 'hiddenfield',
-                        name: 'image_url'
+                        name: 'background_url'
                     }],
-                    rowspan: 8,
+                    // rowspan: 8,
                     bbar: [{
                         xtype: 'filefield',
                         name: 'image',
@@ -201,9 +206,9 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             form.getForm().setValues(obj.data);
             //debugger;
             form.down('image[name=companyProfileImage]').setSrc(obj.data.logo_url);
-            form.down('hiddenfield[name=image_url]').setValue(obj.data.logo_url);
+            form.down('hiddenfield[name=logo_url]').setValue(obj.data.logo_url);
             form.down('image[name=companyBacgroundImage]').setSrc(obj.data.background_url);
-            form.down('hiddenfield[name=image_url]').setValue(obj.data.background_url);
+            form.down('hiddenfield[name=background_url]').setValue(obj.data.background_url);
         }
     },
 

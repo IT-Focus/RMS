@@ -11,6 +11,8 @@ Ext.define('App.store.setup.Floor', {
 		            root: 'data',
 		            successProperty: 'success'
 		        },
+
+		        
 		        writer: {
 		        	getRecordData: function(record) {
         				return { data: record.data };

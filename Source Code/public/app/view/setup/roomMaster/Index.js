@@ -21,24 +21,27 @@ Ext.define('App.view.setup.roomMaster.Index', {
                         labelAlign: 'right',
                         name: 'searchBy',
                         editable: false,
-                        style: 'padding-right:10px'
+                        style: 'padding-right:10px',
+                        autoWidth:true,
                     }, {
                         xtype: 'textfield',
                         name: 'string',
-                        width: 300,
+                        autoWidth:true,
                     },
 
                     {
                         xtype: 'button',
                         action: 'Add',
                         iconCls: 'icon-add',
-                        tooltip: 'Add New Room'
+                        tooltip: 'Add New Room',
+                        autoWidth:true,
                     }, {
                         xtype: 'button',
                         action: 'Edit',
                         style: 'margin-left:5px',
                         iconCls: 'icon-edit',
-                        tooltip: 'Edit Room'
+                        tooltip: 'Edit Room',
+                        autoWidth:true,
                     }, 
                 ],
                 columns: [{
@@ -49,23 +52,26 @@ Ext.define('App.view.setup.roomMaster.Index', {
                 }, {
                     header: 'Room No',
                     dataIndex: 'room_no',
-                    width: 200,
-                    locked: true
+                    locked: true,
+                    autoWidth:true,
                 }, {
                     header: 'Category',
                     dataIndex: 'category_name',
-                    width: 200
+                    autoWidth:true,
                 }, {
                     header: 'Floor',
                     dataIndex: 'floor_name',
+                    autoWidth:true,
                     flex: 1
                 },{
                     header: 'Status',
                     dataIndex: 'status_name',
+                    autoWidth:true,
                     flex: 1
                 },{
                     header: 'Extension No',
                     dataIndex: 'extn_no',
+                    autoWidth:true,
                     flex: 1
                 }],
                 bbar: Ext.create('Ext.PagingToolbar', {

@@ -12,12 +12,11 @@ Ext.define('App.view.setup.currency.Index', {
                 name: 'cityGrid',
                 store: 'setup.Currency',
                 title: 'Currency',
-                tools: [
-                    {
+                tools: [{
                         xtype: 'textfield',
                         name: 'string',
                         emptyText: '-----Search------',
-                        width: 300,
+                        autoWidth: true,
                     },
 
                     {
@@ -31,45 +30,47 @@ Ext.define('App.view.setup.currency.Index', {
                         style: 'margin-left:5px',
                         iconCls: 'icon-edit',
                         tooltip: 'Edit City'
-                    }, 
+                    },
                 ],
                 columns: [{
                     header: 'NO',
                     xtype: 'rownumberer',
                     width: 50,
                     align: 'center'
-                },{
+                }, {
                     header: 'sequence',
                     dataIndex: 'seq_num',
-                    flex: 1,
+                    autoWidth: true,
                 }, {
                     header: 'Currency',
                     dataIndex: 'currency_name',
-                    width: 200,
+                    autoWidth: true,
                     flex: 1,
-                    
+
                 }, {
                     header: 'Symbol',
                     dataIndex: 'currencysyb',
-                    width: 100,
+                    autoWidth: true,
                     flex: 1,
-                },{
+                }, {
                     header: 'Rate',
                     dataIndex: 'rate',
+                    autoWidth: true,
                     flex: 1,
                     // renderer: function(value){
                     //          amount =  Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " %";
                     //         return "<span style='color:black'><b>"+amount+"</b></span>"
                     //     }
-                },{
+                }, {
                     header: 'Exchange Rate',
                     dataIndex: 'exchange_rate',
+                    autoWidth: true,
                     flex: 1,
                     // renderer: function(value){
                     //          amount =  Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
                     //         return "<span style='color:black'><b>"+amount+"</b></span>"
                     //     }
-                },],
+                }, ],
                 bbar: Ext.create('Ext.PagingToolbar', {
                     store: 'setup.Currency',
                     displayInfo: true,

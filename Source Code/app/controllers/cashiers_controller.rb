@@ -15,8 +15,16 @@ def get_openAmount
 end
 
 def get_cashier
-    @Search = @@service.search ""
-    render json:{data:@Search, success:true}
+    @@checkIsAdminService = CashierBalanceService::OpenCashDrawer.new()
+    user = session[:user_id]
+    is_admin = @@checkIsAdminService.check_is_sys_admin user
+    if is_admin == true
+        @Search = @@service.search ""
+        render json:{data:@Search, success:true} 
+    else
+        @Search = @@service.get_cashier user
+        render json:{data:@Search, success:true}
+    end
 end
 
 def create

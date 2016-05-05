@@ -1,11 +1,32 @@
 class CashierBalancesController < ApplicationController
 def index
     @@service = CashierBalanceService::Service.new()
-    @data = @@service.get_cashier_balance
+    user = session[:user_id]
+    @data = @@service.get_cashier_balance user
     render json:{data:@data, success:true}
 end
 
+def open_cash_drawer 
+    @@service = CashierBalanceService::OpenCashDrawer.new()
+    user = session[:user_id]
 
+
+    @CheckCashDrawer = @@service.check_cash_drawer user
+    if @CheckCashDrawer == true
+        render json:{success:false, message:"Note: You have openned cash drawer, Please close before open again"}
+    elsif @CheckCashDrawer == "not member"
+        render json:{success:false, message:"Note: Only cashier have permission to access this page!!!"}
+    else
+        is_admin = @@service.check_is_sys_admin user
+        if is_admin == true
+             render json:{is_admin:true,success:true}
+        else
+            cashier = @@service.get_cashier_detail user
+            render json:{data:cashier,success:true}
+        end
+    end
+
+end
 
 def create
 
