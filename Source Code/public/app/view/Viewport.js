@@ -57,6 +57,10 @@ Ext.define('App.view.Viewport', {
 
                     ]
 
+                },
+                {
+                    xtype:'fmFooter',
+                    height:45
                 }
 
             ],

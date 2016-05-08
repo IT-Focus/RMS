@@ -4,7 +4,8 @@ Ext.define('App.controller.Login', {
 	views:[
 		'Login',
 		'Header',
-		'Menu'
+		'Menu',
+		'Footer'
 		
 	],
 	
