@@ -3,7 +3,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     extend: 'Ext.app.Controller',
     views:[
         'roomTransaction.roomMonitor.Index',
-
+        
     ],
     stores:[
         'setup.Floor', 
@@ -14,8 +14,14 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
 
 
         this.control({
-            'roomMonitorIndex roomMonitorForm':{
-                click: this.showFormOption
+            'roomMonitorIndex button[action=loadRoomByFloor]':{
+                click: this.loadRoomByFloor
+            },
+            // 'roomMonitorIndex button[action=roomMonitor]':{
+            //     click: this.showFormMonitorOption
+            // },
+            'roomMonitorIndex button[action=Refresh]':{
+                click: this.refreshMonitor
             },
             'userIndex button[action=Add]':{
                 click: this.add
@@ -29,11 +35,27 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             'userForm button[action=Cancel]':{
                 click: this.cancel
             },
-      
+    
 
         });
     },
     defaultColor:{}, 
+    activedFloorId:"ALL",
+    refreshMonitor:function(btn){
+      var indexView =btn.up("roomMonitorIndex");
+      var me = this ;
+        me.clearRoomMonitor(indexView); 
+        me.addRoomMonitor(indexView,me.activedFloorId);
+    },
+    
+    loadRoomByFloor:function(btn){
+        var floorId  = btn.value; 
+        this.activedFloorId = floorId;
+        var indexView =btn.up("roomMonitorIndex");
+        this.clearRoomMonitor(indexView); 
+        this.addRoomMonitor(indexView,floorId);
+    },
+
     loadDefaultColor:function(){
         var storeDefaultColor = this.getStore("setup.DefaultColor");
         var me = this ; 
@@ -50,10 +72,20 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     showFormOption:function(){
         
     },
-    addRoomMonitor:function(indexView){
+    addRoomStatusColor:function(indexView){
+       var bbar = indexView.down("toolbar[dock=bottom]") ; 
+     var color = this.defaultColor; 
+       var panel =this.getFooterText(color) ;
+
+        bbar.add(panel);
+    },
+    addRoomMonitor:function(indexView, floor ){
         var me = this ; 
         var roomStore = me.getStore("roomTransaction.RoomMonitor");
         roomStore.load({
+            params:{
+                floor:floor
+            },
             callback:function( records ){
                 records.forEach(function(record){
                     var data= record.data; 
@@ -99,10 +131,13 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
                     var button = me.generateButton(data);
                     me.addBtnToGrid(button , indexView); 
                 });
+                //== add button refresh 
+                me.addBtnRefresh(indexView);
             },
             scope: this
         });
     },
+    
     addBtnToGrid:function(btn , grid ){
         
         var tbar = grid.down("toolbar"); 
@@ -155,6 +190,63 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
                     store.sync();
                 };
             });
+
+    },
+    //======================= private  function 
+    clearRoomMonitor:function(indexView){
+        indexView.removeAll();
+    },
+    getFooterText:function(color){
+        
+        var panel = Ext.create("Ext.panel.Panel",{
+
+            layout:'hbox',
+            width:'100%',
+            items:[
+                {
+                    xtype:'label', 
+                    text:'Free :'
+                },{
+                    xtype:'button' , 
+                    style:'background-color:'+color.free+';margin-right:10px', 
+                    height:20
+                },{
+                    xtype:'label',
+                    text:' Reserved :'
+                },{
+                   xtype:'button' , 
+                    style:'background-color:'+color.reserved+';margin-right:10px', 
+                    height:20 
+                },{
+                    xtype:'label',
+                    text:' Occupied :'
+                },{
+                   xtype:'button' , 
+                    style:'background-color:'+color.occupied+';margin-right:10px', 
+                    height:20 
+                },{
+                    xtype:'label',
+                    text:' Late Checkout :'
+                },{
+                   xtype:'button' , 
+                    style:'background-color:'+color.late_checkout+';margin-right:10px', 
+                    height:20 
+                },
+            ]
+        });     
+        return panel ; 
+    },
+    addBtnRefresh:function(indexView){
+        var me = this ;
+        me.addBtnToGrid("->" , indexView); 
+
+        var button= Ext.create("Ext.button.Button",{
+            text:'Refresh',
+            action:'Refresh',
+            iconCls:'icon-refresh',
+
+        });
+        me.addBtnToGrid(button, indexView); 
 
     },
 
