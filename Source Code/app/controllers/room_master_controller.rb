@@ -9,6 +9,13 @@ class RoomMasterController < ApplicationController
 		render json:{data:data, success:true}
 	end
 
+  def get_room_monitor
+      data = RoomMaster.joins("left join check_in_details ci on ci.room_no = room_masters.room_no and ci.tran_type ='SE' ")      
+      .select("room_masters.* , ci.check_in_date  ")
+      
+      render json:{data:data , success:true}
+
+  end
 	def create
 		begin
             RoomMaster.transaction do

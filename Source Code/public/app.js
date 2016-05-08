@@ -15,5 +15,7 @@ Ext.application({
     ],
     launch : function() {
       var viewport = Ext.create('App.view.Viewport');
+       var ctrl = App.app.getController("roomTransaction.RoomMonitor");
+        ctrl.loadDefaultColor();
     }
 });

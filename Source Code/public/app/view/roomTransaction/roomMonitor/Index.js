@@ -8,16 +8,28 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
     // layout: 'fit',
     initComponent: function() {
         var me = this
+        var ctrl = App.app.getController("roomTransaction.RoomMonitor");
+        ctrl.loadDefaultColor();
+
         Ext.apply(this, {
             xtype: 'form',
+            tbar:[
+                {
+                    xtype:"label",
+                    text:'Floor: '
+                }
+            ],
             items: [
                 // this.getFileIndex()
-                this.getHeader(),
-                this.getFooter(),
+                // this.getHeader(),
+                // this.getFooter(),
             ],
         });
         this.callParent(arguments);
-        Util.ajax("default_color", {}, me.loadValueToForm, me)
+        ctrl.showButtonFloor(me);
+        ctrl.addRoomMonitor(me);
+
+        // Util.ajax("default_color", {}, me.loadValueToForm, me)
     },
 
     loadValueToForm: function(obj, me) {
