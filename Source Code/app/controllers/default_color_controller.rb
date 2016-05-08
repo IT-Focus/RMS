@@ -48,6 +48,10 @@ private
           	:late_checkout,
           	:free,
           	:edited_by,
+            :reserved_text_color,
+            :occupied_text_color,
+            :late_checkout_text_color,
+            :free_text_color,
         )
     end
      def permit_data_edit
@@ -57,6 +61,10 @@ private
           	:late_checkout,
           	:free,
           	:edited_by,
+            :reserved_text_color,
+            :occupied_text_color,
+            :late_checkout_text_color,
+            :free_text_color,
         )
     end
 end

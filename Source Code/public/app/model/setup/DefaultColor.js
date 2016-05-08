@@ -10,6 +10,10 @@ Ext.define('App.model.setup.DefaultColor', {
         'edited_by',
         'created_at',
         'updated_at',
+        'reserved_text_color',
+        'occupied_text_color',
+        'late_checkout_text_color',
+        'free_text_color',
     ]
 
 });
