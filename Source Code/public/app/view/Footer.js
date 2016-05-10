@@ -18,7 +18,12 @@ Ext.define('App.view.Footer', {
       text: 'Copyright © 2016-2017 Small World Technology, All Rights Reserved.',
       style: 'font-size: 14px;margin-top:10px'
         //        	   html:'<h3> Document Management System</h3>',
+    },{
+      xtype: 'label',
+      style: 'font-size: 15px;margin-top:10px; margin-right:20px',
+      text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
     },
+    
     // {
 
     //   border: false,

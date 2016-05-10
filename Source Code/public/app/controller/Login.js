@@ -125,6 +125,7 @@ Ext.define('App.controller.Login', {
 		
 			me.showPageCustomer();
 			Ext.getCmp('loggedin').update('Logged in as:');
+			Ext.Element.getById('loggedin').setText('Logged in as:');
 			Ext.MessageBox.hide();
 
 			
