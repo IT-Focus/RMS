@@ -37,9 +37,17 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
 
     },
     getToolTip:function(data){
-        var information = "Need more information"; 
+        if (data.check_in_date == null){
+            
+            var information = "Free"; 
+
+        } else{
+            var information = "Not free"; 
+
+        }
         return information;
     },
+
     getText:function(data){
         var checkInDate = data.check_in_date == null ? "_" : data.check_in_date; 
 

@@ -21,16 +21,19 @@ Ext.define('App.view.Header', {
     }, {
       xtype: 'label',
       width: 160,
+      // text: 'Current User:',
       id: 'loggedin',
-      style: ' text-align: right;font-weight:bold',
+      style: ' text-align: left;font-weight:bold',
       margin: '10 0 0 0',
 
-    }, {
-      xtype: 'label',
-      style: 'font-size: 15px;margin-top:10px; margin-right:20px',
-      // text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
-      text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
-    },{
+    }, 
+    // {
+    //   xtype: 'label',
+    //   style: 'font-size: 15px;margin-top:10px; margin-right:20px',
+    //   // text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
+    //   text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
+    // },
+    {
       text: 'Option',
       xtype: 'button',
       autoWidth:true,
