@@ -15,7 +15,7 @@ Ext.define('App.view.Footer', {
       border: false,
       xtype: 'label',
       flex: 1,
-      text: 'Copyright © 2016-2017 Small World Technology, All Rights Reserved.',
+      text: 'Copyright © 2016-2017 IT Focus Technology, All Rights Reserved.',
       style: 'font-size: 14px;margin-top:10px'
         //        	   html:'<h3> Document Management System</h3>',
     },{
