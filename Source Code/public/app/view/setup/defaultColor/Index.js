@@ -16,17 +16,16 @@ Ext.define('App.view.setup.defaultColor.Index', {
                 items: [{
                     xtype: 'form',
                     title: 'Background Color',
+                    name:'backgroundColor' ,
                     items: [
                         
                         this.BackgroundColorForm()
                     ],
-                    // buttons: [{
-                    //     text: 'Update',
-                    //     iconCls: 'icon-save',
-                    //     action: 'save_company_profile'
-                    // }]
+                
                 }, {
                     title: 'Text Color',
+                    xtype:'form', 
+                    name:'textColor', 
                     items: [
                         this.TextColorForm(),
                         Util.ajax("default_color", {}, me.loadTextValueToForm, me)
@@ -35,33 +34,22 @@ Ext.define('App.view.setup.defaultColor.Index', {
             }]
         });
         this.callParent(arguments);
-        me.down("#reserved").focus(true, 200);
+        
         Util.ajax("default_color", {}, me.loadValueToForm, me)
     },
 loadValueToForm: function(obj, me) {
         if (obj.success) {
-            var form = me.down('form');
-
-            form.down("#reserved").setValue(obj.data.reserved)
-            form.down("#occupied").setValue(obj.data.occupied)
-            form.down("#late_checkout").setValue(obj.data.late_checkout)
-            form.down("#free").setValue(obj.data.free)
-
-            
-            // var win = Ext.create("App.view.setup.defaultColor.Form");
-            // win.down("#reserved").setValue(obj.data.reserved)
-            // win.down("#occupied").setValue(obj.data.occupied)
-            // win.down("#late_checkout").setValue(obj.data.late_checkout)
-            // win.down("#free").setValue(obj.data.free)
-            // win.show();
-            // win.center();
-            
+            var form = me.down('form[name=backgroundColor]');            
+            form.removeAll(); 
+            form.add(me.BackgroundColorForm(obj.data));
+      
         }   
     },
 loadTextValueToForm: function(obj, me){
     if (obj.success) {
             
-            var form = me.down('form');
+            var form = me.down('form[name=textColor]');
+
             form.down("#text_reserved").setValue(obj.data.reserved_text_color)
             form.down("#text_occupied").setValue(obj.data.occupied_text_color)
             form.down("#text_late_checkout").setValue(obj.data.late_checkout_text_color)
@@ -69,7 +57,8 @@ loadTextValueToForm: function(obj, me){
             
         }   
 },
-BackgroundColorForm: function() {
+BackgroundColorForm: function(data , me) {
+    if (!data ) {data = {}}
         generalreturn = {
             // xtype: 'form',
             // name: 'color',
@@ -87,6 +76,7 @@ BackgroundColorForm: function() {
                     labelWidth: 120,
                     name: 'reserved',
                     itemId:'reserved',
+                    value : data.reserved , 
                     fieldLabel: 'Reserved'
                 }),
                 Ext.create('Ext.ux.ColorPicker', {
@@ -95,6 +85,7 @@ BackgroundColorForm: function() {
                     labelWidth: 120,
                     name: 'occupied',
                     itemId:'occupied',
+                    value: data.occupied ,
                     fieldLabel: 'Occupied'
                 }),
                 Ext.create('Ext.ux.ColorPicker', {
@@ -103,6 +94,7 @@ BackgroundColorForm: function() {
                     labelWidth: 120,
                     name: 'late_checkout',
                     itemId:'late_checkout',
+                    value : data.late_checkout , 
                     fieldLabel: 'Late Checkout'
                 }),
                 Ext.create('Ext.ux.ColorPicker', {
@@ -110,6 +102,7 @@ BackgroundColorForm: function() {
                     spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
                     labelWidth: 120,
                     name: 'free',
+                    value: data.free,
                     itemId:'free',
                     fieldLabel: 'Free'
                 })
@@ -120,6 +113,7 @@ BackgroundColorForm: function() {
                 action: 'update'
                 }],
         }
+        // Ext.apply( me.items , generalreturn ); 
         return generalreturn;
     },
 TextColorForm: function() {
