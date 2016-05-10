@@ -17,6 +17,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             'roomMonitorIndex button[action=loadRoomByFloor]':{
                 click: this.loadRoomByFloor
             },
+
             'roomMonitorIndex button[action=checkin]':{
                 click: this.showFormCheckin
             },
@@ -43,8 +44,10 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     activedFloorId:"ALL",
 
     showFormCheckin:function(btn){
-        console.log(btn.value);
-        alert('check in');
+        var conatiner = btn.up('roomMonitorIndex');
+        var form = conatiner.down('userForm');
+        form.getForm().reset();
+        conatiner.setActiveItem(form);
     },
     refreshMonitor:function(btn){
       var indexView =btn.up("roomMonitorIndex");
