@@ -12,7 +12,7 @@ class RoomMasterController < ApplicationController
   def get_room_monitor
       floor = params[:floor]
       data = RoomMaster.joins("left join check_in_details ci on ci.room_no = room_masters.room_no and ci.tran_type ='SE' ")      
-      .select("room_masters.* , ci.check_in_date , floors.name as floor_name , ci.id ")
+      .select("room_masters.* ,DATE_FORMAT(ci.check_in_date, '%d-%b-%Y %h:%i %p') check_in_date , floors.name as floor_name , ci.id ")
       .joins(:floor)
       if floor != "ALL"
         data = data.where floor_id:floor

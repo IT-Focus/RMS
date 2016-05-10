@@ -7,6 +7,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
     initComponent: function() {
         var me = this        
         var text = me.getText(me.roomData);
+        var id = me.roomData.id;
+
         Ext.apply(this, {
             text: text ,
 
@@ -31,6 +33,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         width: '100%',
                         text: 'Check In',
                         scale: 'small',
+                        action:'checkin',
+                        value:id,
                         width: 200
                     }]
                 }

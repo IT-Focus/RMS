@@ -17,9 +17,9 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             'roomMonitorIndex button[action=loadRoomByFloor]':{
                 click: this.loadRoomByFloor
             },
-            // 'roomMonitorIndex button[action=roomMonitor]':{
-            //     click: this.showFormMonitorOption
-            // },
+            'roomMonitorIndex button[action=checkin]':{
+                click: this.showFormCheckin
+            },
             'roomMonitorIndex button[action=Refresh]':{
                 click: this.refreshMonitor
             },
@@ -41,6 +41,11 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     },
     defaultColor:{}, 
     activedFloorId:"ALL",
+
+    showFormCheckin:function(btn){
+        console.log(btn.value);
+        alert('check in');
+    },
     refreshMonitor:function(btn){
       var indexView =btn.up("roomMonitorIndex");
       var me = this ;
