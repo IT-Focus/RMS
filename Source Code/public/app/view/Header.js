@@ -6,7 +6,7 @@ Ext.define('App.view.Header', {
   alias: 'widget.fmHeader',
   layout: 'hbox',
   id: 'header',
-  bodyStyle: 'background-color:#0F4471 ;color:white',
+  bodyStyle: 'background-color:#003366 ;color:white',
   bodyPadding: 5,
   items: [
 
@@ -28,15 +28,12 @@ Ext.define('App.view.Header', {
     }, {
       xtype: 'label',
       style: 'font-size: 15px;margin-top:10px; margin-right:20px',
-      text: "Current Date:"+"    "+Ext.Date.format(new Date(), 'j-M-Y')
+      // text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
+      text: "Date/Time:"+"    "+Ext.Date.format(new Date(), 'j-M-Y g:i:s A')
     },{
-      xtype: 'label',
-      style: 'font-size: 15px;margin-top:10px; margin-right:20px',
-      text: "Current Time:"+"    "+Ext.Date.format(new Date(), 'h:i A')
-    }, {
       text: 'Option',
       xtype: 'button',
-      widht: 250,
+      autoWidth:true,
       iconCls: 'icon-option',
       menu: {
         xtype: 'menu',
