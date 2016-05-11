@@ -37,13 +37,25 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
 
     },
     getToolTip:function(data){
-        if (data.check_in_date == null){
-            
-            var information = "Free"; 
-
-        } else{
-            var information = "Not free"; 
-
+        switch (data.status_id){
+            case 1 : 
+                // Free
+                var information =  "<p>"+data.room_no+"<span style='margin-left: 40px'>"+data.category_name+"</span><span style='margin-left: 40px'>"+data.status_name+"</span></p>" ;
+                break; 
+            case 2 :
+                // Reserved 
+                 // var information =  "<p>"+data.room_no+"<span style='margin-left: 40px'>"+data.category_name+"</span><span style='margin-left: 40px'>"+data.status_name+"</span></p><br><p>Guest Name:"+data.customer+"</p><p>Address:"+data.address+" </p><p>Check In Date:"+data.check_in_date+" </p><p>Estimate Check Out Date:"+estimated_check_out+" </p><p>Rent Type: </p> " ; 
+           
+                break; 
+            case 3 :
+                // Occupied
+                 var information =  "<p>"+data.room_no+"<span style='margin-left: 40px'>"+data.category_name+"</span><span style='margin-left: 40px'>"+data.status_name+"</span></p><br><p>Guest Name:<span style='margin-left: 20px'>"+data.customer_name+"<span></p><p>Address:<span style='margin-left: 20px'>"+data.address+"</span> </p><p>Check In Date:<span style='margin-left: 20px'>"+data.check_in_date+"</span> </p><p>Estimate Check Out Date:<span style='margin-left: 20px'>"+data.estimated_check_out+"</span> </p><p>Rent Type: </p> " ; 
+                 
+                break; 
+            case 4 :
+                // Late Checkout 
+                var information = "Late Checkout";
+                break; 
         }
         return information;
     },
