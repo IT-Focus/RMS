@@ -3,7 +3,7 @@ class RoomMasterController < ApplicationController
 	def index
 		@@service = Room::AdvanceSearch.new()
 		search_by = params[:searchBy]
-    	search_string = params[:searchString]
+        search_string = params[:searchString]
 		data = @@service.advance_search search_by, search_string
 
 		render json:{data:data, success:true}
@@ -11,8 +11,9 @@ class RoomMasterController < ApplicationController
 
   def get_room_monitor
       floor = params[:floor]
+      status = params[:status_id]
       @@service = Room::RoomMonitor.new()
-      data = @@service.get_room_monitor(floor)
+      data = @@service.get_room_monitor(floor,status)
       render json:{data:data , success:true}
 
   end

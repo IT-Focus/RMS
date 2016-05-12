@@ -1,5 +1,5 @@
 class Room::RoomMonitor
-	def get_room_monitor(floor)
+	def get_room_monitor(floor,status)
 		data = RoomMaster.joins(get_sql())
       	.select("room_masters.* 
       		,DATE_FORMAT(ci.check_in_date, '%d-%b-%Y %h:%i %p') check_in_date 
@@ -12,9 +12,12 @@ class Room::RoomMonitor
 
       		")
       	.joins(:floor)
-      if floor != "ALL"
+      if !status.nil? && !status.empty?
+        data = data.where("room_masters.status_id=#{status}")
+      elsif floor != "ALL"
         data = data.where floor_id:floor
       end
+      
       return data
 	end
 

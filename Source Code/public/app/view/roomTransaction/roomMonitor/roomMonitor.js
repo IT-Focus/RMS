@@ -54,7 +54,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                 break; 
             case 4 :
                 // Late Checkout 
-                var information = "Late Checkout";
+                var information =  "<p>"+data.room_no+"<span style='margin-left: 40px'>"+data.category_name+"</span><span style='margin-left: 40px'>"+data.status_name+"</span></p><br><p>Guest Name:<span style='margin-left: 20px'>"+data.customer_name+"<span></p><p>Address:<span style='margin-left: 20px'>"+data.address+"</span> </p><p>Check In Date:<span style='margin-left: 20px'>"+data.check_in_date+"</span> </p><p>Estimate Check Out Date:<span style='margin-left: 20px'>"+data.estimated_check_out+"</span> </p><p>Rent Type: </p> " ; 
                 break; 
         }
         return information;

@@ -10,7 +10,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
         Ext.apply(this, {
             items: [{
                     xtype: 'form',
-                    width: '50%',
+                    width:'50%',
                     height: '100%',
                     name: 'backgroundColor',
                     items: [
@@ -19,7 +19,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                     ]
                 }, {
                     xtype: 'form',
-                    width: '50%',
+                    width:'50%',
                     height: '100%',
                     name: 'textColor',
                     items: [
@@ -95,16 +95,16 @@ Ext.define('App.view.setup.defaultColor.Index', {
                 // name: 'color',
                 title: 'Background Color',
                 // style: 'border: 1px solid gray; margin-left:20%;margin-right:30%; margin-top:5%; margin-bottom:25%; border-radius:5px',
-                style: 'border: 1px solid gray;margin-left:5%',
+                style: 'border: 1px solid gray;',
                 defaults: {
-                    width: 350,
+                    autoWidth:true,
                     style: 'margin-left:5px',
                 },
                 bodyPadding: 50,
                 items: [Ext.create('Ext.ux.ColorPicker', {
                         luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                         spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                        labelWidth: 120,
+                        autoWidth:true,
                         name: 'reserved',
                         itemId: 'reserved',
                         value: data.reserved,
@@ -113,7 +113,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                     Ext.create('Ext.ux.ColorPicker', {
                         luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                         spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                        labelWidth: 120,
+                        autoWidth:true,
                         name: 'occupied',
                         itemId: 'occupied',
                         value: data.occupied,
@@ -122,7 +122,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                     Ext.create('Ext.ux.ColorPicker', {
                         luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                         spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                        labelWidth: 120,
+                        autoWidth:true,
                         name: 'late_checkout',
                         itemId: 'late_checkout',
                         value: data.late_checkout,
@@ -131,7 +131,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                     Ext.create('Ext.ux.ColorPicker', {
                         luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                         spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                        labelWidth: 120,
+                        autoWidth:true,
                         name: 'free',
                         value: data.free,
                         itemId: 'free',
@@ -156,16 +156,16 @@ Ext.define('App.view.setup.defaultColor.Index', {
             // name: 'textcolor',
             title: 'Text Color',
             // style: 'border: 1px solid gray; margin-left:20%;margin-right:30%; margin-top:5%; margin-bottom:25%; border-radius:5px',
-            style: 'border: 1px solid gray;margin-left:5%; margin-right:5%',
+            style: 'border: 1px solid gray',
             defaults: {
-                width: 350,
+                autoWidth:true,
                 style: 'margin-left:5px;',
             },
             bodyPadding: 50,
             items: [Ext.create('Ext.ux.ColorPicker', {
                     luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                     spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                    labelWidth: 120,
+                    autoWidth:true,
                     name: 'reserved_text_color',
                     itemId: 'text_reserved',
                     value: data.reserved_text_color,
@@ -174,7 +174,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                 Ext.create('Ext.ux.ColorPicker', {
                     luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                     spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                    labelWidth: 120,
+                    autoWidth:true,
                     name: 'occupied_text_color',
                     itemId: 'text_occupied',
                     value: data.occupied_text_color,
@@ -183,7 +183,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                 Ext.create('Ext.ux.ColorPicker', {
                     luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                     spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                    labelWidth: 120,
+                    autoWidth:true,
                     name: 'late_checkout_text_color',
                     itemId: 'text_late_checkout',
                     value: data.late_checkout_text_color,
@@ -192,7 +192,7 @@ Ext.define('App.view.setup.defaultColor.Index', {
                 Ext.create('Ext.ux.ColorPicker', {
                     luminanceImg: 'extjs6/Ext.ux.ColorPicker-master/luminance.png',
                     spectrumImg: 'extjs6/Ext.ux.ColorPicker-master/spectrum.png',
-                    labelWidth: 120,
+                    autoWidth:true,
                     name: 'free_text_color',
                     itemId: 'text_free',
                     value: data.free_text_color,
