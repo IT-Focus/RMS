@@ -14,5 +14,13 @@ class CashierService::Search
     	@result = data.select("cashiers.*, concat(sys_users.first_name,sys_users.last_name) as username, workshifts.name as workshift_name")
 		return @result
 	end
+
+	# def get_cahier_combo
+	# 	# data = Cashier.joins(:sys_user, :workshift)
+	# 	data = CashierBalance.joins(cashier:[:sys_user,:workshift])
+ #   		@result = data.select("cashiers.*, concat(sys_users.first_name,sys_users.last_name) as username, workshifts.name as workshift_name")
+ #   		@result.not(where)
+ #   		return @result
+	# end
 end
 

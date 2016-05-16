@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504172500) do
+ActiveRecord::Schema.define(version: 20160515141137) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module_name", limit: 255
@@ -147,6 +147,8 @@ ActiveRecord::Schema.define(version: 20160504172500) do
     t.float    "balance",             limit: 24
     t.integer  "room_master_id",      limit: 4
     t.integer  "extra_person",        limit: 4
+    t.string   "customer_name",       limit: 255
+    t.integer  "national_id",         limit: 4
     t.float    "charge",              limit: 24
     t.datetime "check_in_time"
     t.date     "dob"
@@ -157,12 +159,13 @@ ActiveRecord::Schema.define(version: 20160504172500) do
     t.float    "discount",            limit: 24
     t.datetime "hourly_check_in"
     t.datetime "monthly_check_out"
-    t.float    "estimated_check_out", limit: 24
+    t.datetime "estimated_check_out"
     t.string   "created_by",          limit: 45
     t.string   "edited_by",           limit: 45
     t.text     "description",         limit: 65535
     t.datetime "created_at",                        null: false
     t.datetime "updated_at",                        null: false
+    t.integer  "status_code",         limit: 4
   end
 
   create_table "cities", force: :cascade do |t|
@@ -190,13 +193,17 @@ ActiveRecord::Schema.define(version: 20160504172500) do
   end
 
   create_table "default_colors", force: :cascade do |t|
-    t.string   "reserved",      limit: 45
-    t.string   "occupied",      limit: 45
-    t.string   "late_checkout", limit: 45
-    t.string   "free",          limit: 45
-    t.string   "edited_by",     limit: 45
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "reserved",                 limit: 45
+    t.string   "occupied",                 limit: 45
+    t.string   "late_checkout",            limit: 45
+    t.string   "free",                     limit: 45
+    t.string   "edited_by",                limit: 45
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "reserved_text_color",      limit: 255
+    t.string   "occupied_text_color",      limit: 255
+    t.string   "late_checkout_text_color", limit: 255
+    t.string   "free_text_color",          limit: 255
   end
 
   create_table "departments", force: :cascade do |t|
@@ -205,6 +212,17 @@ ActiveRecord::Schema.define(version: 20160504172500) do
     t.boolean  "is_active",               null: false
     t.datetime "created_at",              null: false
     t.datetime "updated_at",              null: false
+  end
+
+  create_table "discount_config", force: :cascade do |t|
+    t.string   "code",       limit: 255
+    t.string   "remark",     limit: 255
+    t.string   "created_by", limit: 255
+    t.string   "edited_by",  limit: 255
+    t.string   "deleted_by", limit: 255
+    t.boolean  "is_delete"
+    t.datetime "created_at",             null: false
+    t.datetime "updated_at",             null: false
   end
 
   create_table "floors", force: :cascade do |t|
@@ -274,6 +292,7 @@ ActiveRecord::Schema.define(version: 20160504172500) do
   end
 
   create_table "statuses", force: :cascade do |t|
+    t.integer  "code",        limit: 4
     t.string   "status_type", limit: 255
     t.string   "name",        limit: 255
     t.integer  "seq_num",     limit: 4
