@@ -1,0 +1,2 @@
+module DiscountConfigHelper
+end

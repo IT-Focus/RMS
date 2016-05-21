@@ -3,7 +3,7 @@ class RoomMasterController < ApplicationController
 	def index
 		@@service = Room::AdvanceSearch.new()
 		search_by = params[:searchBy]
-    	search_string = params[:searchString]
+        search_string = params[:searchString]
 		data = @@service.advance_search search_by, search_string
 
 		render json:{data:data, success:true}
@@ -11,13 +11,9 @@ class RoomMasterController < ApplicationController
 
   def get_room_monitor
       floor = params[:floor]
-      data = RoomMaster.joins("left join check_in_details ci on ci.room_no = room_masters.room_no and ci.tran_type ='SE' ")      
-      .select("room_masters.* ,DATE_FORMAT(ci.check_in_date, '%d-%b-%Y %h:%i %p') check_in_date , floors.name as floor_name , ci.id ")
-      .joins(:floor)
-      if floor != "ALL"
-        data = data.where floor_id:floor
-      end
-      
+      status = params[:status_id]
+      @@service = Room::RoomMonitor.new()
+      data = @@service.get_room_monitor(floor,status)
       render json:{data:data , success:true}
 
   end
