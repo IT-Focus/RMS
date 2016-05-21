@@ -5,29 +5,36 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
     bodyPadding: 10,
     border: true,
     autoScroll:true,
-    // layout: 'fit',
+    layout: 'card',
     initComponent: function() {
         var me = this
        var ctrl = App.app.getController("roomTransaction.RoomMonitor");
         
         Ext.apply(this, {
-            xtype: 'form',
 
-            tbar:[
-                
+            items:[
                 {
-                    xtype:"label",
-                    text:'Floor: '
-                },{
-                    xtype:'button',
-                    text:'ALL' , 
-                    value:'ALL',
-                    action:"loadRoomByFloor"
+                    xtype: 'form',
+                    name:'roomMonitor' , 
+                    tbar:[                        
+                        {
+                            xtype:"label",
+                            text:'Floor: '
+                        },{
+                            xtype:'button',
+                            text:'ALL' , 
+                            value:'ALL',
+                            action:"loadRoomByFloor"
+                        }
+                    ],  
+                    bbar:[]  
                 }
-            ],  
-         bbar:[]      
+            ]
+                
         });
         this.callParent(arguments);
+
+        var mainForm = me.down("form[name=roomMonitor]");
         ctrl.showButtonFloor(me);
         ctrl.addRoomMonitor(me, "ALL");
         ctrl.addRoomStatusColor(me);

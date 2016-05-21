@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160504172500) do
+ActiveRecord::Schema.define(version: 20160508095334) do
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module_name", limit: 255
@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20160504172500) do
   create_table "cancel_check_ins", force: :cascade do |t|
     t.string   "code",          limit: 255
     t.string   "check_in_code", limit: 255
-    t.date     "check_in_date"
+    t.datetime "check_in_date"
     t.string   "room_no",       limit: 255
-    t.date     "cancel_date"
+    t.datetime "cancel_date"
     t.string   "reason",        limit: 255
     t.string   "cancelled_by",  limit: 255
     t.datetime "created_at",                null: false
@@ -190,13 +190,17 @@ ActiveRecord::Schema.define(version: 20160504172500) do
   end
 
   create_table "default_colors", force: :cascade do |t|
-    t.string   "reserved",      limit: 45
-    t.string   "occupied",      limit: 45
-    t.string   "late_checkout", limit: 45
-    t.string   "free",          limit: 45
-    t.string   "edited_by",     limit: 45
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.string   "reserved",                 limit: 45
+    t.string   "occupied",                 limit: 45
+    t.string   "late_checkout",            limit: 45
+    t.string   "free",                     limit: 45
+    t.string   "edited_by",                limit: 45
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
+    t.string   "reserved_text_color",      limit: 255
+    t.string   "occupied_text_color",      limit: 255
+    t.string   "late_checkout_text_color", limit: 255
+    t.string   "free_text_color",          limit: 255
   end
 
   create_table "departments", force: :cascade do |t|
