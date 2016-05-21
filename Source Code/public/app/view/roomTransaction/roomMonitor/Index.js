@@ -5,9 +5,9 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
     bodyPadding: 10,
     border: true,
     autoScroll:true,
-    // layout: 'fit',
+    // layout: 'card',
     initComponent: function() {
-        var me = this
+       var me = this
        var ctrl = App.app.getController("roomTransaction.RoomMonitor");
         
         Ext.apply(this, {

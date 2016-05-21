@@ -3,12 +3,13 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     extend: 'Ext.app.Controller',
     views:[
         'roomTransaction.roomMonitor.Index',
+        'roomTransaction.roomMonitor.CheckInForm'
         
     ],
     stores:[
         'setup.Floor', 
         "roomTransaction.RoomMonitor",
-        "setup.DefaultColor"
+        "setup.DefaultColor",
     ],
     init: function() {
 

@@ -6,8 +6,16 @@ Ext.define('App.view.setup.discountConfig.Index', {
     layout: 'card',
     initComponent: function() {
         Ext.apply(this, {
-            items: [{
-                xtype: 'grid',
+            items: [
+                this.get_grid(),
+            ]
+        });
+        this.callParent(arguments);
+    },
+
+get_grid: function(){
+    grid = {
+                        xtype: 'grid',
                 border: true,
                 name: 'cityGrid',
                 store: 'setup.DiscountConfig',
@@ -60,12 +68,8 @@ Ext.define('App.view.setup.discountConfig.Index', {
                     displayMsg: 'view {0} - {1} of {2}',
                     emptyMsg: "view 0"
                 })
-
-            }, ]
-        });
-        this.callParent(arguments);
-    },
-
-
+    }
+    return grid
+}
 
 });
