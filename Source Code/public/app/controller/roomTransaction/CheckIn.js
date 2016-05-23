@@ -7,6 +7,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
 
     ],
     stores:[
+    'combo.Nationality'
     ],
     init: function() {
 

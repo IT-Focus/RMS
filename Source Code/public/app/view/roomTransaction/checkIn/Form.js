@@ -59,6 +59,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     name: 'check_in_date',
                     value: new Date(),
                     format: 'Y-m-d',
+                    autoWidth:true,
                     submitFormat: 'Y-m-d',
                 }, {
                     xtype: 'timefield',
@@ -67,6 +68,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     maxValue: '00:00 PM',
                     increment: 30,
                     anchor: '100%',
+                    autoWidth:true,
                     value: '',
                     format: "H:i",
                     value: new Date(),
@@ -83,6 +85,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     name: 'check_in_date',
                     value: new Date(),
                     format: 'Y-m-d',
+                    autoWidth:true,
                     submitFormat: 'Y-m-d',
                 }, {
                     xtype: 'timefield',
@@ -91,6 +94,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     maxValue: '00:00 PM',
                     increment: 30,
                     anchor: '100%',
+                    autoWidth:true,
                     value: '',
                     format: "H:i",
                     value: new Date(),
@@ -130,7 +134,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             }, {
                 xtype: 'datefield',
                 fieldLabel: 'DOB',
-                name: 'check_in_date',
+                name: 'dob',
                 value: new Date(),
                 format: 'Y-m-d',
                 submitFormat: 'Y-m-d',
@@ -142,7 +146,6 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         }
         return form
     },
-
     rentDetailForm: function() {
         form = {
             xtype: 'fieldset',
@@ -157,7 +160,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             },
             items: [{
                 xtype: 'fieldcontainer',
-                fieldLabel: 'Retal Type',
+                fieldLabel: 'Rental Type',
                 defaultType: 'radiofield',
                 defaults: {
                     flex: 1
@@ -177,9 +180,9 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             }, {
                 xtype: 'combo',
                 name: 'user_id',
-                // store: 'combo.User',
+                store: 'combo.Nationality',
                 valueField: 'id',
-                displayField: 'custom_name',
+                displayField: 'name',
                 triggerAction: 'all',
                 allowBlank: false,
                 editable: false,
@@ -292,7 +295,6 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         }
         return form
     },
-
     getGrid: function() {
         grid = {
             xtype: 'tabpanel',
@@ -436,7 +438,6 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         }
         return itemGrid
     },
-
     totalForm: function() {
         total = {
             xtype: 'fieldset',
@@ -518,9 +519,8 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         }
         return total
     },
-    
     roomFormInTap: function(){
-                itemGrid = {
+        itemGrid = {
             xtype: 'grid',
             border: true,
             name: 'index',
