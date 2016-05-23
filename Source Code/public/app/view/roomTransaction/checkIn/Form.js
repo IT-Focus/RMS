@@ -3,13 +3,16 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
     alias: 'widget.CheckinForm',
     // bodyPadding:20 ,
     // border: true,
+    autoScroll: true,
     layout: {
         type: 'table',
         columns: 2
     },
-    buttons: [
-
-        {
+    buttons: [{
+            text: 'Calculate',
+            iconCls: 'icon-save',
+            action:'Calculate'
+        },'->',{
             text: 'Save',
             iconCls: 'icon-save',
             action: 'Save'
@@ -24,7 +27,10 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         Ext.apply(this, {
             items: [
                 this.customerInfoForm(),
-                this.rentDetailForm()
+                this.rentDetailForm(),
+                this.getGrid(),
+                this.totalForm(),
+                this.roomFormInTap()
             ]
         });
         this.callParent(arguments);
@@ -92,6 +98,10 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     renderer: Ext.util.Format.dateRenderer('H:i'),
 
                 }]
+            }, {
+                xtype: 'checkbox',
+                boxLabel: 'Throught Revervation',
+                style: 'margin-left:20%'
             }, {
                 xtype: 'textfield',
                 fieldLabel: 'Customer',
@@ -165,9 +175,19 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
 
                 }]
             }, {
+                xtype: 'combo',
+                name: 'user_id',
+                // store: 'combo.User',
+                valueField: 'id',
+                displayField: 'custom_name',
+                triggerAction: 'all',
+                allowBlank: false,
+                editable: false,
+                fieldLabel: 'Nationality' + redStar
+            }, {
                 xtype: 'fieldcontainer',
                 fieldLabel: 'NO.of Persons',
-                defaultType: 'radiofield',
+                // defaultType: 'radiofield',
                 defaults: {
                     flex: 1
                 },
@@ -177,92 +197,386 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 },
                 items: [{
                     xtype: 'numberfield',
-                    name: 'last_name'
+                    name: 'last_name',
+                    width: 30,
+                    labelWidth: 20
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Adult',
-                    name: ''
+                    name: '',
+                    width: 30,
+                    labelWidth: 40,
+                    style: "margin-left:50px"
 
-                },{
+                }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Child',
-                    name: ''
+                    name: '',
+                    width: 30,
+                    labelWidth: 40,
+                    style: "margin-left:70px"
 
-                },{
+                }, {}, {
                     xtype: 'numberfield',
                     fieldLabel: 'Male',
-                    colSpan:2,
-                    name: ''
+                    // colspan:2,
+                    // align: 'right',
+                    name: '',
+                    width: 30,
+                    labelWidth: 40,
+                    style: "margin-left:50px"
 
-                },{
+                }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Female',
-                    name: ''
+                    name: '',
+                    width: 30,
+                    labelWidth: 40,
+                    style: "margin-left:70px"
 
                 }]
             }, {
-                xtype: 'textfield',
-                fieldLabel: 'Last Name',
-                name: 'last_name'
+                xtype: 'numberfield',
+                fieldLabel: 'Paid Booking',
+                name: 'paid_booking'
             }, {
                 xtype: 'textfield',
-                vtype: 'email',
-                name: 'email',
-                fieldLabel: 'Email',
-                allowBlank: true
+                name: 'purpose',
+                fieldLabel: 'Purpose of Visit',
 
             }, {
-                xtype: 'textfield',
-                fieldLabel: 'Phone',
-                name: 'phone'
+                xtype: 'fieldcontainer',
+                defaultType: 'numberfield',
+
+                defaults: {
+                    flex: 1,
+                    width: 10
+                },
+                layout: {
+                    type: 'table',
+                    columns: 2
+                },
+                items: [{
+                    fieldLabel: 'No. Rooms',
+                    width: 20,
+                }, {
+                    fieldLabel: 'No.of Extra Person',
+                    width: '80%',
+                    labelWidth: '100%',
+                    style: "margin-left:85px"
+
+                }]
             }, {
-                xtype: 'textfield',
-                fieldLabel: 'Address',
+                xtype: 'numberfield',
+                fieldLabel: 'Extra Person Charge',
                 name: 'address',
                 allowBlank: true
 
             }, {
-                xtype: 'textfield',
-                name: 'username',
-                fieldLabel: 'User Name'
+                xtype: 'combo',
+                name: 'user_id',
+                // store: 'combo.User',
+                valueField: 'id',
+                displayField: 'custom_name',
+                triggerAction: 'all',
+                allowBlank: false,
+                editable: false,
+                fieldLabel: 'Discount Percentage' + redStar
             }, {
-                xtype: 'textfield',
+                xtype: 'numberfield',
                 name: 'password',
                 inputType: 'password',
-                fieldLabel: 'Password'
-            }, {
-                xtype: 'fieldcontainer',
-                fieldLabel: 'Status',
-                defaultType: 'radiofield',
-                defaults: {
-                    flex: 1
-                },
-                layout: 'hbox',
-                items: [{
-                    boxLabel: 'Active',
-                    style: 'color:blue',
-                    name: 'is_active',
-                    inputValue: 1,
-                    checked: true
-                }, {
-                    boxLabel: 'Deactive',
-                    style: 'color:red',
-
-                    name: 'is_active',
-                    inputValue: 0,
-
-                }]
-            }, ]
+                fieldLabel: 'Discount Amount',
+                readOnly: true
+            }]
         }
         return form
     },
 
+    getGrid: function() {
+        grid = {
+            xtype: 'tabpanel',
+            autoWidth: true,
+            colspan: 2,
+            height: '100%',
+            items: [{
+                xtype: 'form',
+                title: 'Items',
+                items: [
+                    this.itemGrid()
+                ]
+            }, {
+                title: 'Rooms',
+                items: [
+                    this.RoomsGrid()
+                ]
+            }]
+        }
+        return grid
+    },
     itemGrid: function() {
+        itemGrid = {
+            xtype: 'grid',
+            border: true,
+            name: 'index',
+            // store: 'roomTransaction.CancelCheckin',
+            // title: 'Check In',
+            tools: [
 
+                {
+                    xtype: 'button',
+                    action: 'Add',
+                    iconCls: 'icon-add',
+                    text: 'Add Item',
+                    tooltip: 'Check In'
+                }
+            ],
+            columns: [{
+                header: 'NO',
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
+            }, {
+                header: 'Description',
+                dataIndex: 'room_no',
+                autoWidth: true,
+                flex: 1
+            }, {
+                header: 'Price',
+                dataIndex: 'check_in_date',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Qty',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Amount',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Action',
+                minWidth: 100,
+                autoWidth: true,
+                flex: 1,
+                align: 'center',
+                xtype: 'actioncolumn',
+                items: [{
+                    xtype: 'button',
+                    iconCls: 'icon-delete',
+                    // handler: function(grid, rowIndex) {
+                    // var ctrl = App.app.getController("sale.Quotation");
+
+                    // var rec = grid.getStore().getAt(rowIndex);
+                    // ctrl.deleteDetailRecord(grid, rec);
+                    // }
+                }]
+            }],
+        }
+        return itemGrid
     },
+    RoomsGrid: function() {
+        itemGrid = {
+            xtype: 'grid',
+            border: true,
+            name: 'index',
+            // store: 'roomTransaction.CancelCheckin',
+            // title: 'Check In',
+            tools: [
+
+                {
+                    xtype: 'button',
+                    action: 'Add',
+                    iconCls: 'icon-add',
+                    text: 'Add Item',
+                    tooltip: 'Check In'
+                }
+            ],
+            columns: [{
+                header: 'NO',
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
+            }, {
+                header: 'Description',
+                dataIndex: 'room_no',
+                autoWidth: true,
+                flex: 1
+            }, {
+                header: 'Price',
+                dataIndex: 'check_in_date',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Qty',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Amount',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Action',
+                minWidth: 100,
+                autoWidth: true,
+                flex: 1,
+                align: 'center',
+                xtype: 'actioncolumn',
+                items: [{
+                    xtype: 'button',
+                    iconCls: 'icon-delete',
+                    // handler: function(grid, rowIndex) {
+                    // var ctrl = App.app.getController("sale.Quotation");
+
+                    // var rec = grid.getStore().getAt(rowIndex);
+                    // ctrl.deleteDetailRecord(grid, rec);
+                    // }
+                }]
+            }],
+        }
+        return itemGrid
+    },
+
     totalForm: function() {
+        total = {
+            xtype: 'fieldset',
+            title: 'Total',
+            colspan: 2,
+            autoWidth: true,
+            style: "margin-left:10px",
+            defaults: {
+                // style:'margin:10px',
+                allowBlank: false,
+                width: '98%',
+                style: 'margin-left:10px'
+            },
+            layout: {
+                type: 'table',
+                columns: 2
+            },
+            items: [{
+                xtype: 'numberfield',
+                fieldLabel: 'Total Rental Amount(+)',
+                labelWidth: '100%',
+                autoWidth: true,
+                name: 'customer_name',
+                readOnly: true
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Total Extra Person Charge(+)',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
 
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Total Tax Amount(+)',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Discount Amount(-)',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
+
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Other Charge(+)',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Total Amount',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Amount Paid(-)',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
+            }, {
+                xtype: 'numberfield',
+                fieldLabel: 'Balance',
+                name: 'customer_name',
+                labelWidth: '100%',
+                autoWidth: true,
+                readOnly: true
+            }],
+
+
+        }
+        return total
     },
+    
+    roomFormInTap: function(){
+                itemGrid = {
+            xtype: 'grid',
+            border: true,
+            name: 'index',
+            colspan:2,
+            // store: 'roomTransaction.CancelCheckin',
+            title: 'Room Form In Tap',
+            // tools: [
+
+            //     {
+            //         xtype: 'button',
+            //         action: 'Add',
+            //         iconCls: 'icon-add',
+            //         text: 'Add Item',
+            //         tooltip: 'Check In'
+            //     }
+            // ],
+            columns: [{
+                header: 'NO',
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
+            }, {
+                header: 'Room Number',
+                dataIndex: 'room_no',
+                autoWidth: true,
+                flex: 1
+            }, {
+                header: 'Room Type',
+                dataIndex: 'check_in_date',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Rent Charge',
+                autoWidth: true,
+                flex: 1,
+            }, {
+                header: 'Action',
+                minWidth: 100,
+                autoWidth: true,
+                flex: 1,
+                align: 'center',
+                xtype: 'actioncolumn',
+                items: [{
+                    xtype: 'button',
+                    iconCls: 'icon-delete',
+                    // handler: function(grid, rowIndex) {
+                    // var ctrl = App.app.getController("sale.Quotation");
+
+                    // var rec = grid.getStore().getAt(rowIndex);
+                    // ctrl.deleteDetailRecord(grid, rec);
+                    // }
+                }]
+            }],
+        }
+        return itemGrid
+    }   
 
 
 
