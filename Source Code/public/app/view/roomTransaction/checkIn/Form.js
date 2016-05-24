@@ -77,14 +77,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 layout: 'hbox',
                 items: [{
                     xtype: 'datefield',
-                    name: 'check_in_date',
+                    name: 'estimated_check_out_date',
                     value: new Date(),
                     format: 'Y-m-d',
                     autoWidth: true,
                     submitFormat: 'Y-m-d',
                 }, {
                     xtype: 'timefield',
-                    name: 'check_in_time',
+                    name: 'estimated_check_out_time',
                     minValue: '6:00 AM',
                     maxValue: '00:00 PM',
                     increment: 30,
@@ -144,7 +144,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
     rentDetailForm: function() {
         form = {
             xtype: 'fieldset',
-            title: 'Retal Detail',
+            title: 'Rental Detail',
             autoWidth: true,
             style: "margin-left:10px; margin-right:10px",
             defaults: {
@@ -163,18 +163,18 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 layout: 'hbox',
                 items: [{
                     boxLabel: 'Day',
-                    name: 'sex',
-                    inputValue: '',
-                    checked: true
+                    name: 'rental_type',
+                    inputValue: 'Day',
                 }, {
                     boxLabel: 'Hour',
-                    name: 'sex',
-                    inputValue: 'F',
+                    name: 'rental_type',
+                    inputValue: 'Hour',
+                    checked: true
 
                 }]
             }, {
                 xtype: 'combo',
-                name: 'user_id',
+                name: 'national_id',
                 store: 'combo.Nationality',
                 valueField: 'id',
                 displayField: 'name',
@@ -195,7 +195,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 },
                 items: [{
                     xtype: 'numberfield',
-                    name: 'last_name',
+                    name: 'no_person',
                     width: 70,
                     minValue:0,
                     value:0,
@@ -204,7 +204,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Adult',
-                    name: '',
+                    name: 'adult',
                     minValue:0,
                     value:0,
                     width: 120,
@@ -215,7 +215,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Child',
-                    name: '',
+                    name: 'children',
                     width: 120,
                     minValue:0,
                     value:0,
@@ -228,7 +228,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     fieldLabel: 'Male',
                     // colspan:2,
                     fieldStyle: "text-align:right;",
-                    name: '',
+                    name: 'male',
                     width: 120,
                     minValue:0,
                     value:0,
@@ -238,7 +238,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Female',
-                    name: '',
+                    name: 'female',
                     width: 120,
                     minValue:0,
                     value:0,
@@ -253,7 +253,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 name: 'paid_booking'
             }, {
                 xtype: 'textfield',
-                name: 'purpose',
+                name: 'purpose_of_visit',
                 fieldLabel: 'Purpose of Visit',
 
             }, {
@@ -262,7 +262,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
 
                 defaults: {
                     flex: 1,
-                    width: 10
+                    // width: 10
                 },
                 layout: {
                     type: 'table',
@@ -270,18 +270,26 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 },
                 items: [{
                     fieldLabel: 'No. Rooms',
-                    width: 20,
+                    // fieldStyle: "text-align:right;",
+                    // labelWidth: '100%',
+                    autoWidth:true,
+                    minValue:0,
+                    value:0,
+                    name:'no_room'
                 }, {
                     fieldLabel: 'No.of Extra Person',
-                    width: '80%',
+                    name:'extra_person',
                     labelWidth: '100%',
-                    style: "margin-left:85px"
+                    autoWidth:true,
+                    minValue:0,
+                    value:0,
+                    // style: "margin-left:85px"
 
                 }]
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Extra Person Charge',
-                name: 'address',
+                name: 'charge',
                 allowBlank: true
 
             }, {
@@ -296,8 +304,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 fieldLabel: 'Discount Percentage' + redStar
             }, {
                 xtype: 'numberfield',
-                name: 'password',
-                inputType: 'password',
+                name: 'discount',
                 fieldLabel: 'Discount Amount',
                 readOnly: true
             }]
