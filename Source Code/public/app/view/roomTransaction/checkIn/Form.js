@@ -9,10 +9,6 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         columns: 2
     },
     buttons: [{
-        text: 'Calculate',
-        iconCls: 'icon-save',
-        action: 'Calculate'
-    }, '->', {
         text: 'Save',
         iconCls: 'icon-save',
         action: 'Save'
@@ -172,7 +168,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     checked: true
                 }, {
                     boxLabel: 'Hour',
-                    name: '',
+                    name: 'sex',
                     inputValue: 'F',
 
                 }]
@@ -200,13 +196,19 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 items: [{
                     xtype: 'numberfield',
                     name: 'last_name',
-                    width: 30,
+                    width: 70,
+                    minValue:0,
+                    value:0,
+                    fieldStyle: "text-align:right;",
                     labelWidth: 20
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Adult',
                     name: '',
-                    width: 30,
+                    minValue:0,
+                    value:0,
+                    width: 120,
+                    fieldStyle: "text-align:right;",
                     labelWidth: 40,
                     style: "margin-left:50px"
 
@@ -214,7 +216,10 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     xtype: 'numberfield',
                     fieldLabel: 'Child',
                     name: '',
-                    width: 30,
+                    width: 120,
+                    minValue:0,
+                    value:0,
+                    fieldStyle: "text-align:right;",
                     labelWidth: 40,
                     style: "margin-left:70px"
 
@@ -222,9 +227,11 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     xtype: 'numberfield',
                     fieldLabel: 'Male',
                     // colspan:2,
-                    // align: 'right',
+                    fieldStyle: "text-align:right;",
                     name: '',
-                    width: 30,
+                    width: 120,
+                    minValue:0,
+                    value:0,
                     labelWidth: 40,
                     style: "margin-left:50px"
 
@@ -232,7 +239,10 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     xtype: 'numberfield',
                     fieldLabel: 'Female',
                     name: '',
-                    width: 30,
+                    width: 120,
+                    minValue:0,
+                    value:0,
+                    fieldStyle: "text-align:right;",
                     labelWidth: 40,
                     style: "margin-left:70px"
 
@@ -299,7 +309,9 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'tabpanel',
             autoWidth: true,
             colspan: 2,
+            style: "margin-left:10px",
             height: '100%',
+
             items: [{
                 xtype: 'form',
                 title: 'Items',
@@ -323,7 +335,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             // store: 'roomTransaction.CancelCheckin',
             // title: 'Check In',
             tbar: [
-
+                '->',
                 {
                     xtype: 'button',
                     action: 'Add',
@@ -450,6 +462,11 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 width: '98%',
                 style: 'margin-left:10px'
             },
+            buttons: [{
+                text: 'Calculate',
+                iconCls: 'icon-save',
+                action: 'Calculate'
+            }],
             layout: {
                 type: 'table',
                 columns: 2
@@ -512,6 +529,12 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
+            },{
+                xtype: 'button',
+                text: 'Calculate',
+                iconCls: 'icon-save',
+                action: 'Calculate',
+                width:100
             }],
 
 
@@ -525,14 +548,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             name: 'index',
             colspan: 2,
             tbar: [
-                {
-                    xtype: 'button',
-                    action: 'Add',
-                    iconCls: 'icon-add',
-                    text: 'Add Item',
-                    tooltip: 'Check In'
-                }
-            ],
+             '->',
+            {
+                xtype: 'button',
+                action: 'Add',
+                iconCls: 'icon-add',
+                text: 'Add Item',
+                tooltip: 'Check In'
+            }],
             // store: 'roomTransaction.CancelCheckin',
             // title: 'Room Form In Tap',
             // tools: [
