@@ -10,7 +10,7 @@ Ext.define('App.view.roomTransaction.checkIn.Index', {
                 xtype: 'grid',
                 border: true,
                 name: 'index',
-                // store: 'roomTransaction.CancelCheckin',
+                store: 'roomTransaction.CheckIn',
                 title: 'Check In',
                 tools: [
 

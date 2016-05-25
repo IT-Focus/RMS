@@ -135,7 +135,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             params:{
                 floor:floor
             },
-            callback:function( records ){
+            callback:function(records){
                 records.forEach(function(record){
                     var data= record.data; 
                     var button = me.generateRoomForm(data , indexView);

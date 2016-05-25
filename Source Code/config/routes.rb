@@ -16,7 +16,7 @@ Rails.application.routes.draw do
 # Image
 	resources :images
 # Cashiers
-  resources :cashiers, :cashier_balances, :cancel_check_in, :check_in_detail
+  resources :cashiers, :cashier_balances, :cancel_check_in, :check_in_detail, :check_in
     get ':controller(/:action(/:id))'
     post ':controller(/:action(/:id))'
 end

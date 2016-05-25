@@ -1,9 +1,14 @@
 class CheckInController < ApplicationController
-def create
+def index
+	@data = CheckIn.all
+	render json:{data:@data, success:true}
+end
 
+def create
         begin
             CheckIn.transaction do
                 @data = CheckIn.new(permit_data)
+                @data.created_by = session[:user_id]
                 @data.save
 
                 render json:{ data:@data ,success:true}

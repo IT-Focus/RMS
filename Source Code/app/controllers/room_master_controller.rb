@@ -17,7 +17,13 @@ class RoomMasterController < ApplicationController
       render json:{data:data , success:true}
 
   end
-	def create
+
+  def get_available_rooms
+    @data = RoomMaster.where status_id:1
+    render json:{data:@data, success:true}
+  end
+	
+  def create
 		begin
             RoomMaster.transaction do
                 @data = RoomMaster.new(permit_data)

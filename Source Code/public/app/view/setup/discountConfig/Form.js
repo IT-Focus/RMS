@@ -35,11 +35,22 @@ Ext.define('App.view.setup.discountConfig.Form', {
                     xtype:'textfield',
                     name:'code',
                     allowBlank:false,
+                    autoWidth:true,
+                    labelWidth:'100%',
                     fieldLabel:'Code'+redStar
+                },{
+                    xtype:'numberfield',
+                    name:'discount_percentage',
+                    allowBlank:false,
+                    autoWidth:true,
+                    labelWidth:'100%',
+                    fieldLabel: 'Discount percentage'+redStar
                 },{
                     xtype: 'textfield',
                     fieldLabel: 'Remark'+redStar,
                     name: 'remark',
+                    autoWidth:true,
+                    labelWidth:'100%',
                     allowBlank:false
                 },
 

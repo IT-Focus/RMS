@@ -6,7 +6,6 @@ class DiscountConfigController < ApplicationController
     @Search = @@service.get_index search_string
     render json:{data:@Search, success:true}
 end
-
 def create
 
         begin
@@ -69,6 +68,7 @@ private
     def permit_data
         params.require(:data).permit(
            :code,
+           :discount_percentage,
            :remark,
            :created_by,
            :edited_by,
@@ -79,6 +79,7 @@ private
      def permit_data_edit
         params.require(:data).permit(
            :id,
+           :discount_percentage,
            :code,
            :remark,
            :created_by,
