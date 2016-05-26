@@ -40,7 +40,7 @@ Ext.define('App.view.roomTransaction.checkin.GetRoomForm', {
                     triggerAction: 'all',
                     allowBlank: false,
                     editable: false,
-                    fieldLabel: 'Room No'+redStar
+                    fieldLabel: 'Room No' + redStar
                 },
 
             ]
