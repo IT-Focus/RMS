@@ -7,7 +7,7 @@ class Room::RoomMonitor
       		,ci.id, cm.name as category_name
       		,st.status_type as status_name
       		,chi.customer_name as customer_name
-      		,DATE_FORMAT(chi.estimated_check_out, '%d-%b-%Y %h:%i %p' ) as estimated_check_out
+      		,DATE_FORMAT(chi.estimated_check_out_date, '%d-%b-%Y %h:%i %p' ) as estimated_check_out
       		,chi.address as address
 
       		")
