@@ -25,7 +25,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 this.customerInfoForm(),
                 this.rentDetailForm(),
                 this.getGrid(),
-                // this.totalForm(),
+                this.totalForm(),
             ]
         });
         this.callParent(arguments);
@@ -405,67 +405,6 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         }
         return itemGrid
     },
-    // RoomsGrid: function() {
-    //     itemGrid = {
-    //         xtype: 'grid',
-    //         border: true,
-    //         name: 'index',
-    //         // store: 'roomTransaction.CancelCheckin',
-    //         // title: 'Check In',
-    //         tools: [
-
-    //             {
-    //                 xtype: 'button',
-    //                 action: 'Add',
-    //                 iconCls: 'icon-add',
-    //                 text: 'Add Item',
-    //                 tooltip: 'Check In'
-    //             }
-    //         ],
-    //         columns: [{
-    //             header: 'NO',
-    //             xtype: 'rownumberer',
-    //             width: 50,
-    //             align: 'center'
-    //         }, {
-    //             header: 'Description',
-    //             dataIndex: 'room_no',
-    //             autoWidth: true,
-    //             flex: 1
-    //         }, {
-    //             header: 'Price',
-    //             dataIndex: 'check_in_date',
-    //             autoWidth: true,
-    //             flex: 1,
-    //         }, {
-    //             header: 'Qty',
-    //             autoWidth: true,
-    //             flex: 1,
-    //         }, {
-    //             header: 'Amount',
-    //             autoWidth: true,
-    //             flex: 1,
-    //         }, {
-    //             header: 'Action',
-    //             minWidth: 100,
-    //             autoWidth: true,
-    //             flex: 1,
-    //             align: 'center',
-    //             xtype: 'actioncolumn',
-    //             items: [{
-    //                 xtype: 'button',
-    //                 iconCls: 'icon-delete',
-    //                 // handler: function(grid, rowIndex) {
-    //                 // var ctrl = App.app.getController("sale.Quotation");
-
-    //                 // var rec = grid.getStore().getAt(rowIndex);
-    //                 // ctrl.deleteDetailRecord(grid, rec);
-    //                 // }
-    //             }]
-    //         }],
-    //     }
-    //     return itemGrid
-    // },
     totalForm: function() {
         total = {
             xtype: 'fieldset',
@@ -475,7 +414,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
-                allowBlank: false,
+                allowBlank: true,
                 width: '98%',
                 style: 'margin-left:10px'
             },
