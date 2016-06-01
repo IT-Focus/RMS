@@ -41,7 +41,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             defaults: {
                 // style:'margin:10px',
                 allowBlank: false,
-                width: '98%',
+                width: '100%',
                 style: 'margin-left:10px'
             },
             items: [{
@@ -151,11 +151,11 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'fieldset',
             title: 'Rental Detail',
             autoWidth: true,
-            style: "margin-left:10px; margin-right:10px",
+            style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
                 allowBlank: false,
-                width: '98%',
+                width:'100%',
                 style: 'margin-left:10px'
             },
             items: [{
@@ -185,7 +185,8 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 displayField: 'name',
                 triggerAction: 'all',
                 editable: false,
-                fieldLabel: 'Nationality' + redStar
+                fieldLabel: 'Nationality' + redStar,
+                autoWidth:true
             }, {
                 xtype: 'fieldcontainer',
                 fieldLabel: 'NO.of Persons',
@@ -204,28 +205,29 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     minValue: 0,
                     value: 0,
                     fieldStyle: "text-align:right;",
-                    labelWidth: 20
+                    labelWidth: 20,
+                    autoWidth:true
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Adult',
                     name: 'adult',
                     minValue: 0,
                     value: 0,
-                    width: 120,
+                    width: 140,
                     fieldStyle: "text-align:right;",
-                    labelWidth: 40,
-                    style: "margin-left:50px"
+                    labelWidth: "100%",
+                    // style: "margin-left:100%"
 
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Child',
                     name: 'children',
-                    width: 120,
+                    width: 140,
                     minValue: 0,
                     value: 0,
                     fieldStyle: "text-align:right;",
-                    labelWidth: 40,
-                    style: "margin-left:70px"
+                    labelWidth: "100%",
+                    // style: "margin-left:100%"
 
                 }, {}, {
                     xtype: 'numberfield',
@@ -233,22 +235,22 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     // colspan:2,
                     fieldStyle: "text-align:right;",
                     name: 'male',
-                    width: 120,
+                    width: 140,
                     minValue: 0,
                     value: 0,
-                    labelWidth: 40,
-                    style: "margin-left:50px"
+                    labelWidth: "100%",
+                    // style: "margin-left:100%"
 
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Female',
                     name: 'female',
-                    width: 120,
+                    width: 140,
                     minValue: 0,
                     value: 0,
                     fieldStyle: "text-align:right;",
-                    labelWidth: 40,
-                    style: "margin-left:70px"
+                    labelWidth: "100%",
+                    // style: "margin-left:100%"
 
                 }]
             }, {
@@ -256,15 +258,19 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 fieldLabel: 'Paid Booking',
                 minValue: 0,
                 value: 0,
+                autoWidth:true,
                 name: 'paid_booking'
             }, {
                 xtype: 'textfield',
                 name: 'purpose_of_visit',
+                autoWidth:true,
                 fieldLabel: 'Purpose of Visit',
                 allowBlank: true
 
             }, {
                 xtype: 'fieldcontainer',
+                autoWidth:true,
+                fieldLabel: 'No. Rooms',
                 defaultType: 'numberfield',
 
                 defaults: {
@@ -276,22 +282,20 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     columns: 2
                 },
                 items: [{
-                    fieldLabel: 'No. Rooms',
-                    // fieldStyle: "text-align:right;",
-                    // labelWidth: '100%',
-                    autoWidth: true,
+                    width:70,
+                    fieldStyle: "text-align:right;",
                     minValue: 0,
                     value: 0,
                     name: 'no_room'
                 }, {
                     fieldLabel: 'No.of Extra Person',
                     name: 'extra_person',
-                    labelWidth: '100%',
+                    labelWidth:'100%',
                     autoWidth: true,
 
                     minValue: 0,
                     value: 0,
-                    // style: "margin-left:85px"
+                    // style: "margin-left:5px"
 
                 }]
             }, {
@@ -299,6 +303,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 fieldLabel: 'Extra Person Charge',
                 name: 'charge',
                 minValue: 0,
+                autoWidth:true,
                 value: 0,
                 allowBlank: true
 
@@ -307,6 +312,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 name: 'user_id',
                 store: 'combo.Discount',
                 valueField: 'id',
+                autoWidth:true,
                 displayField: 'discount_percentage',
                 triggerAction: 'all',
                 allowBlank: true,
@@ -316,6 +322,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 xtype: 'numberfield',
                 name: 'discount',
                 allowBlank: true,
+                autoWidth:true,
                 fieldLabel: 'Discount Amount',
                 readOnly: true
             }]
