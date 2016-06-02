@@ -1,5 +1,12 @@
 Ext.define('App.controller.roomTransaction.CheckIn', {
     extend: 'Ext.app.Controller',
+    refs: [
+
+        {
+            ref: 'loginwindow',
+            selector: 'loginwindow'
+        }
+    ],
     views: [
         'roomTransaction.checkIn.Index',
         'roomTransaction.checkIn.Form',
@@ -17,6 +24,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'CheckinIndex button[action=Add]': {
                 click: this.add
             },
+
             'CheckinForm button[action=Save]': {
                 click: this.save
             },
@@ -29,6 +37,13 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'getRoomForm button[action=Cancel]': {
                 click: this.winCancel
             },
+            'getRoomForm combo[name=room_no]': {
+                specialkey: this.keyenter
+            },
+            // '#loginwindow combo': {
+            //     specialkey: this.keyenter
+            // },
+
 
             // 'Viewport > fmMenu':{
             //  // afterrender
@@ -38,12 +53,17 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     },
     main_form: "",
     index_form: "",
-    roomID:"",
+    roomID: "",
+    checkin_close: "",
     filterCancelInDetail: function(field) {
         value = field.getValue()
         Util.ajax('CheckInDetail/get_checkin_detail', {
             room_id: value
         }, this.loadRecordToTextfield, field)
+    },
+    selectAvailableRooms: function(field, records) {
+        var form = field.up('form'),
+            room_id = form.down('combo[name=room_no]').getValue();
     },
     loadRecordToTextfield: function(obj, field) {
         win = field.up('window')
@@ -57,8 +77,8 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var grid = conatiner.down('grid[name=index]');
         conatiner.setActiveItem(grid);
     },
-    winCancel:function(btn){
-          btn.up('window').close();
+    winCancel: function(btn) {
+        btn.up('window').close();
     },
     add: function(btn) {
 
@@ -69,9 +89,20 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         index_form = conatiner;
         win.show();
         win.center();
+        checkin_close = win;
         win.down('combo[name=room_no]').focus(true, 300);
 
 
+    },
+
+    keyenter: function (item, event) {
+        if (event.getKey() == event.ENTER) {
+            roomID = item.value;
+            main_form.getForm().reset();
+            main_form.down('hiddenfield[name=room_master_id]').setValue(roomID)
+            index_form.setActiveItem(main_form);
+            checkin_close.close()
+        }
     },
     continues_checkin: function(btn) {
         var form = btn.up('window').down('form');
