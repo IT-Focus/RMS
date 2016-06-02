@@ -98,10 +98,12 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     keyenter: function (item, event) {
         if (event.getKey() == event.ENTER) {
             roomID = item.value;
-            main_form.getForm().reset();
-            main_form.down('hiddenfield[name=room_master_id]').setValue(roomID)
-            index_form.setActiveItem(main_form);
-            checkin_close.close()
+            if (roomID !== null){
+                main_form.getForm().reset();
+                main_form.down('hiddenfield[name=room_master_id]').setValue(roomID)
+                index_form.setActiveItem(main_form);
+                checkin_close.close()   
+            }
         }
     },
     continues_checkin: function(btn) {
