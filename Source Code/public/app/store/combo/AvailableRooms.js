@@ -1,6 +1,6 @@
 Ext.define('App.store.combo.AvailableRooms', {
     extend: 'Ext.data.Store',
-//    queryMode: 'local',
+	queryMode: 'remote',
     autoLoad:false,
     model: 'App.model.setup.RoomMaster',
      proxy: {
