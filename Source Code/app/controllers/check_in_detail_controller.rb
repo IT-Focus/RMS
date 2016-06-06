@@ -1,6 +1,13 @@
 class CheckInDetailController < ApplicationController
 	@@service = CheckInDetailService::Service.new()
 	def index
+		@data = []
+		check_in_id = params[:check_in_id]
+
+		if check_in_id.nil?
+			@data = CheckInDetail.where check_in_id:check_in_id
+		end
+		render json:{data:@data, success:true}
 	end
 
 	def combo

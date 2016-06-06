@@ -45,47 +45,6 @@ Ext.define('App.view.roomTransaction.checkin.GetRoomForm', {
                     fieldLabel: 'Room No' + redStar,
                     validateOnBlur: false,
                     enableKeyEvents: true,
-                    // listeners: {
-
-                    //     render: {
-                    //         fn: function(field, eOpts) {
-                    //             field.capsWarningTooltip = Ext.create('Ext.tip.ToolTip', {
-                    //                 target: field.bodyEl,
-                    //                 anchor: 'top',
-                    //                 width: 305,
-                    //                 html: 'Caps lock warning'
-                    //             });
-
-                    //             // disable to tooltip from showing on mouseover
-                    //             field.capsWarningTooltip.disable();
-                    //         },
-                    //         scope: this
-                    //     },
-
-                    //     keypress: {
-                    //         fn: function(field, e, eOpts) {
-                    //             var charCode = e.getCharCode();
-                    //             if ((e.shiftKey && charCode >= 97 && charCode <= 122) ||
-                    //                 (!e.shiftKey && charCode >= 65 && charCode <= 90)) {
-
-                    //                 field.capsWarningTooltip.enable();
-                    //                 field.capsWarningTooltip.show();
-                    //             } else {
-                    //                 if (field.capsWarningTooltip.hidden === false) {
-                    //                     field.capsWarningTooltip.disable();
-                    //                     field.capsWarningTooltip.hide();
-                    //                 }
-                    //             }
-                    //         },
-                    //         scope: this
-                    //     },
-
-                    //     blur: function(field) {
-                    //         if (field.capsWarningTooltip.hidden === false) {
-                    //             field.capsWarningTooltip.hide();
-                    //         }
-                    //     }
-                    // }
                 },
 
             ]

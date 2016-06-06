@@ -17,7 +17,9 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         'combo.Nationality',
         'combo.Discount',
         'combo.AvailableRooms',
-        'roomTransaction.CheckIn'
+        'roomTransaction.CheckIn',
+        'roomTransaction.CheckInDetail',
+        'combo.RoomServiceMaster'
     ],
     init: function() {
         this.control({
@@ -40,14 +42,14 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'getRoomForm combo[name=room_no]': {
                 specialkey: this.keyenter
             },
-            // '#loginwindow combo': {
-            //     specialkey: this.keyenter
-            // },
+            'CheckinForm button[action=AddItem]': {
+                click: this.addRow
+            },
+            'CheckinForm grid': {
+                edit: this.setRecord,
+                beforeedit: this.filterItemPrice
+            },
 
-
-            // 'Viewport > fmMenu':{
-            //  // afterrender
-            // }
 
         });
     },
@@ -55,6 +57,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     index_form: "",
     roomID: "",
     checkin_close: "",
+    itemRecord:{},
     filterCancelInDetail: function(field) {
         value = field.getValue()
         Util.ajax('CheckInDetail/get_checkin_detail', {
@@ -94,15 +97,78 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
 
 
     },
+    setRecord: function(editor, e){
+        debugger;
+        var grid = e.grid,
+            me = this;
+        var record = grid.getStore().getAt(e.rowIdx);
+        if (me.itemRecord) {
+                var values = me.itemRecord; //get record form grid/combobox
 
-    keyenter: function (item, event) {
+                // e.grid.getView().refresh();
+                record.set("id", values.id);
+                record.set("qty", 1);
+                record.set("price", values.charge_amount);
+                record.set("amount", record.get("price") * record.get("qty"));
+                me.itemRecord = false;
+
+            };
+
+    },
+    filterItemPrice: function(editor, e) {
+        var grid = e.grid,
+            me = this;
+        var record = grid.getStore().getAt(e.rowIdx);
+
+        switch (e.colIdx) {
+            case 4:
+                if (record.get("id") > 0) {
+                    me.getComboRoomServiceMasterStore().load({
+                        params: {
+                            item_id: record.get("id")
+                        }
+                    });
+
+                };
+                break;
+        }
+
+
+    },
+    addRow: function(btn) {
+        var store = btn.up('grid').getStore();
+        var model = Ext.create("App.model.roomTransaction.CheckInDetail");
+        model.set("check_in_id", null);
+        store.add(model);
+    },
+
+    deleteDetailRecord: function(grid, rec) {
+        var me = this;
+        Ext.MessageBox.confirm('Confirm', 'Are you sure you want to remove this item ?', function(btn) {
+            if (btn == 'yes') {
+                var store = grid.getStore();
+
+                if (rec.get('id') > 0) {
+                    rec.set("_destroy", true);
+
+                    me.store.add(rec);
+
+                }
+                store.remove(rec);
+
+            }
+        });
+
+    },
+
+    keyenter: function(item, event) {
         if (event.getKey() == event.ENTER) {
             roomID = item.value;
-            if (roomID !== null){
+            if (roomID !== null) {
                 main_form.getForm().reset();
                 main_form.down('hiddenfield[name=room_master_id]').setValue(roomID)
                 index_form.setActiveItem(main_form);
-                checkin_close.close()   
+                checkin_close.close()
             }
         }
     },

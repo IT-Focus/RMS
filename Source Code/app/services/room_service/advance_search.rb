@@ -20,4 +20,13 @@ class RoomService::AdvanceSearch
 		end
 		return data
 	end
+
+   def get_combo item_id
+      if !item_id.nil?
+         @data = RoomServiceMaster.where id:item_id
+      else
+         @data = RoomServiceMaster.all
+      end
+      return @data
+   end
 end

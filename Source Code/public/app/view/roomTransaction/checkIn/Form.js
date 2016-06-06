@@ -155,7 +155,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             defaults: {
                 // style:'margin:10px',
                 allowBlank: false,
-                width:'100%',
+                width: '100%',
                 style: 'margin-left:10px'
             },
             items: [{
@@ -186,7 +186,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 triggerAction: 'all',
                 editable: false,
                 fieldLabel: 'Nationality' + redStar,
-                autoWidth:true
+                autoWidth: true
             }, {
                 xtype: 'fieldcontainer',
                 fieldLabel: 'NO.of Persons',
@@ -206,7 +206,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     value: 0,
                     fieldStyle: "text-align:right;",
                     labelWidth: 20,
-                    autoWidth:true
+                    autoWidth: true
                 }, {
                     xtype: 'numberfield',
                     fieldLabel: 'Adult',
@@ -258,18 +258,18 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 fieldLabel: 'Paid Booking',
                 minValue: 0,
                 value: 0,
-                autoWidth:true,
+                autoWidth: true,
                 name: 'paid_booking'
             }, {
                 xtype: 'textfield',
                 name: 'purpose_of_visit',
-                autoWidth:true,
+                autoWidth: true,
                 fieldLabel: 'Purpose of Visit',
                 allowBlank: true
 
             }, {
                 xtype: 'fieldcontainer',
-                autoWidth:true,
+                autoWidth: true,
                 fieldLabel: 'No. Rooms',
                 defaultType: 'numberfield',
 
@@ -282,7 +282,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     columns: 2
                 },
                 items: [{
-                    width:70,
+                    width: 70,
                     fieldStyle: "text-align:right;",
                     minValue: 0,
                     value: 0,
@@ -290,7 +290,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }, {
                     fieldLabel: 'No.of Extra Person',
                     name: 'extra_person',
-                    labelWidth:'100%',
+                    labelWidth: '100%',
                     autoWidth: true,
 
                     minValue: 0,
@@ -303,7 +303,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 fieldLabel: 'Extra Person Charge',
                 name: 'charge',
                 minValue: 0,
-                autoWidth:true,
+                autoWidth: true,
                 value: 0,
                 allowBlank: true
 
@@ -312,7 +312,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 name: 'user_id',
                 store: 'combo.Discount',
                 valueField: 'id',
-                autoWidth:true,
+                autoWidth: true,
                 displayField: 'discount_percentage',
                 triggerAction: 'all',
                 allowBlank: true,
@@ -322,7 +322,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 xtype: 'numberfield',
                 name: 'discount',
                 allowBlank: true,
-                autoWidth:true,
+                autoWidth: true,
                 fieldLabel: 'Discount Amount',
                 readOnly: true
             }]
@@ -356,13 +356,21 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         itemGrid = {
             xtype: 'grid',
             border: true,
+            autoScroll: true,
             name: 'index',
-            // store: 'roomTransaction.CancelCheckin',
+            height: '100%',
+            plugins: Ext.create('Ext.grid.plugin.CellEditing', {
+                clicksToEdit: 1
+            }),
+            selModel: {
+                selType: 'cellmodel'
+            },
+            store: 'roomTransaction.CheckInDetail',
             // title: 'Check In',
             tbar: [
                 '->', {
                     xtype: 'button',
-                    action: 'Add',
+                    action: 'AddItem',
                     iconCls: 'icon-add',
                     text: 'Add Item',
                     tooltip: 'Check In'
@@ -377,18 +385,42 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 header: 'Description',
                 dataIndex: 'room_no',
                 autoWidth: true,
-                flex: 1
+                flex: 1,
+                editor: {
+                    xtype: 'combo',
+                    displayField: 'service_name',
+                    valueField: 'service_name',
+                    store: 'combo.RoomServiceMaster',
+                    name: 'service_name',
+                    queryMode: 'local',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    listeners: {
+                        select: function(combo, record, index) {
+                            var rec = record.data;
+                            App.app.getController("roomTransaction.CheckIn").itemRecord = rec;
+
+                        }
+                    },
+                }
             }, {
                 header: 'Price',
-                dataIndex: 'check_in_date',
+                dataIndex: 'price',
                 autoWidth: true,
                 flex: 1,
             }, {
                 header: 'Qty',
+                dataIndex: 'qty',
                 autoWidth: true,
                 flex: 1,
+                field: {
+                    xtype: 'numberfield',
+                    name: 'qty',
+                    minValue: 0
+                }
             }, {
                 header: 'Amount',
+                dataIndex: 'amount',
                 autoWidth: true,
                 flex: 1,
             }, {
@@ -401,12 +433,12 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 items: [{
                     xtype: 'button',
                     iconCls: 'icon-delete',
-                    // handler: function(grid, rowIndex) {
-                    // var ctrl = App.app.getController("sale.Quotation");
+                    handler: function(grid, rowIndex) {
+                        var ctrl = App.app.getController("roomTransaction.CheckIn");
 
-                    // var rec = grid.getStore().getAt(rowIndex);
-                    // ctrl.deleteDetailRecord(grid, rec);
-                    // }
+                        var rec = grid.getStore().getAt(rowIndex);
+                        ctrl.deleteDetailRecord(grid, rec);
+                    }
                 }]
             }],
         }

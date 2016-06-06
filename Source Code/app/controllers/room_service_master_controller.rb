@@ -9,6 +9,14 @@ class RoomServiceMasterController < ApplicationController
 
 	end
 
+  def combo
+        @@service = RoomService::AdvanceSearch.new()
+        item_id = params[:item_id]
+
+        @advanceSearch = @@service.get_combo item_id
+        render json:{data:@advanceSearch, success:true}
+  end
+
 	def create
 		begin
             RoomServiceMaster.transaction do
