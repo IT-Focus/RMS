@@ -25,9 +25,9 @@ ActiveRecord::Schema.define(version: 20160525021513) do
   create_table "cancel_check_ins", force: :cascade do |t|
     t.string   "code",          limit: 255
     t.string   "check_in_code", limit: 255
-    t.date     "check_in_date"
+    t.datetime "check_in_date"
     t.string   "room_no",       limit: 255
-    t.date     "cancel_date"
+    t.datetime "cancel_date"
     t.string   "reason",        limit: 255
     t.string   "cancelled_by",  limit: 255
     t.datetime "created_at",                null: false
@@ -148,8 +148,6 @@ ActiveRecord::Schema.define(version: 20160525021513) do
     t.integer  "no_room",                  limit: 4
     t.integer  "room_master_id",           limit: 4
     t.integer  "extra_person",             limit: 4
-    t.string   "customer_name",            limit: 255
-    t.integer  "national_id",              limit: 4
     t.float    "charge",                   limit: 24
     t.time     "check_in_time"
     t.string   "email",                    limit: 255
@@ -160,7 +158,7 @@ ActiveRecord::Schema.define(version: 20160525021513) do
     t.string   "phone",                    limit: 45
     t.string   "mobile",                   limit: 45
     t.float    "discount",                 limit: 24
-    t.boolean  "rental_type"
+    t.string   "rental_type",              limit: 255
     t.datetime "hourly_check_in"
     t.datetime "monthly_check_in"
     t.time     "estimated_check_out_time"
@@ -172,6 +170,8 @@ ActiveRecord::Schema.define(version: 20160525021513) do
     t.text     "description",              limit: 65535
     t.datetime "created_at",                             null: false
     t.datetime "updated_at",                             null: false
+    t.string   "customer_name",            limit: 255
+    t.integer  "national_id",              limit: 4
     t.integer  "status_code",              limit: 4
   end
 

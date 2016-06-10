@@ -3,13 +3,20 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     extend: 'Ext.app.Controller',
     views:[
         'roomTransaction.roomMonitor.Index',
-        'roomTransaction.roomMonitor.CheckInForm'
+        'roomTransaction.roomMonitor.CheckInForm', 
+
         
     ],
     stores:[
         'setup.Floor', 
         "roomTransaction.RoomMonitor",
         "setup.DefaultColor",
+
+        // store for check in form
+        'combo.Nationality',
+        'combo.Discount',
+        'combo.AvailableRooms',
+        'roomTransaction.CheckIn'
     ],
     init: function() {
 
@@ -36,13 +43,23 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             },
             'roomMonitorIndex button[action=btnlatecheckout]':{
                 click: this.showLateCheckoutRoom
-            }
+            }, 
+            // === event on form check in 
+            'roomMonitorIndex button[action=CancelCheckIn]':{
+                click: this.backToIndex
+            }, 
+
     
 
         });
     },
     defaultColor:{}, 
     activedFloorId:"ALL",
+    backToIndex:function(btn){
+        var container = btn.up("roomMonitorIndex");
+        var indexForm = container.down("form[name=indexPage]");
+        container.setActiveItem(indexForm);
+    },
     getRoomMonitor: function(indexView,status_id){
         var me = this ; 
         var roomStore = me.getStore("roomTransaction.RoomMonitor");
@@ -60,38 +77,40 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         });
     },
     showFreeRoom: function(btn){
-        var indexView = btn.up("roomMonitorIndex");
+        var indexView = btn.up("roomMonitorIndex").down("form[name=indexPage]");
              me = this ;
         me.clearRoomMonitor(indexView);
         me.getRoomMonitor(indexView,1)
     },
 
     showReservedRoom: function(btn){
-        var indexView = btn.up("roomMonitorIndex");
+        var indexView = btn.up("roomMonitorIndex").down("form[name=indexPage]");
              me = this ;
         me.clearRoomMonitor(indexView);
         me.getRoomMonitor(indexView,2)
     },
     showOccupiedRoom: function(btn){
-        var indexView = btn.up("roomMonitorIndex");
+        var indexView = btn.up("roomMonitorIndex").down("form[name=indexPage]");
              me = this ;
         me.clearRoomMonitor(indexView);
         me.getRoomMonitor(indexView,3)
     },
      showLateCheckoutRoom: function(btn){
-        var indexView = btn.up("roomMonitorIndex");
+        var indexView = btn.up("roomMonitorIndex").down("form[name=indexPage]");
              me = this ;
         me.clearRoomMonitor(indexView);
         me.getRoomMonitor(indexView,4)
     },
     showFormCheckin:function(btn){
-        var conatiner = btn.up('roomMonitorIndex');
-        var form = conatiner.down('userForm');
-        form.getForm().reset();
-        conatiner.setActiveItem(form);
+        var container = btn.up('roomMonitorIndex');
+        
+        var formCheckIn = container.down('CheckinForm');
+
+        formCheckIn.getForm().reset();
+        container.setActiveItem(formCheckIn);
     },
     refreshMonitor:function(btn){
-      var indexView =btn.up("roomMonitorIndex");
+      var indexView =btn.up("roomMonitorIndex").down("form[name=indexPage]");
       var me = this ;
         me.clearRoomMonitor(indexView); 
         me.addRoomMonitor(indexView,me.activedFloorId);
@@ -100,7 +119,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     loadRoomByFloor:function(btn){
         var floorId  = btn.value; 
         this.activedFloorId = floorId;
-        var indexView =btn.up("roomMonitorIndex");
+        var indexView =btn.up("roomMonitorIndex").down("form[name=indexPage]");
         this.clearRoomMonitor(indexView); 
         this.addRoomMonitor(indexView,floorId);
     },

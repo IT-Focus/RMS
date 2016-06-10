@@ -73,7 +73,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
     getMenuList:function(data){
         var menuOption ={}; 
         var me = this ; 
-        console.log(data.status_id);
+        
         switch(data.status_id){
             case 1 : 
                 menuOption = me.getFreeMenuList(data);
@@ -146,7 +146,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         iconCls:'icon-ok',
                         action:'checkin',
                         value:id,
-                        width: 200
+                        width: 200, 
+                     
                     },{
                         width: '100%',
                         text: 'Reserve',

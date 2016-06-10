@@ -14,7 +14,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         action: 'Save'
     }, {
         text: 'Cancel',
-        action: 'Cancel',
+        action: 'CancelCheckIn',
         iconCls: 'icon-cancel'
     }],
 

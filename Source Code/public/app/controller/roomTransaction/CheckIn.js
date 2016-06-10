@@ -30,7 +30,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'CheckinForm button[action=Save]': {
                 click: this.save
             },
-            'CheckinForm button[action=Cancel]': {
+            'CheckinForm button[action=CancelCheckIn]': {
                 click: this.cancel
             },
             'getRoomForm button[action=go_check_in]': {
