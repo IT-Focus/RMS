@@ -3,6 +3,9 @@ Ext.define('App.model.roomTransaction.CheckInDetail', {
     fields: [
         'id',
         'check_in_id',
+        'service_id',
+        'room_master_id',
+        'categroy_price_id',
         'room_no',
         'check_in_date',
         'check_out_date',
@@ -20,6 +23,8 @@ Ext.define('App.model.roomTransaction.CheckInDetail', {
         'tran_type',
         'created_at',
         'updated_at',
+        
+        'category_price_name'
     ]
 
 });

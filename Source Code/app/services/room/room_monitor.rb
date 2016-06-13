@@ -4,7 +4,7 @@ class Room::RoomMonitor
       	.select("room_masters.* 
       		,DATE_FORMAT(ci.check_in_date, '%d-%b-%Y %h:%i %p') check_in_date 
       		,floors.name as floor_name 
-      		,ci.id, cm.name as category_name
+      		, cm.name as category_name
       		,st.status_type as status_name
       		,chi.customer_name as customer_name
       		,DATE_FORMAT(chi.estimated_check_out_date, '%d-%b-%Y %h:%i %p' ) as estimated_check_out

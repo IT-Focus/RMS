@@ -1,11 +1,11 @@
-Ext.define('App.store.combo.RoomList', {
+Ext.define('App.store.roomTransaction.CheckInRoomDetail', {
     extend: 'Ext.data.Store',
 //    queryMode: 'local',
     autoLoad:false,
-    model: 'App.model.setup.RoomMaster',
+    model: 'App.model.roomTransaction.CheckInDetail',
      proxy: {
         		type: 'rest',
-        		url:'/CheckInDetail/combo',
+        		url:'/check_in_detail',
 		        reader: {
 		            type: 'json',
 		            root: 'data',

@@ -19,16 +19,18 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
     }],
 
     initComponent: function() {
-        Ext.apply(this, {
+ 
+        var me = this ;  
+        Ext.apply(me, {
             items: [
 
-                this.customerInfoForm(),
-                this.rentDetailForm(),
-                this.getGrid(),
-                this.totalForm(),
+                me.customerInfoForm(),
+                me.rentDetailForm(),
+                me.getGrid(),
+                me.totalForm(),
             ]
         });
-        this.callParent(arguments);
+        me.callParent(arguments);
     },
 
 
@@ -339,14 +341,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
 
             items: [{
                 xtype: 'form',
-                title: 'Items',
-                items: [
-                    this.itemGrid()
-                ]
-            }, {
-                title: 'Rooms',
+                title: 'Room',
                 items: [
                     this.roomFormInTap()
+                ]
+            }, {
+                title: 'Item',
+                items: [
+                    this.itemGrid()
                 ]
             }]
         }
@@ -541,28 +543,23 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'grid',
             border: true,
             name: 'index',
+            store:'roomTransaction.CheckInRoomDetail',
+            plugins: Ext.create('Ext.grid.plugin.CellEditing', {
+                clicksToEdit: 1
+            }),
+            selModel: {
+                selType: 'cellmodel'
+            },
             colspan: 2,
             tbar: [
                 '->', {
                     xtype: 'button',
-                    action: 'Add',
+                    action: 'AddRoom',
                     iconCls: 'icon-add',
-                    text: 'Add Item',
+                    text: 'Add Room',
                     tooltip: 'Check In'
                 }
-            ],
-            // store: 'roomTransaction.CancelCheckin',
-            // title: 'Room Form In Tap',
-            // tools: [
-
-            //     {
-            //         xtype: 'button',
-            //         action: 'Add',
-            //         iconCls: 'icon-add',
-            //         text: 'Add Item',
-            //         tooltip: 'Check In'
-            //     }
-            // ],
+            ],           
             columns: [{
                 header: 'NO',
                 xtype: 'rownumberer',
@@ -572,12 +569,31 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 header: 'Room Number',
                 dataIndex: 'room_no',
                 autoWidth: true,
-                flex: 1
+                flex: 1, 
+                editor: {
+                    xtype: 'combo',
+                    displayField: 'room_no',
+                    store: 'combo.RoomList',
+                    valueField: 'room_no',
+                    name: 'comboRoom',
+                    queryMode: 'remote',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    listeners: {
+                        select: function(combo, rec, index) {
+                            // updateRoomInDetail
+                            
+                            var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
+                            tmpRoomData.set("room_id" ,rec.getId() ) ;
+                            console.log(tmpRoomData);
+
+                        }
+                    },
+                }
             }, {
-                header: 'Room Type',
-                dataIndex: 'check_in_date',
-                autoWidth: true,
-                flex: 1,
+                header:'Room Duration', 
+                dataIndex:'category_price_name', 
+
             }, {
                 header: 'Rent Charge',
                 autoWidth: true,
@@ -592,12 +608,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 items: [{
                     xtype: 'button',
                     iconCls: 'icon-delete',
-                    // handler: function(grid, rowIndex) {
-                    // var ctrl = App.app.getController("sale.Quotation");
-
-                    // var rec = grid.getStore().getAt(rowIndex);
-                    // ctrl.deleteDetailRecord(grid, rec);
-                    // }
+                    
                 }]
             }],
         }

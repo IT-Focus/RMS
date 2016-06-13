@@ -4,7 +4,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     views:[
         'roomTransaction.roomMonitor.Index',
         'roomTransaction.roomMonitor.CheckInForm', 
-
+        'roomTransaction.checkIn.Form'
         
     ],
     stores:[
@@ -16,7 +16,11 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         'combo.Nationality',
         'combo.Discount',
         'combo.AvailableRooms',
-        'roomTransaction.CheckIn'
+        'combo.RoomList',
+        'roomTransaction.CheckInDetail',
+        'combo.RoomServiceMaster',
+        'roomTransaction.CheckIn',
+        'roomTransaction.CheckInRoomDetail'
     ],
     init: function() {
 
@@ -69,8 +73,8 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             },
             callback:function( records ){
                 records.forEach(function(record){
-                    var data= record.data; 
-                    var button = me.generateRoomForm(data , indexView);
+                    
+                    var button = me.generateRoomForm(record.getData() , indexView);
                 });
             },
             scope: this
@@ -102,12 +106,28 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         me.getRoomMonitor(indexView,4)
     },
     showFormCheckin:function(btn){
+        var me = this ; 
         var container = btn.up('roomMonitorIndex');
         
         var formCheckIn = container.down('CheckinForm');
 
         formCheckIn.getForm().reset();
+        me.addRoomToCheckIn(btn.roomId);
         container.setActiveItem(formCheckIn);
+    },
+    addRoomToCheckIn:function(roomId){
+        var model = Ext.create("App.model.roomTransaction.CheckInDetail"), 
+        storeCheckDetail = this.getRoomTransactionCheckInRoomDetailStore(),
+        storeRoom =this.getRoomTransactionRoomMonitorStore(), 
+        room = storeRoom.getById(roomId);
+
+        model.set('room_master_id', roomId); 
+        model.set('description' , room.get('room_no'));
+        model.set('room_no' , room.get('room_no'));
+        model.set('tran_type' , 'SE');
+        storeCheckDetail.add(model);
+
+        
     },
     refreshMonitor:function(btn){
       var indexView =btn.up("roomMonitorIndex").down("form[name=indexPage]");

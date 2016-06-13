@@ -29,7 +29,10 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
                     ],  
                     bbar:[]     
 
-                },Ext.create("App.view.roomTransaction.checkIn.Form")
+                },{
+                    xtype:'CheckinForm'
+                }
+                //Ext.create("App.view.roomTransaction.checkIn.Form")
             ],
             
         });

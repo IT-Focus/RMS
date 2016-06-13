@@ -14,6 +14,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
 
     ],
     stores: [
+        'roomTransaction.CheckInRoomDetail',
         'combo.Nationality',
         'combo.Discount',
         'combo.AvailableRooms',
@@ -30,7 +31,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'CheckinForm button[action=Save]': {
                 click: this.save
             },
-            'CheckinForm button[action=CancelCheckIn]': {
+            'CheckinIndex button[action=CancelCheckIn]': {
                 click: this.cancel
             },
             'getRoomForm button[action=go_check_in]': {
@@ -49,15 +50,21 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
                 edit: this.setRecord,
                 beforeedit: this.filterItemPrice
             },
-
+            //=== event check in detail 
 
         });
+
+        
     },
     main_form: "",
     index_form: "",
     roomID: "",
     checkin_close: "",
     itemRecord:{},
+    tmpRoomData:Ext.create("App.model.roomTransaction.CheckInDetail") , 
+   updateRoomInDetail:function(combo){
+    alert("Selected");
+   },
     filterCancelInDetail: function(field) {
         value = field.getValue()
         Util.ajax('CheckInDetail/get_checkin_detail', {

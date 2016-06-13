@@ -7,7 +7,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
     initComponent: function() {
         var me = this       ;
         var data = me.roomData; 
-        var text = me.getText(me.roomData);
+        
+        var text = me.getText(data);
        
 
         Ext.apply(this, {
@@ -124,19 +125,28 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
         var id = data.id ; 
          var menuList = [{
                         // colspan: 2,
-                        width: '100%',
+                        // width: '100%',
                         text: 'Check In',
                         iconCls:'icon-ok',
                         scale: 'small',
                         action:'checkin',
                         value:id,
                         width: 200
+                    },{
+                        width:'100%', 
+                        text:"Customer Arrival", 
+                        iconCls:'icon-calander',
+                        scale:'small', 
+                        value:id,                        
+                        action:'CustomerArraive', 
+                        width: 200 
                     }]
 
         return menuList; 
 
     }, 
     getFreeMenuList:function(data){
+        console.log(data);
          var id = data.id;
          var menuList = [{
                         // colspan: 2,
@@ -145,7 +155,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         scale: 'small',
                         iconCls:'icon-ok',
                         action:'checkin',
-                        value:id,
+                        roomId:id,
                         width: 200, 
                      
                     },{
@@ -154,7 +164,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         scale: 'small',
                         iconCls:'icon-calendar',
                         action:'reserve',
-                        value:id,
+                        roomId:id,
                         width: 200
 
                     }]
