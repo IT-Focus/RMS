@@ -72,6 +72,22 @@ class CategoryMasterController < ApplicationController
            	:user_id,
            	:created_by,
            	:edited_by,
+
+            :category_price_attributes => [
+
+                  :category_id,
+                  :name,
+                  :charge_amount,
+                  :duration_time,
+                  :duration_day,
+                  :allow_late,
+                  :extra_charge,
+                  :exd,
+                  :is_active,
+                  :seq_no,
+                  :remark,
+                  :is_include_tax,
+          ],
         )
     end
     def permit_data_update
