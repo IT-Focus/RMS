@@ -1,33 +1,38 @@
+
 Ext.define('App.view.setup.categoryPrice.Form', {
-    extend: 'Ext.window.Window',
-    alias: 'widget.categoryPriceForm',
-    bodyPadding: 20,
-    border: true,
-    title: 'Category Price Form',
-    modal: true,
-    buttons: [
+    extend:'Ext.form.Panel',
+    alias:'widget.categoryPriceForm' ,
+    bodyPadding:20 ,
+    border:true,
+    buttons:[
 
         {
-            text: 'Save',
-            iconCls: 'icon-save',
-            action: 'Save'
-        }, {
-            text: 'Cancel',
-            action: 'Cancel',
-            iconCls: 'icon-cancel'
+            text:'Save',
+            iconCls:'icon-save',
+            action:'Save'
+        },{
+            text:'Cancel',
+            action:'Cancel',
+            iconCls:'icon-cancel'
         }
     ],
 
-    items: [{
-            xtype: 'form',
-            layout: {
-                type: 'table',
-                columns: 2
-            },
-            defaults: {
-                width: 350,
-                autoWidth:true,
-                style: 'margin-left:5px',
+    items:[
+        {
+            xtype:'fieldset',
+            title:'Category Price',
+            padding: 10 ,
+            width:'100%',
+            layout:{
+                type:'table',
+
+                columns:2
+           },
+            defaults:{
+                // style:'margin:10px',
+                allowBlank:false,
+                width:'98%',
+                style:'margin-left:10px'
             },
             items: [{
                     xtype: 'textfield',
@@ -129,9 +134,9 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                 },{
                     xtype: 'fieldcontainer',
                     fieldLabel: 'STATUS',
+                     labelWidth:'100%',
                     defaultType: 'radiofield',
                     defaults: {
-                        autoWidth:true,
                         flex: 1
                     },
                     layout: 'hbox',
@@ -144,7 +149,7 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                         checked: true
                     }, {
                         boxLabel: 'Deactive',
-                        style: 'color:red',
+                        style: 'color:red; margin-left:100px',
                         labelStyle: 'font-weight:bold;',
                         name: 'is_active',
                         inputValue: 0,
@@ -159,9 +164,11 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                 },
 
             ]
+
         }
 
     ]
+
 
 
 

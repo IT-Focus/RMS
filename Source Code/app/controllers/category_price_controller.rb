@@ -3,8 +3,9 @@ class CategoryPriceController < ApplicationController
 		puts "==============================================="
 		@@service = CategoryPriceService::Service.new()
 		search_by = params[:searchBy]
-    	search_string = params[:searchString]
-		data = @@service.advance_search search_by, search_string
+    search_string = params[:searchString]
+		category_id = params[:category_id]
+    data = @@service.advance_search search_by, search_string,category_id
 		render json:{data:data, success:true}
 	end
   def combo

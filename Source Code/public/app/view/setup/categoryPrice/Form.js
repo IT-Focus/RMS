@@ -1,38 +1,33 @@
-
 Ext.define('App.view.setup.categoryPrice.Form', {
-    extend:'Ext.form.Panel',
-    alias:'widget.categoryPriceForm' ,
-    bodyPadding:20 ,
-    border:true,
-    buttons:[
+    extend: 'Ext.window.Window',
+    alias: 'widget.categoryPriceForm',
+    bodyPadding: 20,
+    border: true,
+    title: 'Category Price Form',
+    modal: true,
+    buttons: [
 
         {
-            text:'Save',
-            iconCls:'icon-save',
-            action:'Save'
-        },{
-            text:'Cancel',
-            action:'Cancel',
-            iconCls:'icon-cancel'
+            text: 'Save',
+            iconCls: 'icon-save',
+            action: 'Save'
+        }, {
+            text: 'Cancel',
+            action: 'Cancel',
+            iconCls: 'icon-cancel'
         }
     ],
 
-    items:[
-        {
-            xtype:'fieldset',
-            title:'Category Price',
-            padding: 10 ,
-            width:'100%',
-            layout:{
-                type:'table',
-
-                columns:2
-           },
-            defaults:{
-                // style:'margin:10px',
-                allowBlank:false,
-                width:'98%',
-                style:'margin-left:10px'
+    items: [{
+            xtype: 'form',
+            layout: {
+                type: 'table',
+                columns: 2
+            },
+            defaults: {
+                width: 350,
+                autoWidth:true,
+                style: 'margin-left:5px',
             },
             items: [{
                     xtype: 'textfield',
@@ -40,18 +35,6 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     allowBlank: false,
                     labelWidth:'100%',
                     fieldLabel: 'Name' + redStar
-                }, {
-                    xtype: 'combo',
-                    name: 'category_id',
-                    store: 'combo.Categories',
-                    valueField: 'id',
-                    displayField: 'name',
-                    triggerAction: 'all',
-                    allowBlank: false,
-                    editable: false,
-                    labelWidth:'100%',
-                    fieldLabel: 'Category' + redStar
-                        // labelAlign: 'right',
                 }, {
                     xtype: 'numberfield',
                     name: 'charge_amount',
@@ -130,45 +113,45 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     name: 'remark',
                     labelWidth:'100%',
                     allowBlank: true,
+                    autoWidth:true,
                     fieldLabel: 'Remark'
+                },
+                {
+                    xtype: 'checkbox',
+                    fieldLabel: 'Inclue VAT?',
+                    name: 'is_include_tax',
+                    labelWidth:'100%',
+                    checkedValue: 1
                 },{
                     xtype: 'fieldcontainer',
                     fieldLabel: 'STATUS',
-                     labelWidth:'100%',
                     defaultType: 'radiofield',
                     defaults: {
+                        autoWidth:true,
                         flex: 1
                     },
                     layout: 'hbox',
                     items: [{
                         boxLabel: 'Active',
-                        style: 'color:blue',
+                        style: 'color:blue; margin-left:80px',
                         labelStyle: 'font-weight:bold;',
                         name: 'is_active',
                         inputValue: 1,
                         checked: true
                     }, {
                         boxLabel: 'Deactive',
-                        style: 'color:red; margin-left:100px',
-                        labelStyle: 'font-weight:bold;',
+                        style: 'color:red',
+                        labelStyle: 'font-weight:bold; margin-left:50px',
                         name: 'is_active',
                         inputValue: 0,
 
                     }]
-                }, {
-                    xtype: 'checkbox',
-                    fieldLabel: 'Inclue VAT?',
-                    name: 'is_include_tax',
-                    labelWidth:'100%',
-                    checkedValue: 1
-                },
+                }, 
 
             ]
-
         }
 
     ]
-
 
 
 
