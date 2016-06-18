@@ -542,13 +542,17 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         itemGrid = {
             xtype: 'grid',
             border: true,
-            name: 'index',
+            name: 'roomDetail',
             store:'roomTransaction.CheckInRoomDetail',
             plugins: Ext.create('Ext.grid.plugin.CellEditing', {
                 clicksToEdit: 1
-            }),
-            selModel: {
-                selType: 'cellmodel'
+            }),         
+            selModel: 'cellmodel',            
+            listeners:{
+                beforeedit:function(editor , e){
+                    var ctrl = App.app.getController("roomTransaction.CheckIn") ; 
+                    ctrl.filterItemPrice(editor , e);
+                }
             },
             colspan: 2,
             tbar: [
@@ -581,11 +585,9 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     triggerAction: 'all',
                     listeners: {
                         select: function(combo, rec, index) {
-                            // updateRoomInDetail
-                            
+                            // updateRoomInDetail                           
                             var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
-                            tmpRoomData.set("room_id" ,rec.getId() ) ;
-                            console.log(tmpRoomData);
+                            tmpRoomData.set("room_id" ,rec.getId() ) ;                           
 
                         }
                     },
@@ -593,6 +595,33 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             }, {
                 header:'Room Duration', 
                 dataIndex:'category_price_name', 
+                 editor: {
+                    xtype: 'combo',
+                    displayField: 'name',
+                    store: 'combo.CategoryPrice',
+                    valueField: 'name',
+                    name: 'comboCategoryPrice',
+                    queryMode: 'local',
+                   // typeAhead: true,
+                    triggerAction: 'all',
+                    listeners: {
+                        select: function(combo, rec, index) {
+                            // updateRoomInDetail                           
+                            var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
+                            
+                            tmpRoomData.set("categroy_price_id" ,rec.getId() ) ;    
+                            tmpRoomData.set("unit_price" ,rec.get("charge_amount") ) ;    
+                            tmpRoomData.set("qty" ,1 ) ;    
+                            tmpRoomData.set("total_amount" ,rec.get("charge_amount") ) ;    
+                            console.log(tmpRoomData);                       
+
+                        }, 
+                        beforestartedit:function(){
+
+                            alert("test before edit");
+                        }
+                    },
+                }
 
             }, {
                 header: 'Rent Charge',

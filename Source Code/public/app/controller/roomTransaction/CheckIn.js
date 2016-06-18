@@ -17,6 +17,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         'roomTransaction.CheckInRoomDetail',
         'combo.Nationality',
         'combo.Discount',
+        'combo.CategoryPrice',
         'combo.AvailableRooms',
         'roomTransaction.CheckIn',
         'roomTransaction.CheckInDetail',
@@ -46,11 +47,12 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'CheckinForm button[action=AddItem]': {
                 click: this.addRow
             },
-            'CheckinForm grid': {
-                edit: this.setRecord,
-                beforeedit: this.filterItemPrice
-            },
             //=== event check in detail 
+            'CheckinForm grid': {
+                edit: this.setRecord
+                
+                
+            },
 
         });
 
@@ -62,6 +64,28 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     checkin_close: "",
     itemRecord:{},
     tmpRoomData:Ext.create("App.model.roomTransaction.CheckInDetail") , 
+    filterItemPrice: function(editor, e) {
+        var grid = e.grid,
+            me = this;
+        var record = grid.getStore().getAt(e.rowIdx);
+        console.log("edit to room detail =========", e.colIdx,record); 
+
+        switch (e.colIdx) {
+            case 2:
+
+                if (record.get("room_master_id") > 0) {
+                    me.getComboCategoryPriceStore().load({
+                        params: {
+                            roomId: record.get("room_master_id")
+                        }
+                    });
+
+                };
+                break;
+        }
+
+
+    },
    updateRoomInDetail:function(combo){
     alert("Selected");
    },
@@ -105,7 +129,8 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
 
     },
     setRecord: function(editor, e){
-        debugger;
+        
+        
         var grid = e.grid,
             me = this;
         var record = grid.getStore().getAt(e.rowIdx);
@@ -122,26 +147,26 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             };
 
     },
-    filterItemPrice: function(editor, e) {
-        var grid = e.grid,
-            me = this;
-        var record = grid.getStore().getAt(e.rowIdx);
+    // filterItemPrice: function(editor, e) {
+    //     var grid = e.grid,
+    //         me = this;
+    //     var record = grid.getStore().getAt(e.rowIdx);
 
-        switch (e.colIdx) {
-            case 4:
-                if (record.get("id") > 0) {
-                    me.getComboRoomServiceMasterStore().load({
-                        params: {
-                            item_id: record.get("id")
-                        }
-                    });
+    //     switch (e.colIdx) {
+    //         case 4:
+    //             if (record.get("id") > 0) {
+    //                 me.getComboRoomServiceMasterStore().load({
+    //                     params: {
+    //                         item_id: record.get("id")
+    //                     }
+    //                 });
 
-                };
-                break;
-        }
+    //             };
+    //             break;
+    //     }
 
 
-    },
+    // },
     addRow: function(btn) {
         var store = btn.up('grid').getStore();
         var model = Ext.create("App.model.roomTransaction.CheckInDetail");

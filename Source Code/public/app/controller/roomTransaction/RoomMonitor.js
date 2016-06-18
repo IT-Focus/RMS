@@ -15,6 +15,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         // store for check in form
         'combo.Nationality',
         'combo.Discount',
+        'combo.CategoryPrice',
         'combo.AvailableRooms',
         'combo.RoomList',
         'roomTransaction.CheckInDetail',
@@ -63,6 +64,8 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         var container = btn.up("roomMonitorIndex");
         var indexForm = container.down("form[name=indexPage]");
         container.setActiveItem(indexForm);
+        var store = this.getRoomTransactionCheckInRoomDetailStore(); 
+        store.removeAll();
     },
     getRoomMonitor: function(indexView,status_id){
         var me = this ; 

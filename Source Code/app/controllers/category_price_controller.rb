@@ -7,7 +7,18 @@ class CategoryPriceController < ApplicationController
 		data = @@service.advance_search search_by, search_string
 		render json:{data:data, success:true}
 	end
+  def combo
+    room_id = params[:roomId]
+    if !room_id.nil? && !room_id.empty?
+      @room = RoomMaster.find room_id
+      @data = CategoryPrice.where category_id:@room.category_id , is_active:true
+      render json:{ data:@data , success:true }
+    else 
+      render json:{success:false , message:'Cannot load without room_id'}
+    end
 
+
+  end
 	def create
 		begin
             CategoryPrice.transaction do
