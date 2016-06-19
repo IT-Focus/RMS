@@ -35,6 +35,9 @@ Ext.define('App.controller.setup.CategoryMaster', {
 			'categoryMasterForm button[action=Add_category_price]': {
 				click: this.add_category_price
 			},
+			'categoryMasterForm button[action=Edit_Category_Price]':{
+				click: this.edit_Category_Price
+			},
 
 			'categoryPriceForm button[action=Cancel]': {
 				click: this.cancel_window
@@ -54,27 +57,51 @@ Ext.define('App.controller.setup.CategoryMaster', {
 		win.center();
 		win.down('textfield[name=name]').focus(true, 300);
 	},
+	edit_Category_Price: function(btn){
+		var rec = Util.getRecord(btn,"Please select record for edit ");
+		if (rec) {
+			var win = Ext.create("App.view.setup.categoryPrice.Form");
+			duration_time = Ext.util.Format.dateRenderer('H:i')(rec.data.duration_time);
+			allow_late = Ext.util.Format.dateRenderer('H:i')(rec.data.allow_late);
+			exd = Ext.util.Format.dateRenderer('H:i')(rec.data.exd);
+			
+			win.show();
+			win.center();
+			win.down('form').getForm().loadRecord(rec);
+			win.down("timefield[name=allow_late]").setValue(allow_late);
+			win.down("timefield[name=duration_time]").setValue(duration_time);
+			win.down("timefield[name=exd]").setValue(exd);
+			win.down('textfield[name=name]').focus(true , 300 );
+		};
+
+	},
 	cancel_window: function(btn) {
 		btn.up('window').close();
 	},
 	save_category_price: function(btn) {
-		debugger;
 		var me = this;
 		var win = btn.up('window'),
 			form = win.down('form'),
 			record = form.getRecord(),
 			store = me.getSetupCategoryPriceStore(),
 			values = form.getValues();
-
-		var model = Ext.create("App.model.setup.CategoryPrice");
 		if (form.getForm().isValid()) {
+			if (!record) {
+				var model = Ext.create('App.model.setup.CategoryPrice');
+				model.set(values);
+				store.add(model);
+				me.cancel_window(btn);
+			} else {
+				record.set(values);
+				me.cancel_window(btn);
 
 
-			model.set(values);
-			store.add(model);
+
+			};
 		}
-
-		me.cancel_window(btn);
+		/*var me = this ;
+		var store = me.getSetupCategoryPriceStore();
+		Util.save(btn,store,'setup.CategoryPrice');*/
 	},
 	// end
 	advanceSearch: function(field) {
@@ -113,6 +140,8 @@ Ext.define('App.controller.setup.CategoryMaster', {
 	add: function(btn) {
 		var conatiner = btn.up('categoryMasterIndex');
 		var form = conatiner.down('categoryMasterForm');
+		var store = this.getSetupCategoryPriceStore();
+		store.removeAll();
 		form.getForm().reset();
 		conatiner.setActiveItem(form);
 

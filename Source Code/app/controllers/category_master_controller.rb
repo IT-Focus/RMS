@@ -11,7 +11,6 @@ class CategoryMasterController < ApplicationController
 		begin
             CategoryMaster.transaction do
                 @data = CategoryMaster.new(permit_data)
-                @data.user_id = session[:user_id]
                 @data.created_by = session[:user_id]
                 @data.save
 
@@ -32,7 +31,6 @@ class CategoryMasterController < ApplicationController
                 @data = CategoryMaster.find(params[:id])
                 @data.update(edited_by:session[:user_id])
                 @data.update_attributes(permit_data_update)
-
                 render json:{ data:@data ,success:true}
             end
 
@@ -51,27 +49,18 @@ class CategoryMasterController < ApplicationController
     def permit_data
         params.require(:data).permit(
            
-           	:code,
-           	:name,
-           	:is_include_tax,
-           	:tariff,
-           	:tax,
-           	:no_persons,
-           	:rent_for_single,
-           	:tax_for_single,
-           	:extra_person_charge,
-           	:tariff_hour,
-           	:tax_hour,
-           	:rent_for_single_hour,
-           	:tax_for_single_hour,
-           	:tariff_month,
-           	:tax_month,
-           	:rent_for_single_month,
-           	:tax_for_single_month,
-           	:extra_person_charge_month,
-           	:user_id,
-           	:created_by,
-           	:edited_by,
+            :code,
+            :name,
+            :is_include_tax,
+            :tariff,
+            :no_persons,
+            :extra_person_charge,
+            :tariff_hour,
+            :is_include_tax_hour,
+            :tariff_month,
+            :is_include_tax_month,
+            :created_by,
+            :edited_by,
 
             :category_price_attributes => [
 
@@ -92,28 +81,35 @@ class CategoryMasterController < ApplicationController
     end
     def permit_data_update
         params.require(:data).permit(
-           	:id,
-           	:code,
-           	:name,
-           	:is_include_tax,
-           	:tariff,
-           	:tax,
-           	:no_persons,
-           	:rent_for_single,
-           	:tax_for_single,
-           	:extra_person_charge,
-           	:tariff_hour,
-           	:tax_hour,
-           	:rent_for_single_hour,
-           	:tax_for_single_hour,
-           	:tariff_month,
-           	:tax_month,
-           	:rent_for_single_month,
-           	:tax_for_single_month,
-           	:extra_person_charge_month,
-           	:user_id,
-           	:created_by,
-           	:edited_by,
+            :id,
+            :code,
+            :name,
+            :is_include_tax,
+            :tariff,
+            :no_persons,
+            :extra_person_charge,
+            :tariff_hour,
+            :is_include_tax_hour,
+            :tariff_month,
+            :is_include_tax_month,
+            :created_by,
+            :edited_by,
+
+             :category_price_attributes => [
+                  :id,
+                  :category_id,
+                  :name,
+                  :charge_amount,
+                  :duration_time,
+                  :duration_day,
+                  :allow_late,
+                  :extra_charge,
+                  :exd,
+                  :is_active,
+                  :seq_no,
+                  :remark,
+                  :is_include_tax,
+          ],
         )
     end
 

@@ -51,17 +51,29 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 xtype: 'textfield',
                 fieldLabel: 'Name' + redStar,
                 name: 'name'
-            }, {
-                xtype: 'checkbox',
-                fieldLabel: 'Inclue VAT?',
-                name: 'is_include_tax',
-                checkedValue: 1
-            }, {
+            }, 
+            // {
+            //     xtype: 'checkbox',
+            //     fieldLabel: 'Inclue VAT?',
+            //     name: 'is_include_tax',
+            //     checkedValue: 1
+            // }, 
+            {
                 xtype: 'numberfield',
                 fieldLabel: 'Person Allowance' + redStar,
                 // hideTrigger: true,
                 allowNegative: false,
+                labelWidth: '100%',
+                autoWidth:true,
                 name: 'no_persons'
+            },{
+                xtype: 'numberfield',
+                fieldLabel: 'Extra Charge' + redStar,
+                name: 'extra_person_charge',
+                allowNegative: false,
+                hideTrigger: false,
+                maxLength: 20,
+                allowBlank: false,
             }],
 
         }
@@ -70,7 +82,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
     singleForm: function() {
         test = {
             xtype: 'fieldset',
-            title: 'Define Rent Per Day',
+            title: 'Day Reantal Charge',
             padding: 10,
             width: '100%',
             layout: {
@@ -86,43 +98,70 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             },
             items: [{
                 xtype: 'numberfield',
-                fieldLabel: 'Renter Per Day' + redStar,
+                fieldLabel: 'Charge Per Day' + redStar,
                 name: 'tariff',
                 allowNegative: false,
                 // hideTrigger: true,
+                labelWidth:'100%',
                 maxLength: 20,
                 allowBlank: false,
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Rent for Single Person',
-                name: 'rent_for_single',
-                allowNegative: false,
-                // hideTrigger: true,
-                maxLength: 20,
-                allowBlank: false,
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Tax Rate',
-                name: 'tax',
-                allowNegative: false,
-                // hideTrigger: true,
-                maxLength: 20,
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Tax Rate for Single',
-                name: 'tax_for_single',
-                allowNegative: false,
-                hideTrigger: true,
-                maxLength: 20,
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Extra Person Charge' + redStar,
-                name: 'extra_person_charge',
-                allowNegative: false,
-                hideTrigger: true,
-                maxLength: 20,
-                allowBlank: false,
-            }, ]
+            },{
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Inclue Tax',
+                    defaultType: 'radiofield',
+                    defaults: {
+                        autoWidth:true,
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Yes',
+                        style: 'color:blue',
+                        labelStyle: 'font-weight:bold;',
+                        name: 'is_include_tax',
+                        inputValue: 1,
+                        checked: true
+                    }, {
+                        boxLabel: 'No',
+                        style: 'color:red; margin-left:80px',
+                        labelStyle: 'font-weight:bold; margin-left:50px',
+                        name: 'is_include_tax',
+                        inputValue: 0,
+
+                    }]
+                },  
+            // {
+            //     xtype: 'numberfield',
+            //     fieldLabel: 'Rent for Single Person',
+            //     name: 'rent_for_single',
+            //     allowNegative: false,
+            //     // hideTrigger: true,
+            //     maxLength: 20,
+            //     allowBlank: false,
+            // }, {
+            //     xtype: 'numberfield',
+            //     fieldLabel: 'Tax Rate',
+            //     name: 'tax',
+            //     allowNegative: false,
+            //     // hideTrigger: true,
+            //     maxLength: 20,
+            // }, {
+            //     xtype: 'numberfield',
+            //     fieldLabel: 'Tax Rate for Single',
+            //     name: 'tax_for_single',
+            //     allowNegative: false,
+            //     hideTrigger: true,
+            //     maxLength: 20,
+            // }, {
+            //     xtype: 'numberfield',
+            //     fieldLabel: 'Extra Person Charge' + redStar,
+            //     name: 'extra_person_charge',
+            //     allowNegative: false,
+            //     hideTrigger: true,
+            //     maxLength: 20,
+            //     allowBlank: false,
+            // }, 
+            ]
 
 
 
@@ -135,7 +174,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             width: '100%',
             items: [{
                 xtype: 'fieldset',
-                title: 'Define Rent Per Hour',
+                title: 'Hour Rental Charge',
                 padding: 10,
                 height: '100%',
                 layout: {
@@ -150,42 +189,68 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 },
                 items: [{
                         xtype: 'numberfield',
-                        fieldLabel: 'Renter Per Hour' + redStar,
+                        fieldLabel: 'Charge Per Hour' + redStar,
                         name: 'tariff_hour',
                         allowNegative: false,
                         // hideTrigger: true,
+                        labelWidth:'100%',
                         maxLength: 20,
                         allowBlank: false,
                     }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Rent for Single Person',
-                        name: 'rent_for_single_hour',
-                        allowNegative: false,
-                        // hideTrigger: true,
-                        maxLength: 20,
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tax Rate',
-                        name: 'tax_hour',
-                        allowNegative: false,
-                        // hideTrigger: true,
-                        maxLength: 20,
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tax Rate For Single',
-                        name: 'tax_for_single_hour',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Extra Person Charge' + redStar,
-                        name: '',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Inclue Tax',
+                    defaultType: 'radiofield',
+                    defaults: {
+                        autoWidth:true,
+                        flex: 1
                     },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Yes',
+                        style: 'color:blue',
+                        labelStyle: 'font-weight:bold;',
+                        name: 'is_include_tax_hour',
+                        inputValue: 1,
+                        checked: true
+                    }, {
+                        boxLabel: 'No',
+                        style: 'color:red;margin-left:80px',
+                        labelStyle: 'font-weight:bold; margin-left:50px',
+                        name: 'is_include_tax_hour',
+                        inputValue: 0,
+
+                    }]
+                },  
+                    // {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Rent for Single Person',
+                    //     name: 'rent_for_single_hour',
+                    //     allowNegative: false,
+                    //     // hideTrigger: true,
+                    //     maxLength: 20,
+                    // }, {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Tax Rate',
+                    //     name: 'tax_hour',
+                    //     allowNegative: false,
+                    //     // hideTrigger: true,
+                    //     maxLength: 20,
+                    // }, {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Tax Rate For Single',
+                    //     name: 'tax_for_single_hour',
+                    //     allowNegative: false,
+                    //     hideTrigger: true,
+                    //     maxLength: 20,
+                    // }, {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Extra Person Charge' + redStar,
+                    //     name: '',
+                    //     allowNegative: false,
+                    //     hideTrigger: true,
+                    //     maxLength: 20,
+                    //     allowBlank: false,
+                    // },
 
                 ]
             }],
@@ -199,7 +264,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             width: '100%',
             items: [{
                 xtype: 'fieldset',
-                title: 'Define Rent Per Month',
+                title: 'Month Rental Charge',
                 padding: 10,
                 height: '100%',
                 layout: {
@@ -214,45 +279,71 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 },
                 items: [{
                         xtype: 'numberfield',
-                        fieldLabel: 'Renter Per Month' + redStar,
+                        fieldLabel: 'Charge Per Month' + redStar,
                         name: 'tariff_month',
                         allowNegative: false,
+                        labelWidth:'100%',
                         // hideTrigger: true,
                         maxLength: 20,
                         allowBlank: false,
                     }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Rent for Single Person',
-                        name: 'rent_for_single_month',
-                        allowNegative: false,
-                        // hideTrigger: true,
-                        maxLength: 20,
-
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tax Rate',
-                        name: 'tax_month',
-                        allowNegative: false,
-                        // hideTrigger: true,
-                        maxLength: 20,
-
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Tax Rate For Single',
-                        name: 'tax_for_single_month',
-                        allowNegative: false,
-                        // hideTrigger: true,
-                        maxLength: 20,
-
-                    }, {
-                        xtype: 'numberfield',
-                        fieldLabel: 'Extra Person Charge' + redStar,
-                        name: 'extra_person_charge_month',
-                        allowNegative: false,
-                        hideTrigger: true,
-                        maxLength: 20,
-                        allowBlank: false,
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Inclue Tax',
+                    defaultType: 'radiofield',
+                    defaults: {
+                        autoWidth:true,
+                        flex: 1
                     },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Yes',
+                        style: 'color:blue',
+                        labelStyle: 'font-weight:bold;',
+                        name: 'is_include_tax_month',
+                        inputValue: 1,
+                        checked: true
+                    }, {
+                        boxLabel: 'No',
+                        style: 'color:red;margin-left:80px',
+                        labelStyle: 'font-weight:bold; margin-left:50px',
+                        name: 'is_include_tax_month',
+                        inputValue: 0,
+
+                    }]
+                },  
+                    // {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Rent for Single Person',
+                    //     name: 'rent_for_single_month',
+                    //     allowNegative: false,
+                    //     // hideTrigger: true,
+                    //     maxLength: 20,
+
+                    // }, {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Tax Rate',
+                    //     name: 'tax_month',
+                    //     allowNegative: false,
+                    //     // hideTrigger: true,
+                    //     maxLength: 20,
+
+                    // }, {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Tax Rate For Single',
+                    //     name: 'tax_for_single_month',
+                    //     allowNegative: false,
+                    //     // hideTrigger: true,
+                    //     maxLength: 20,
+
+                    // }, {
+                    //     xtype: 'numberfield',
+                    //     fieldLabel: 'Extra Person Charge' + redStar,
+                    //     name: 'extra_person_charge_month',
+                    //     allowNegative: false,
+                    //     hideTrigger: true,
+                    //     maxLength: 20,
+                    //     allowBlank: false,
+                    // },
 
                 ]
             }],

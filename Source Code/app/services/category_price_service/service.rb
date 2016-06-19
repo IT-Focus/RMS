@@ -1,6 +1,6 @@
 class CategoryPriceService::Service
 	def advance_search search_by, search_string,category_id
-      data = CategoryPrice.joins(:category_master).where is_active:true, category_id:category_id
+      data = CategoryPrice.joins(:category_master).where category_id:category_id
 		data = data.select("category_prices.*, category_masters.name as category_name")
       case search_by
    		when 'Name'

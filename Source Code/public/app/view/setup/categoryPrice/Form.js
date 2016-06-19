@@ -36,13 +36,54 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     labelWidth:'100%',
                     fieldLabel: 'Name' + redStar
                 }, {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Include Tax',
+                    defaultType: 'radiofield',
+                    defaults: {
+                        autoWidth:true,
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Yes',
+                        style: 'color:blue; margin-left:80px',
+                        labelStyle: 'font-weight:bold;',
+                        name: 'is_include_tax',
+                        inputValue: 1,
+                        checked: true
+                    }, {
+                        boxLabel: 'No',
+                        style: 'color:red',
+                        labelStyle: 'font-weight:bold; margin-left:50px',
+                        name: 'is_include_tax',
+                        inputValue: 0,
+
+                    }]
+                }, {
                     xtype: 'numberfield',
                     name: 'charge_amount',
                     allowBlank: false,
                     labelWidth:'100%',
                     fieldLabel: 'Charge Amount' + redStar,
                     minValue:1
-                }, {
+                }, 
+                {
+                    xtype: 'numberfield',
+                    name: 'extra_charge',
+                    labelWidth:'100%',
+                    allowBlank: false,
+                    fieldLabel: 'Extra Charge' + redStar,
+                    minValue:1
+                }, 
+                {
+                    xtype: 'numberfield',
+                    name: 'duration_day',
+                    labelWidth:'100%',
+                    allowBlank: false,
+                    fieldLabel: 'Duration Day' + redStar,
+                    minValue:1
+                }, 
+                {
                     xtype: 'timefield',
                     name: 'duration_time',
                     labelWidth:'100%',
@@ -57,7 +98,8 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     value: new Date(),
                     itemId: '1',
                     renderer: Ext.util.Format.dateRenderer('H:i'),
-                }, {
+                }, 
+                {
                     xtype: 'timefield',
                     name: 'allow_late',
                     labelWidth:'100%',
@@ -72,7 +114,8 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     value: new Date(),
                     itemId: '2',
                     renderer: Ext.util.Format.dateRenderer('H:i'),
-                }, {
+                }, 
+                {
                     xtype: 'timefield',
                     name: 'exd',
                     labelWidth:'100%',
@@ -87,42 +130,8 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     value: new Date(),
                     itemId: '3',
                     renderer: Ext.util.Format.dateRenderer('H:i'),
-                }, {
-                    xtype: 'numberfield',
-                    name: 'duration_day',
-                    labelWidth:'100%',
-                    allowBlank: false,
-                    fieldLabel: 'Duration Day' + redStar,
-                    minValue:1
-                }, {
-                    xtype: 'numberfield',
-                    name: 'extra_charge',
-                    labelWidth:'100%',
-                    allowBlank: false,
-                    fieldLabel: 'Extra Charge' + redStar,
-                    minValue:1
-                }, {
-                    xtype: 'numberfield',
-                    name: 'seq_no',
-                    labelWidth:'100%',
-                    allowBlank: false,
-                    fieldLabel: 'Seq No' + redStar,
-                    minValue:1
-                }, {
-                    xtype: 'textarea',
-                    name: 'remark',
-                    labelWidth:'100%',
-                    allowBlank: true,
-                    autoWidth:true,
-                    fieldLabel: 'Remark'
-                },
+                }, 
                 {
-                    xtype: 'checkbox',
-                    fieldLabel: 'Inclue VAT?',
-                    name: 'is_include_tax',
-                    labelWidth:'100%',
-                    checkedValue: 1
-                },{
                     xtype: 'fieldcontainer',
                     fieldLabel: 'STATUS',
                     defaultType: 'radiofield',
@@ -147,6 +156,24 @@ Ext.define('App.view.setup.categoryPrice.Form', {
 
                     }]
                 }, 
+                {
+                    xtype: 'numberfield',
+                    name: 'seq_no',
+                    labelWidth:'100%',
+                    allowBlank: false,
+                    fieldLabel: 'Sequence No' + redStar,
+                    minValue:1
+                }, 
+                {
+                    xtype: 'textarea',
+                    name: 'remark',
+                    labelWidth:'100%',
+                    allowBlank: true,
+                    autoWidth:true,
+                    // width:100,
+                    colspan:2,
+                    fieldLabel: 'Remark'
+                },
 
             ]
         }
