@@ -58,8 +58,9 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
 
         });
     },
-    defaultColor:{}, 
+    defaultColor:{},
     activedFloorId:"ALL",
+   
     backToIndex:function(btn){
         var container = btn.up("roomMonitorIndex");
         var indexForm = container.down("form[name=indexPage]");
@@ -120,11 +121,12 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     },
     addRoomToCheckIn:function(roomId){
         var model = Ext.create("App.model.roomTransaction.CheckInDetail"), 
-        storeCheckDetail = this.getRoomTransactionCheckInRoomDetailStore(),
+        storeCheckDetail = this.getRoomTransactionCheckInDetailStore(),
         storeRoom =this.getRoomTransactionRoomMonitorStore(), 
         room = storeRoom.getById(roomId);
 
-        model.set('room_master_id', roomId); 
+        model.set('room_master_id', roomId);
+        model.set('rent_charge', 0); 
         model.set('description' , room.get('room_no'));
         model.set('room_no' , room.get('room_no'));
         model.set('tran_type' , 'SE');

@@ -39,6 +39,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'fieldset',
             title: 'Customer Info',
             autoWidth: true,
+            height:'100%',
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
@@ -153,6 +154,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'fieldset',
             title: 'Rental Detail',
             autoWidth: true,
+            height:'100%',
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
@@ -181,7 +183,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }]
             }, {
                 xtype: 'combo',
-                name: 'national_id',
+                name: '',
                 store: 'combo.Nationality',
                 valueField: 'id',
                 displayField: 'name',
@@ -319,7 +321,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 triggerAction: 'all',
                 allowBlank: true,
                 editable: false,
-                fieldLabel: 'Discount Percentage' + redStar
+                fieldLabel: 'Discount Percentage'
             }, {
                 xtype: 'numberfield',
                 name: 'discount',
@@ -336,6 +338,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'tabpanel',
             autoWidth: true,
             colspan: 2,
+
             style: "margin-left:10px",
             height: '100%',
 
@@ -359,7 +362,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'grid',
             border: true,
             autoScroll: true,
-            name: 'index',
+            name: 'item_detail',
             height: '100%',
             plugins: Ext.create('Ext.grid.plugin.CellEditing', {
                 clicksToEdit: 1
@@ -385,13 +388,13 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 align: 'center'
             }, {
                 header: 'Description',
-                dataIndex: 'room_no',
+                dataIndex: 'service_id',
                 autoWidth: true,
                 flex: 1,
                 editor: {
                     xtype: 'combo',
                     displayField: 'service_name',
-                    valueField: 'service_name',
+                    valueField: 'id',
                     store: 'combo.RoomServiceMaster',
                     name: 'service_name',
                     queryMode: 'local',
@@ -407,7 +410,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }
             }, {
                 header: 'Price',
-                dataIndex: 'price',
+                dataIndex: 'unit_price',
                 autoWidth: true,
                 flex: 1,
             }, {
@@ -422,7 +425,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }
             }, {
                 header: 'Amount',
-                dataIndex: 'amount',
+                dataIndex: 'total_amount',
                 autoWidth: true,
                 flex: 1,
             }, {
@@ -452,6 +455,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             title: 'Total',
             colspan: 2,
             autoWidth: true,
+            height:'100%',
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
@@ -473,12 +477,12 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 fieldLabel: 'Total Rental Amount(+)',
                 labelWidth: '100%',
                 autoWidth: true,
-                name: 'customer_name',
+                name: '',
                 readOnly: true
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Total Extra Person Charge(+)',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
@@ -486,14 +490,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Total Tax Amount(+)',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Discount Amount(-)',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
@@ -501,28 +505,28 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Other Charge(+)',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Total Amount',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Amount Paid(-)',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
             }, {
                 xtype: 'numberfield',
                 fieldLabel: 'Balance',
-                name: 'customer_name',
+                name: '',
                 labelWidth: '100%',
                 autoWidth: true,
                 readOnly: true
@@ -543,7 +547,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'grid',
             border: true,
             name: 'roomDetail',
-            store:'roomTransaction.CheckInRoomDetail',
+            store:'roomTransaction.CheckInDetail',
             plugins: Ext.create('Ext.grid.plugin.CellEditing', {
                 clicksToEdit: 1
             }),         
@@ -569,7 +573,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 xtype: 'rownumberer',
                 width: 50,
                 align: 'center'
-            }, {
+            },{
                 header: 'Room Number',
                 dataIndex: 'room_no',
                 autoWidth: true,
@@ -578,7 +582,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     xtype: 'combo',
                     displayField: 'room_no',
                     store: 'combo.RoomList',
-                    valueField: 'room_no',
+                    valueField: 'id',
                     name: 'comboRoom',
                     queryMode: 'remote',
                     typeAhead: true,
@@ -602,18 +606,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     valueField: 'name',
                     name: 'comboCategoryPrice',
                     queryMode: 'local',
-                   // typeAhead: true,
+                    typeAhead: true,
                     triggerAction: 'all',
                     listeners: {
-                        select: function(combo, rec, index) {
+                        select: function(combo, record, index) {
                             // updateRoomInDetail                           
-                            var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
                             
-                            tmpRoomData.set("categroy_price_id" ,rec.getId() ) ;    
-                            tmpRoomData.set("unit_price" ,rec.get("charge_amount") ) ;    
-                            tmpRoomData.set("qty" ,1 ) ;    
-                            tmpRoomData.set("total_amount" ,rec.get("charge_amount") ) ;    
-                            console.log(tmpRoomData);                       
+                            var rec = record.data;
+                            App.app.getController("roomTransaction.CheckIn").tmpRoomData=rec ;                       
 
                         }, 
                         beforestartedit:function(){
@@ -621,12 +621,18 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                             alert("test before edit");
                         }
                     },
+                   
                 }
 
             }, {
                 header: 'Rent Charge',
+                dataIndex: 'rent_charge',
                 autoWidth: true,
                 flex: 1,
+                renderer: function(value) {
+                            amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                            return "<span style='color:black'><b>" + amount + "</b></span>"
+                        }
             }, {
                 header: 'Action',
                 minWidth: 100,

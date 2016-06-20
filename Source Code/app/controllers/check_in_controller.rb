@@ -1,16 +1,21 @@
 class CheckInController < ApplicationController
 def index
-	@data = CheckIn.all
+	@data = CheckIn.joins(:check_in_detail).all
 	render json:{data:@data, success:true}
 end
 
 def create
         begin
+            @@service = CheckInService::Service.new()
             CheckIn.transaction do
                 @data = CheckIn.new(permit_data)
                 @data.created_by = session[:user_id]
                 @data.save
-
+                
+                # if @data.save
+                #     room_master = @data.room_master_id
+                #     @@service.change_room_status room_master_id
+                # end
                 render json:{ data:@data ,success:true}
             end
 
@@ -59,6 +64,29 @@ private
            :edited_by,
            :description,
            :status_code,
+
+           :check_in_detail_attributes => [
+              :check_in_id,
+              :service_id,
+              :room_master_id,
+              :room_no,
+              :categroy_price_id,
+              :check_in_date,
+              :check_out_date,
+              :description,
+              :qty,
+              :unit_price,
+              :total_amount,
+              :discount,
+              :discount_amount,
+              :tax,
+              :tax_amount,
+              :grand_total_amount,
+              :created_by,
+              :edited_by,
+              :tran_type,
+              
+              ],
         )
     end
 end

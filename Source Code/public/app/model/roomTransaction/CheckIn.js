@@ -39,6 +39,8 @@ Ext.define('App.model.roomTransaction.CheckIn', {
         'created_at',
         'updated_at',
         'status_code',
+
+        'check_in_detail_attributes'
     ]
 
 });

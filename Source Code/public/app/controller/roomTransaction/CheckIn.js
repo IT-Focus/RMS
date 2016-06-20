@@ -10,7 +10,8 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     views: [
         'roomTransaction.checkIn.Index',
         'roomTransaction.checkIn.Form',
-        'roomTransaction.checkin.GetRoomForm'
+        'roomTransaction.checkin.GetRoomForm',
+        'roomTransaction.roomMonitor.Index',
 
     ],
     stores: [
@@ -48,11 +49,18 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
                 click: this.addRow
             },
             //=== event check in detail 
-            'CheckinForm grid': {
+            'CheckinForm grid[name=item_detail]': {
                 edit: this.setRecord
                 
                 
             },
+             //=== event check in detail 
+            'CheckinForm grid[name=roomDetail]': {
+                edit: this.setRecordRoomDetail
+                
+                
+            },
+
 
         });
 
@@ -63,6 +71,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     roomID: "",
     checkin_close: "",
     itemRecord:{},
+    tmpRoom:{},
     tmpRoomData:Ext.create("App.model.roomTransaction.CheckInDetail") , 
     filterItemPrice: function(editor, e) {
         var grid = e.grid,
@@ -107,9 +116,9 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     },
 
     cancel: function(btn) {
-        var conatiner = btn.up('CheckinIndex');
-        var grid = conatiner.down('grid[name=index]');
-        conatiner.setActiveItem(grid);
+        var conatiner = btn.up('roomMonitorIndex');
+        var indexForm = conatiner.down('form');
+        conatiner.setActiveItem(indexForm);
     },
     winCancel: function(btn) {
         btn.up('window').close();
@@ -128,6 +137,19 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
 
 
     },
+
+    setRecordRoomDetail: function(editor, e){
+        debugger;
+        var grid = e.grid,
+            me = this;
+        var record = grid.getStore().getAt(e.rowIdx);
+        if (me.tmpRoomData) {
+                var values = me.tmpRoomData; //get record form grid/combobox
+                record.set("rent_charge", values.charge_amount);
+                me.tmpRoomData = false;
+
+            };
+    },
     setRecord: function(editor, e){
         
         
@@ -136,37 +158,15 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var record = grid.getStore().getAt(e.rowIdx);
         if (me.itemRecord) {
                 var values = me.itemRecord; //get record form grid/combobox
-
-                // e.grid.getView().refresh();
                 record.set("id", values.id);
                 record.set("qty", 1);
-                record.set("price", values.charge_amount);
-                record.set("amount", record.get("price") * record.get("qty"));
+                record.set("unit_price", values.charge_amount);
+                record.set("total_amount", record.get("unit_price") * record.get("qty"));
                 me.itemRecord = false;
 
             };
 
     },
-    // filterItemPrice: function(editor, e) {
-    //     var grid = e.grid,
-    //         me = this;
-    //     var record = grid.getStore().getAt(e.rowIdx);
-
-    //     switch (e.colIdx) {
-    //         case 4:
-    //             if (record.get("id") > 0) {
-    //                 me.getComboRoomServiceMasterStore().load({
-    //                     params: {
-    //                         item_id: record.get("id")
-    //                     }
-    //                 });
-
-    //             };
-    //             break;
-    //     }
-
-
-    // },
     addRow: function(btn) {
         var store = btn.up('grid').getStore();
         var model = Ext.create("App.model.roomTransaction.CheckInDetail");
@@ -218,11 +218,69 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     },
 
     save: function(btn) {
+        // var store = this.getRoomTransactionCheckInStore();
+        // var me = this;
+        // Util.saveForm(btn, store, 'roomTransaction.CheckIn', me);
+
+        me = this
+        var form = btn.up('form'),
+            record = form.getRecord(),
+            values = form.getValues();
         var store = this.getRoomTransactionCheckInStore();
-        var me = this;
-        Util.saveForm(btn, store, 'roomTransaction.CheckIn', me);
+        var check_in_detail_store = me.getRoomTransactionCheckInDetailStore();
+        values["check_in_detail_attributes"] = Util.getItemStore(check_in_detail_store)
+
+        if (form.isValid()) {
+            if (record) {
+
+                record.set(values);
+            } else {
+                var model = Ext.create('App.model.roomTransaction.CheckIn');
+                model.set(values);
+                store.add(model);
 
 
+            };
+            Ext.MessageBox.wait("Please wait while system is processing.........", "Get Data");
+            store.sync({
+                success: function() {
+                    Ext.MessageBox.hide();
+                    me.cancel(btn);
+                    store.load();
+
+
+                    setTimeout(function() {
+                        store.load();
+                    }, 1000);
+
+                    Ext.MessageBox.show({
+                        title: 'Saved',
+                        msg: 'Record Save Succeed.',
+                        icon: Ext.MessageBox.INFO,
+                        buttons: Ext.Msg.OK
+                    });
+
+
+                },
+                failure: function(batch, option) {
+                    Ext.MessageBox.hide();
+                    store.rejectChanges();
+
+                    var msg = option.batch.proxy.reader.rawData.message;
+                    Ext.MessageBox.show({
+                        title: 'Error',
+                        msg: msg,
+                        icon: Ext.MessageBox.ERROR,
+                        buttons: Ext.Msg.OK
+                    });
+                }
+            });
+
+
+
+        } else {
+            Util.msg("Please entry require field!");
+        }
     },
 
 
