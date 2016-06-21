@@ -70,11 +70,14 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     index_form: "",
     roomID: "",
     checkin_close: "",
+    room_master_id_tem:"",
     itemRecord:{},
     tmpRoom:{},
     tmpRoomData:Ext.create("App.model.roomTransaction.CheckInDetail") , 
     filterItemPrice: function(editor, e) {
+        debugger;
         var grid = e.grid,
+            form = grid.up('form'),
             me = this;
         var record = grid.getStore().getAt(e.rowIdx);
         console.log("edit to room detail =========", e.colIdx,record); 
@@ -83,6 +86,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             case 2:
 
                 if (record.get("room_master_id") > 0) {
+                    room_master_id_tem = record.get("room_master_id");
                     me.getComboCategoryPriceStore().load({
                         params: {
                             roomId: record.get("room_master_id")
@@ -139,7 +143,6 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     },
 
     setRecordRoomDetail: function(editor, e){
-        debugger;
         var grid = e.grid,
             me = this;
         var record = grid.getStore().getAt(e.rowIdx);
@@ -247,6 +250,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
                     Ext.MessageBox.hide();
                     me.cancel(btn);
                     store.load();
+                    check_in_detail_store.removeAll();
 
 
                     setTimeout(function() {

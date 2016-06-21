@@ -12,10 +12,9 @@ def create
                 @data.created_by = session[:user_id]
                 @data.save
                 
-                # if @data.save
-                #     room_master = @data.room_master_id
-                #     @@service.change_room_status room_master_id
-                # end
+                if @data.save
+                    @@service.change_room_status @data.room_master_id
+                end
                 render json:{ data:@data ,success:true}
             end
 

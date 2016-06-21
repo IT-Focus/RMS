@@ -65,7 +65,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         var container = btn.up("roomMonitorIndex");
         var indexForm = container.down("form[name=indexPage]");
         container.setActiveItem(indexForm);
-        var store = this.getRoomTransactionCheckInRoomDetailStore(); 
+        var store = this.getRoomTransactionCheckInDetailStore(); 
         store.removeAll();
     },
     getRoomMonitor: function(indexView,status_id){
@@ -114,24 +114,24 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         var container = btn.up('roomMonitorIndex');
         
         var formCheckIn = container.down('CheckinForm');
-
+    
         formCheckIn.getForm().reset();
+        formCheckIn.down('hiddenfield[name=room_master_id]').setValue(btn.roomId);
         me.addRoomToCheckIn(btn.roomId);
         container.setActiveItem(formCheckIn);
     },
     addRoomToCheckIn:function(roomId){
+        
         var model = Ext.create("App.model.roomTransaction.CheckInDetail"), 
-        storeCheckDetail = this.getRoomTransactionCheckInDetailStore(),
-        storeRoom =this.getRoomTransactionRoomMonitorStore(), 
-        room = storeRoom.getById(roomId);
-
+            storeCheckDetail = this.getRoomTransactionCheckInDetailStore(),
+            storeRoom =this.getRoomTransactionRoomMonitorStore(), 
+            room = storeRoom.getById(roomId);
         model.set('room_master_id', roomId);
         model.set('rent_charge', 0); 
         model.set('description' , room.get('room_no'));
         model.set('room_no' , room.get('room_no'));
         model.set('tran_type' , 'SE');
         storeCheckDetail.add(model);
-
         
     },
     refreshMonitor:function(btn){
