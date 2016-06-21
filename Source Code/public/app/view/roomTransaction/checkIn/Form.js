@@ -130,7 +130,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 allowBlank: true
 
             }, {
-                xtype: 'numberfield',
+                xtype: 'textfield',
                 fieldLabel: 'Phone' + redStar,
                 name: 'phone'
             }, {
@@ -158,7 +158,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
-                allowBlank: false,
+                allowBlank: true,
                 width: '100%',
                 style: 'margin-left:10px'
             },
@@ -189,7 +189,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 displayField: 'name',
                 triggerAction: 'all',
                 editable: false,
-                fieldLabel: 'Nationality' + redStar,
+                fieldLabel: 'Nationality',
                 autoWidth: true
             }, {
                 xtype: 'fieldcontainer',
@@ -603,8 +603,8 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     xtype: 'combo',
                     displayField: 'name',
                     store: 'combo.CategoryPrice',
-                    valueField: 'name',
-                    name: 'comboCategoryPrice',
+                    valueField: 'id',
+                    name: 'categroy_price_id',
                     queryMode: 'local',
                     typeAhead: true,
                     triggerAction: 'all',
@@ -626,7 +626,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
 
             }, {
                 header: 'Rent Charge',
-                dataIndex: 'rent_charge',
+                dataIndex: 'unit_price',
                 autoWidth: true,
                 flex: 1,
                 renderer: function(value) {

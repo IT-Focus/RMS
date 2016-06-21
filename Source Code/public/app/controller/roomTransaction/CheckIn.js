@@ -73,9 +73,9 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     room_master_id_tem:"",
     itemRecord:{},
     tmpRoom:{},
+    defaultColor:{},
     tmpRoomData:Ext.create("App.model.roomTransaction.CheckInDetail") , 
     filterItemPrice: function(editor, e) {
-        debugger;
         var grid = e.grid,
             form = grid.up('form'),
             me = this;
@@ -123,6 +123,74 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var conatiner = btn.up('roomMonitorIndex');
         var indexForm = conatiner.down('form');
         conatiner.setActiveItem(indexForm);
+        this.refreshMonitor(btn);
+    },
+
+    loadDefaultColor:function(){
+        var storeDefaultColor = this.getStore("setup.DefaultColor");
+        var me = this ; 
+
+        storeDefaultColor.load({
+            callback:function(records){       
+                records.forEach(function(record){
+                    me.defaultColor = record.data; 
+                }); 
+            }, 
+            scope: this
+        });
+    },
+
+    refreshMonitor:function(btn){
+      var indexView =btn.up("roomMonitorIndex").down("form[name=indexPage]");
+      var me = this ;
+        me.loadDefaultColor();
+        me.clearRoomMonitor(indexView); 
+        me.addRoomMonitor(indexView,"ALL");
+    },
+    clearRoomMonitor:function(indexView){
+        indexView.removeAll();
+    },
+    addRoomMonitor:function(indexView, floor ){
+        var me = this ; 
+        var roomStore = me.getStore("roomTransaction.RoomMonitor");
+        roomStore.load({
+            params:{
+                floor:floor
+            },
+            callback:function(records){
+                records.forEach(function(record){
+                    var data= record.data; 
+                    var button = me.generateRoomForm(data , indexView);
+                });
+            },
+            scope: this
+        });
+    },
+    generateRoomForm:function(data, indexView){
+        var me = this ; 
+        
+        switch (data.status_id){
+            case 1 : 
+                data.color_status = me.defaultColor.free ; 
+                data.color_text  = me.defaultColor.free_text_color;
+                break; 
+            case 2 : 
+                data.color_status = me.defaultColor.reserved  ; 
+                data.color_text  = me.defaultColor.reserved_text_color; 
+                break; 
+            case 3 : 
+                data.color_status = me.defaultColor.occupied ; 
+                data.color_text  = me.defaultColor.occupied_text_color;
+                break; 
+            case 4 : 
+                data.color_status = me.defaultColor.late_checkout ; 
+                data.color_text  = me.defaultColor.late_checkout_text_color;
+                break; 
+        }
+
+        var panel = Ext.create("App.view.roomTransaction.roomMonitor.roomMonitor",{roomData:data});
+        
+        indexView.add(panel);
     },
     winCancel: function(btn) {
         btn.up('window').close();
@@ -146,9 +214,12 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var grid = e.grid,
             me = this;
         var record = grid.getStore().getAt(e.rowIdx);
+        var model = Ext.create("App.model.roomTransaction.CheckInDetail"),
+            storeCheckDetail = this.getRoomTransactionCheckInDetailStore();
         if (me.tmpRoomData) {
                 var values = me.tmpRoomData; //get record form grid/combobox
-                record.set("rent_charge", values.charge_amount);
+                record.set("unit_price", values.charge_amount);
+                model.set('total_amount', values.charge_amount);
                 me.tmpRoomData = false;
 
             };

@@ -67,6 +67,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         container.setActiveItem(indexForm);
         var store = this.getRoomTransactionCheckInDetailStore(); 
         store.removeAll();
+        this.refreshMonitor(btn);
     },
     getRoomMonitor: function(indexView,status_id){
         var me = this ; 
@@ -127,14 +128,17 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             storeRoom =this.getRoomTransactionRoomMonitorStore(), 
             room = storeRoom.getById(roomId);
         model.set('room_master_id', roomId);
-        model.set('rent_charge', 0); 
+        model.set('unit_price', 0);
+        model.set('qty', 1);
         model.set('description' , room.get('room_no'));
         model.set('room_no' , room.get('room_no'));
+        model.set('check_in_date',Ext.Date.format(new Date(),'Y-m-d'))
         model.set('tran_type' , 'SE');
         storeCheckDetail.add(model);
         
     },
     refreshMonitor:function(btn){
+     
       var indexView =btn.up("roomMonitorIndex").down("form[name=indexPage]");
       var me = this ;
         me.clearRoomMonitor(indexView); 
@@ -181,6 +185,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             },
             callback:function(records){
                 records.forEach(function(record){
+               
                     var data= record.data; 
                     var button = me.generateRoomForm(data , indexView);
                 });
@@ -189,10 +194,13 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         });
     },
     generateRoomForm:function(data, indexView){
+        
+
         var me = this ; 
         
         switch (data.status_id){
             case 1 : 
+            
                 data.color_status = me.defaultColor.free ; 
                 data.color_text  = me.defaultColor.free_text_color;
                 break; 
