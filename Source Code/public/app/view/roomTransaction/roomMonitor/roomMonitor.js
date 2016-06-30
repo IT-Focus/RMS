@@ -6,10 +6,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
     margin:1 , 
     initComponent: function() {
         var me = this       ;
-        var data = me.roomData; 
-        
-        var text = me.getText(data);
-       
+        var data = me.roomData;         
+        var text = me.getText(data);       
 
         Ext.apply(this, {
             text: text ,
@@ -74,7 +72,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
     getMenuList:function(data){
         var menuOption ={}; 
         var me = this ; 
-        
+        console.log(data.status_id);
         switch(data.status_id){
             case 1 : 
                 menuOption = me.getFreeMenuList(data);
@@ -84,6 +82,10 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                 break; 
             case 3 : 
                 menuOption = me.getOccupiedMenulist(data);
+                break;
+            case 4 : 
+                menuOption = me.getFreeMenuList(data);
+                break;
 
         }; 
        
@@ -96,7 +98,16 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         width: '100%',
                         text: 'Check Out',
                         scale: 'small',
-                        action:'checkin',
+                        action:'checkOut',
+                        iconCls:'icon-transfer',
+                        value:id,
+                        width: 200
+                    },{
+                        // colspan: 2,
+                        width: '100%',
+                        text: 'Update Check In',
+                        scale: 'small',
+                        action:'updateCheckIn',
                         iconCls:'icon-transfer',
                         value:id,
                         width: 200
@@ -105,7 +116,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         width: '100%',
                         text: 'Estimate Bill ',
                         scale: 'small',
-                        action:'checkin',
+                        action:'estimateBill',
                         value:id,
                         width: 200
                     },{
@@ -114,7 +125,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         text: 'Cancel Check In',
                         iconCls:'icon-ok',
                         scale: 'small',
-                        action:'checkin',
+                        action:'cancelCheckIn',
                         value:id,
                         width: 200
                     }]
@@ -139,6 +150,14 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         scale:'small', 
                         value:id,                        
                         action:'CustomerArraive', 
+                        width: 200 
+                    },{
+                        width:'100%', 
+                        text:"Cancel Check in", 
+                        iconCls:'icon-calander',
+                        scale:'small', 
+                        value:id,                        
+                        action:'CancelCheckIn', 
                         width: 200 
                     }]
 

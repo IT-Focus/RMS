@@ -25,7 +25,8 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         'combo.RoomServiceMaster'
     ],
     init: function() {
-        this.control({
+        var me = this ;
+        me.control({
             'CheckinIndex button[action=Add]': {
                 click: this.add
             },
@@ -56,16 +57,16 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             },
              //=== event check in detail 
             'CheckinForm grid[name=roomDetail]': {
-                edit: this.setRecordRoomDetail
-                
+                edit: this.setRecordRoomDetail, 
                 
             },
 
 
         });
 
-        
+        //Ext.apply(me.tmpRoomData,Ext.create("App.model.roomTransaction.CheckInDetail"));
     },
+  
     main_form: "",
     index_form: "",
     roomID: "",
@@ -74,17 +75,17 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     itemRecord:{},
     tmpRoom:{},
     defaultColor:{},
-    tmpRoomData:Ext.create("App.model.roomTransaction.CheckInDetail") , 
+    tmpRoomData:{} , 
     filterItemPrice: function(editor, e) {
         var grid = e.grid,
             form = grid.up('form'),
             me = this;
         var record = grid.getStore().getAt(e.rowIdx);
-        console.log("edit to room detail =========", e.colIdx,record); 
+        
 
         switch (e.colIdx) {
             case 2:
-
+        
                 if (record.get("room_master_id") > 0) {
                     room_master_id_tem = record.get("room_master_id");
                     me.getComboCategoryPriceStore().load({
@@ -210,19 +211,25 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
 
     },
 
-    setRecordRoomDetail: function(editor, e){
+    setRecordRoomDetail: function(editor, e ){
         var grid = e.grid,
             me = this;
         var record = grid.getStore().getAt(e.rowIdx);
         var model = Ext.create("App.model.roomTransaction.CheckInDetail"),
             storeCheckDetail = this.getRoomTransactionCheckInDetailStore();
-        if (me.tmpRoomData) {
-                var values = me.tmpRoomData; //get record form grid/combobox
-                record.set("unit_price", values.charge_amount);
-                model.set('total_amount', values.charge_amount);
-                me.tmpRoomData = false;
+        switch (e.colIdx) {
+            case 2:
+                record.set("unit_price", me.tmpRoomData.unit_price);
+                record.set('total_amount', me.tmpRoomData.unit_price);
+            break; 
+        }
+        // if (me.tmpRoomData) {
+        //         var values = me.tmpRoomData; //get record form grid/combobox
+        //         record.set("unit_price", values.charge_amount);
+        //         model.set('total_amount', values.charge_amount);
+        //         me.tmpRoomData = false;
 
-            };
+        //     };
     },
     setRecord: function(editor, e){
         

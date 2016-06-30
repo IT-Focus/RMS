@@ -1,6 +1,7 @@
 Ext.define('App.store.roomTransaction.CheckInRoomDetail', {
     extend: 'Ext.data.Store',
 //    queryMode: 'local',
+	isControllerLoad:false ,
     autoLoad:false,
     model: 'App.model.roomTransaction.CheckInDetail',
      proxy: {

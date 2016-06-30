@@ -11,7 +11,7 @@ class CheckInDetailController < ApplicationController
 	end
 
 	def combo
-		@data = @@service.get_room
+		@data = @@service.get_available_room
 		render json:{data:@data, success:true}
 	end
 	def get_checkin_detail

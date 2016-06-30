@@ -340,6 +340,7 @@ Ext.define('App.controller.Util', {
 	loadStores: function(controller) {
 
 		controller.stores.forEach(function(store) {
+
 			controller.getStore(store).load();
 		})
 	},
@@ -354,7 +355,7 @@ Ext.define('App.controller.Util', {
 			var store = controller.getStore(storeName.replace("App.store.",""));
 			
 			
-			if (store.autoLoad == false  ) {				
+			if (store.autoLoad == false  && store.isControllerLoad == undefined  ) {				
 				store.load();
 			};
 

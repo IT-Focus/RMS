@@ -39,12 +39,12 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'fieldset',
             title: 'Customer Info',
             autoWidth: true,
-            height:'100%',
+            // height:'100%',
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
                 allowBlank: false,
-                width: '100%',
+                width: '98%',
                 style: 'margin-left:10px'
             },
             items: [{
@@ -109,8 +109,9 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 style: 'margin-left:20%'
             }, {
                 xtype: 'textfield',
-                fieldLabel: 'Customer' + redStar,
-                name: 'customer_name'
+                fieldLabel: 'Customer' ,
+                name: 'customer_name', 
+                allowBlank:true 
             }, {
                 xtype: 'textarea',
                 fieldLabel: 'Address',
@@ -153,35 +154,37 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         form = {
             xtype: 'fieldset',
             title: 'Rental Detail',
-            autoWidth: true,
-            height:'100%',
+            // autoWidth: true,
+           // height:'100%',
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
                 allowBlank: true,
-                width: '100%',
+                width: '98%',
                 style: 'margin-left:10px'
             },
-            items: [{
-                xtype: 'fieldcontainer',
-                fieldLabel: 'Rental Type',
-                defaultType: 'radiofield',
-                defaults: {
-                    flex: 1
-                },
-                layout: 'hbox',
-                items: [{
-                    boxLabel: 'Day',
-                    name: 'rental_type',
-                    inputValue: 'Day',
-                }, {
-                    boxLabel: 'Hour',
-                    name: 'rental_type',
-                    inputValue: 'Hour',
-                    checked: true
+            items: [
+            // {
+            //     xtype: 'fieldcontainer',
+            //     fieldLabel: 'Rental Type',
+            //     defaultType: 'radiofield',
+            //     defaults: {
+            //         flex: 1
+            //     },
+            //     layout: 'hbox',
+            //     items: [{
+            //         boxLabel: 'Day',
+            //         name: 'rental_type',
+            //         inputValue: 'Day',
+            //     }, {
+            //         boxLabel: 'Hour',
+            //         name: 'rental_type',
+            //         inputValue: 'Hour',
+            //         checked: true
 
-                }]
-            }, {
+            //     }]
+            // }, 
+            {
                 xtype: 'combo',
                 name: '',
                 store: 'combo.Nationality',
@@ -328,7 +331,8 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 allowBlank: true,
                 autoWidth: true,
                 fieldLabel: 'Discount Amount',
-                readOnly: true
+                readOnly: true, 
+                style:'padding-bottom:40px'
             }]
         }
         return form
@@ -575,51 +579,50 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 align: 'center'
             },{
                 header: 'Room Number',
-                dataIndex: 'room_no',
-                autoWidth: true,
+                dataIndex: 'room_no',            
                 flex: 1, 
                 editor: {
                     xtype: 'combo',
                     displayField: 'room_no',
                     store: 'combo.RoomList',
-                    valueField: 'id',
+                    valueField: 'room_no',
                     name: 'comboRoom',
                     queryMode: 'remote',
                     typeAhead: true,
                     triggerAction: 'all',
                     listeners: {
                         select: function(combo, rec, index) {
-                            // updateRoomInDetail                           
+                                                     
                             var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
-                            tmpRoomData.set("room_id" ,rec.getId() ) ;                           
+                   
+                            tmpRoomData.room_master_id =rec.getId()  ;                           
 
                         }
                     },
                 }
             }, {
                 header:'Room Duration', 
-                dataIndex:'category_price_name', 
+                dataIndex:'category_price_name',
+                flex: 1, 
                  editor: {
                     xtype: 'combo',
                     displayField: 'name',
                     store: 'combo.CategoryPrice',
-                    valueField: 'id',
+                    valueField: 'name',
                     name: 'categroy_price_id',
                     queryMode: 'local',
                     typeAhead: true,
                     triggerAction: 'all',
                     listeners: {
-                        select: function(combo, record, index) {
-                            // updateRoomInDetail                           
-                            
-                            var rec = record.data;
-                            App.app.getController("roomTransaction.CheckIn").tmpRoomData=rec ;                       
-
+                        select: function(combo, rec, index) {
+                            // updateRoomInDetail                        
+                            // var rec = record.data;
+                            console.log(rec.data);
+                            var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
+                            tmpRoomData.categroy_price_id = rec.getId(); 
+                            tmpRoomData.unit_price = rec.get("charge_amount"); 
                         }, 
-                        beforestartedit:function(){
-
-                            alert("test before edit");
-                        }
+                       
                     },
                    
                 }
@@ -627,22 +630,20 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             }, {
                 header: 'Rent Charge',
                 dataIndex: 'unit_price',
-                autoWidth: true,
-                flex: 1,
+                width:150 ,
                 renderer: function(value) {
                             amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
                             return "<span style='color:black'><b>" + amount + "</b></span>"
                         }
             }, {
                 header: 'Action',
-                minWidth: 100,
-                autoWidth: true,
-                flex: 1,
+                width:70 ,                
                 align: 'center',
                 xtype: 'actioncolumn',
                 items: [{
                     xtype: 'button',
                     iconCls: 'icon-delete',
+                    tooltip:'Remvoe Item'
                     
                 }]
             }],
