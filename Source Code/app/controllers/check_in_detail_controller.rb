@@ -17,8 +17,13 @@ class CheckInDetailController < ApplicationController
 	def get_checkin_detail
 		room_no = params[:room_id]
 		@data = @@service.get_checkin_details room_no
+		puts "======================test=#{@data}"
 		@data.each do |f|
-			render json:{check_in_code:f.check_in_code,check_in_date:f.check_in_date.to_date, success:true}
+			@check_in_code = f.check_in_code
+			@check_in_date = f.check_in_date.to_date
+			puts "======================#check_in_code=#{f.check_in_code}"
+			puts "======================#check_in_date=#{f.check_in_date.to_date}"
 		end
+		render json:{check_in_code:@check_in_code,check_in_date:@check_in_date, success:true}
 	end
 end

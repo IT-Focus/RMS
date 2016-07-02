@@ -637,14 +637,20 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                         }
             }, {
                 header: 'Action',
-                width:70 ,                
+                minWidth: 100,
+                autoWidth: true,
+                flex: 1,
                 align: 'center',
                 xtype: 'actioncolumn',
                 items: [{
                     xtype: 'button',
                     iconCls: 'icon-delete',
-                    tooltip:'Remvoe Item'
-                    
+                    handler: function(grid, rowIndex) {
+                        var ctrl = App.app.getController("roomTransaction.CheckIn");
+
+                        var rec = grid.getStore().getAt(rowIndex);
+                        ctrl.deleteDetailRecord(grid, rec);
+                    }
                 }]
             }],
         }
