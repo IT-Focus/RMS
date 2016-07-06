@@ -43,7 +43,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                 break; 
             case 2 :
                 // Reserved 
-                 // var information =  "<p>"+data.room_no+"<span style='margin-left: 40px'>"+data.category_name+"</span><span style='margin-left: 40px'>"+data.status_name+"</span></p><br><p>Guest Name:"+data.customer+"</p><p>Address:"+data.address+" </p><p>Check In Date:"+data.check_in_date+" </p><p>Estimate Check Out Date:"+estimated_check_out+" </p><p>Rent Type: </p> " ; 
+                 var information =  "<p>"+data.room_no+"<span style='margin-left: 40px'>"+data.category_name+"</span><span style='margin-left: 40px'>"+data.status_name+"</span></p><br><p>Guest Name:"+data.customer+"</p><p>Address:"+data.address+" </p><p>Check In Date:"+data.check_in_date+" </p><p>Estimate Check Out Date:"+estimated_check_out+" </p><p>Rent Type: </p> " ; 
            
                 break; 
             case 3 :
@@ -126,7 +126,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         iconCls:'icon-ok',
                         scale: 'small',
                         action:'cancelCheckIn',
-                        value:id,
+                        roomId:id,
                         width: 200
                     }]
 
@@ -156,7 +156,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         text:"Cancel Check in", 
                         iconCls:'icon-calander',
                         scale:'small', 
-                        value:id,                        
+                        // value:id, 
+                        roomId:id,                       
                         action:'CancelCheckIn', 
                         width: 200 
                     }]

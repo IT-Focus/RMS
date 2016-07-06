@@ -4,7 +4,8 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     views:[
         'roomTransaction.roomMonitor.Index',
         'roomTransaction.roomMonitor.CheckInForm', 
-        'roomTransaction.checkIn.Form'
+        'roomTransaction.checkIn.Form',
+        'roomTransaction.roomMonitor.CancelCheckInForm'
         
     ],
     stores:[
@@ -21,7 +22,11 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         'roomTransaction.CheckInDetail',
         'combo.RoomServiceMaster',
         'roomTransaction.CheckIn',
-        'roomTransaction.CheckInRoomDetail'
+        'roomTransaction.CheckInRoomDetail',
+
+        // store for cancel check in
+        'roomTransaction.CancelCheckin',
+        'combo.RoomList'
     ],
     init: function() {
 
@@ -50,10 +55,23 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
                 click: this.showLateCheckoutRoom
             }, 
             // === event on form check in 
-            'roomMonitorIndex button[action=CancelCheckIn]':{
-                click: this.backToIndex
+            'roomMonitorIndex button[action=cancelCheckIn]':{
+                click: this.showFormCancelCheckin
             },
-            
+            'cancelCheckinForm button[action=Cancel]':{
+                click: this.winCancel
+            },
+            // 'cancelCheckinForm combo[name=room_no]':{
+            //     select: this.filterCancelInDetail
+            // },
+            'cancelCheckinForm hiddenfield[name=room_no]':{
+                change: this.filterCancelInDetail
+            },
+             'cancelCheckinForm button[action=Save]':{
+                click: this.saveCancelCheckIn
+            },
+
+          
 
     
 
@@ -61,6 +79,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     },
     defaultColor:{},
     activedFloorId:"ALL",
+    monitorIndexTmp:{},
    
     backToIndex:function(btn){
         var container = btn.up("roomMonitorIndex");
@@ -70,6 +89,34 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         store.removeAll();
         this.refreshMonitor(btn);
     },
+
+    winCancel:function(btn){
+        var me = this;
+        var indexPage = me.monitorIndexTmp.down("form[name=indexPage]");
+        me.clearRoomMonitor(indexPage); 
+        me.addRoomMonitor(indexPage,me.activedFloorId);
+        btn.up('window').close();
+         
+    },
+    saveCancelCheckIn:function(btn){
+        var store = this.getRoomTransactionCancelCheckinStore();
+        var me = this;
+        Util.save(btn,store,'roomTransaction.CancelCheckin');
+        var indexPage = me.monitorIndexTmp.down("form[name=indexPage]");
+        me.clearRoomMonitor(indexPage); 
+        me.addRoomMonitor(indexPage,me.activedFloorId);
+    },
+    filterCancelInDetail: function(field) {
+        value = field.getValue()
+        Util.ajax('CheckInDetail/get_checkin_detail',{room_id:value},this.loadRecordToTextfield,field)
+    },
+    loadRecordToTextfield: function(obj, field){
+        win = field.up('window')
+       
+        win.down("textfield[name=check_in_code]").setValue(obj.check_in_code);
+        win.down("datefield[name=check_in_date]").setValue(obj.check_in_date);
+    },
+
     getRoomMonitor: function(indexView,status_id){
         var me = this ; 
         var roomStore = me.getStore("roomTransaction.RoomMonitor");
@@ -122,6 +169,18 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         me.addRoomToCheckIn(btn.roomId);
         container.setActiveItem(formCheckIn);
     },
+
+    showFormCancelCheckin:function(btn){
+        var me = this;
+        var win = Ext.create("App.view.roomTransaction.roomMonitor.CancelCheckInForm");
+        // var form = btn.up('form');
+        // form.down('combo[name=]')
+        win.show();
+        win.center();
+        // alert(btn.roomId);
+        win.down('hiddenfield[name=room_no]').setValue(btn.roomId);
+        // win.down('hiddenfield[name=room_no]').focus(true , 300 );
+    },
     addRoomToCheckIn:function(roomId){
         
         var model = Ext.create("App.model.roomTransaction.CheckInDetail"), 
@@ -141,7 +200,9 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     refreshMonitor:function(btn){
      
       var indexView =btn.up("roomMonitorIndex").down("form[name=indexPage]");
+      // debugger;
       var me = this ;
+        me.monitorIndexTmp=btn.up("roomMonitorIndex");
         me.clearRoomMonitor(indexView); 
         me.addRoomMonitor(indexView,me.activedFloorId);
     },
