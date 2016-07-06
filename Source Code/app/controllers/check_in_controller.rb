@@ -19,7 +19,8 @@ def create
                     @change_room_status = @@service.change_room_status @data.room_master_id
                     if @change_room_status == true
                       # Process insert check in info to room transaction
-                      @insert_to_room_transaction = @@service.record_check_in_to_room_transaction(@data.room_master_id, @user_id, @data.status_code)
+                      @@commonService = CommonService::Service.new()
+                      @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(@data.room_master_id, @user_id, @data.status_code)
                       if @insert_to_room_transaction == true
                             # Process keep track user process store into Auditrail 
                             @@service.insert_into_auditrail @user_id

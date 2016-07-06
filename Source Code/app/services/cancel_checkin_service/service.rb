@@ -7,15 +7,21 @@ class CancelCheckinService::Service
 
 	def process_cancel_checkin permit_data,user
 		cancelCheckin = record_cancel_checkin_detail permit_data,user
-		if cancelCheckin.to_i>0
-			updateStatus = update_room_status cancelCheckin
+	    @room_id = cancelCheckin
+		if @room_id.to_i>0
+			updateStatus = update_room_status @room_id
 			if updateStatus == true
-				recordAuditrail user
+				@@commonService = CommonService::Service.new()
+                @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(@room_id, user, 13)
+				if @insert_to_room_transaction == true
+					recordAuditrail user
+				end
 			end
 		else
 		
 		end
 	end
+	
 	def record_cancel_checkin_detail permit_data,user
 		@data = CancelCheckIn.new(permit_data)
         @data.cancelled_by = user
