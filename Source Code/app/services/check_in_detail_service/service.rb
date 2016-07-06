@@ -8,7 +8,7 @@ class CheckInDetailService::Service
 		return @result
 	end
 	def get_available_room
-		@data = RoomMaster.where(" status_id = 1")
+		@data = RoomMaster.where(" status_id = 3")
 		return @data
 	end
 	def get_checkin_details room_no

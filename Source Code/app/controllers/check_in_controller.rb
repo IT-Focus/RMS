@@ -7,13 +7,24 @@ end
 def create
         begin
             @@service = CheckInService::Service.new()
+            @user_id = session[:user_id]
             CheckIn.transaction do
                 @data = CheckIn.new(permit_data)
                 @data.created_by = session[:user_id]
+                @data.status_code = 3
                 @data.save
                 
                 if @data.save
-                    @@service.change_room_status @data.room_master_id
+                    # Process change room status to busy
+                    @change_room_status = @@service.change_room_status @data.room_master_id
+                    if @change_room_status == true
+                      # Process insert check in info to room transaction
+                      @insert_to_room_transaction = @@service.record_check_in_to_room_transaction(@data.room_master_id, @user_id, @data.status_code)
+                      if @insert_to_room_transaction == true
+                            # Process keep track user process store into Auditrail 
+                            @@service.insert_into_auditrail @user_id
+                      end
+                    end
                 end
                 render json:{ data:@data ,success:true}
             end

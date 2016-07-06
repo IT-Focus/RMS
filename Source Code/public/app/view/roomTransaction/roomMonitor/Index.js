@@ -3,6 +3,8 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
     alias: 'widget.roomMonitorIndex',   
     // bodyPadding: 10,
     border: true,
+    height: '100%',
+    autoWidth:true,
     autoScroll:true,
     layout: 'card',
     initComponent: function() {

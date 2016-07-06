@@ -52,7 +52,8 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             // === event on form check in 
             'roomMonitorIndex button[action=CancelCheckIn]':{
                 click: this.backToIndex
-            }, 
+            },
+            
 
     
 

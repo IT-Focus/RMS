@@ -1,0 +1,2 @@
+class RoomTransactionController < ApplicationController
+end

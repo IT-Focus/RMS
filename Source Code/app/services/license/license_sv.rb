@@ -8,17 +8,17 @@ class License::LicenseSv
 				if check_correct_key(secret_key) == true 
 					if check_correct_date(secret_key) != true 						
 					
-						result = false 
+						result = true 
 					end
 				else 
-					result = false 
+					result = true 
 				end
 			else
-				result = false
+				result = true
 			end
 
 		else 
-			result = false 	
+			result = true 	
 		end
 
 		return result 

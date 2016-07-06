@@ -49,6 +49,10 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'CheckinForm button[action=AddItem]': {
                 click: this.addRow
             },
+            'CheckinForm button[action=AddRoom]': {
+
+                click: this.addRoom
+            },
             //=== event check in detail 
             'CheckinForm grid[name=item_detail]': {
                 edit: this.setRecord
@@ -252,6 +256,17 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var store = btn.up('grid').getStore();
         var model = Ext.create("App.model.roomTransaction.CheckInDetail");
         model.set("check_in_id", null);
+        store.add(model);
+    },
+
+    addRoom: function(btn){
+        var store = btn.up('grid').getStore();
+        var model = Ext.create("App.model.roomTransaction.CheckInDetail");
+        model.set("check_in_id", null);
+        // model.set('room_master_id', roomId);
+        model.set('unit_price', 0);
+        model.set('check_in_date',Ext.Date.format(new Date(),'Y-m-d H:i'))
+        model.set('tran_type' , 'SE');
         store.add(model);
     },
 
