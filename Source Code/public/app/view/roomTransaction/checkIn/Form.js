@@ -316,24 +316,26 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
 
             }, {
                 xtype: 'combo',
-                name: 'user_id',
+                name: 'discount',
                 store: 'combo.Discount',
-                valueField: 'id',
+                valueField: 'discount_percentage',
                 autoWidth: true,
                 displayField: 'discount_percentage',
                 triggerAction: 'all',
                 allowBlank: true,
                 editable: false,
                 fieldLabel: 'Discount Percentage'
-            }, {
-                xtype: 'numberfield',
-                name: 'discount',
-                allowBlank: true,
-                autoWidth: true,
-                fieldLabel: 'Discount Amount',
-                readOnly: true, 
-                style:'padding-bottom:40px'
-            }]
+            }, 
+            // {
+            //     xtype: 'numberfield',
+            //     name: 'discount',
+            //     allowBlank: true,
+            //     autoWidth: true,
+            //     fieldLabel: 'Discount Amount',
+            //     readOnly: true, 
+            //     style:'padding-bottom:40px'
+            // }
+            ]
         }
         return form
     },
@@ -579,13 +581,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 align: 'center'
             },{
                 header: 'Room Number',
-                dataIndex: 'room_no',            
+                dataIndex: 'room_master_id',            
                 flex: 1, 
                 editor: {
                     xtype: 'combo',
                     displayField: 'room_no',
                     store: 'combo.RoomList',
-                    valueField: 'room_no',
+                    // valueField: 'room_no',
+                    valueField: 'id',
                     name: 'comboRoom',
                     queryMode: 'remote',
                     typeAhead: true,

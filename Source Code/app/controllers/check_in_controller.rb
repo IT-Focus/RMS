@@ -15,23 +15,37 @@ def create
                 @data.status_code = 3
                 @data.save
                 if @data.save
-                    # puts "==================room=#{@data}"
-                    
-                    # params[:permit_data].each do |data|
-                    #   puts "==================room=#{data.room_master_id}"
-                    # end
+                    # @checkChargeType=@@service.check_charge_type 1
+      
+                    @data.check_in_detail.each do |data|
+                      categoryPrice = CategoryPrice.find data.categroy_price_id
+                      is_charge_by_rate = categoryPrice.is_charge_rate
+                      #process check charge type
+                      
+                      # check in type by day 
+                      if is_charge_by_rate==true
+                          @@service.check_in_by_day(data.id,@data.estimated_check_out_date, data.categroy_price_id, @data.discount,@user_id)
+                      # check in type by hour
+                      else
+
+                          @@service.check_in_hour data.id,@data.check_in_date,data.categroy_price_id,@data.discount,@user_id
+                          
+
+                      end
+                      
                       # Process change room status to busy
-                      @change_room_status = @@service.change_room_status @data.room_master_id
+                      @change_room_status = @@service.change_room_status data.room_master_id
                       if @change_room_status == true
                         # Process insert check in info to room transaction
                         @@commonService = CommonService::Service.new()
-                        @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(@data.room_master_id, @user_id, @data.status_code)
+                        @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(data.room_master_id, @user_id, @data.status_code)
                         if @insert_to_room_transaction == true
-                              # Process keep track user process store into Auditrail 
-                              @@service.insert_into_auditrail @user_id
+                          # Process keep track user process store into Auditrail 
+                          @@service.insert_into_auditrail @user_id
                         end
                       end
-                end
+                    end
+                end 
                 render json:{ data:@data ,success:true}
             end
 

@@ -245,6 +245,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
                 var values = me.itemRecord; //get record form grid/combobox
                 record.set("id", values.id);
                 record.set("qty", 1);
+                record.set("room_master_id",me.tmpRoomData.room_master_id);
                 record.set("unit_price", values.charge_amount);
                 record.set("total_amount", record.get("unit_price") * record.get("qty"));
                 me.itemRecord = false;
@@ -260,10 +261,11 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
     },
 
     addRoom: function(btn){
+        // alert(me.tmpRoomData.room_master_id);
         var store = btn.up('grid').getStore();
         var model = Ext.create("App.model.roomTransaction.CheckInDetail");
         model.set("check_in_id", null);
-        // model.set('room_master_id', roomId);
+        // model.set('room_master_id', me.tmpRoomData.room_master_id);
         model.set('qty', 1);
         model.set('unit_price', 0);
         model.set('check_in_date',Ext.Date.format(new Date(),'Y-m-d H:i'))
