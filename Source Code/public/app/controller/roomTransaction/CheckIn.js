@@ -264,6 +264,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var model = Ext.create("App.model.roomTransaction.CheckInDetail");
         model.set("check_in_id", null);
         // model.set('room_master_id', roomId);
+        model.set('qty', 1);
         model.set('unit_price', 0);
         model.set('check_in_date',Ext.Date.format(new Date(),'Y-m-d H:i'))
         model.set('tran_type' , 'SE');
@@ -317,7 +318,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         // var store = this.getRoomTransactionCheckInStore();
         // var me = this;
         // Util.saveForm(btn, store, 'roomTransaction.CheckIn', me);
-
+        // debugger;
         me = this
         var form = btn.up('form'),
             record = form.getRecord(),

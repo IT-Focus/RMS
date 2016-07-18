@@ -10,4 +10,10 @@ class CommonService::Service
 		roomTransaction.save
 		return true
 	end
+
+	def get_tax_rate
+		systemConfig = CfgUtility.find 14
+		tax_rate = systemConfig.util_int
+		return tax_rate
+	end
 end

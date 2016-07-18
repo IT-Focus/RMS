@@ -4,18 +4,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.CheckInForm', {
     alias:'widget.checkInForm' ,
     bodyPadding:20 ,
     border:true,
-    buttons:[
-
-        {
-            text:'Save',
-            iconCls:'icon-save',
-            action:'Save'
-        },{
-            text:'Cancel',
-            action:'Cancel',
-            iconCls:'icon-cancel'
-        }
-    ],
+   
 
     items:[
          {

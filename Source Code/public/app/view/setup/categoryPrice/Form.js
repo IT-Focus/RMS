@@ -37,7 +37,7 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     fieldLabel: 'Name' + redStar
                 }, {
                     xtype: 'fieldcontainer',
-                    fieldLabel: 'Include Tax',
+                    fieldLabel: 'Include Tax'+ redStar,
                     defaultType: 'radiofield',
                     defaults: {
                         autoWidth:true,
@@ -119,12 +119,12 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     xtype: 'timefield',
                     name: 'exd',
                     labelWidth:'100%',
+                    autoWidth: true,
                     fieldLabel: 'End Extra Duration' + redStar,
                     minValue: '00:00 AM',
                     maxValue: '00:00 PM',
                     increment: 15,
                     anchor: '100%',
-                    autoWidth: true,
                     value: '',
                     format: "H:i",
                     value: new Date(),
@@ -133,7 +133,7 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                 }, 
                 {
                     xtype: 'fieldcontainer',
-                    fieldLabel: 'STATUS',
+                    fieldLabel: 'STATUS' + redStar,
                     defaultType: 'radiofield',
                     defaults: {
                         autoWidth:true,
@@ -157,6 +157,33 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     }]
                 }, 
                 {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Charge Method' + redStar,
+                    defaultType: 'radiofield',
+                    // labelWidth:'100%',
+                    // autoWidth: true,
+                    defaults: {
+                        autoWidth:true,
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Day',
+                        style: 'color:blue; margin-left:80px',
+                        labelStyle: 'font-weight:bold;',
+                        name: 'is_charge_rate',
+                        inputValue: 1,
+                        checked: true
+                    }, {
+                        boxLabel: 'Hour',
+                        style: 'color:red',
+                        labelStyle: 'font-weight:bold; margin-left:50px',
+                        name: 'is_charge_rate',
+                        inputValue: 0,
+
+                    }]
+                }, 
+                {
                     xtype: 'numberfield',
                     name: 'seq_no',
                     labelWidth:'100%',
@@ -164,6 +191,7 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     fieldLabel: 'Sequence No' + redStar,
                     minValue:1
                 }, 
+
                 {
                     xtype: 'textarea',
                     name: 'remark',

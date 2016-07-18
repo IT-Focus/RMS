@@ -602,14 +602,14 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 }
             }, {
                 header:'Room Duration', 
-                dataIndex:'category_price_name',
+                dataIndex:'categroy_price_id',
                 flex: 1, 
                  editor: {
                     xtype: 'combo',
                     displayField: 'name',
                     store: 'combo.CategoryPrice',
-                    valueField: 'name',
-                    name: 'categroy_price_id',
+                    valueField: 'id',
+                    name: 'comboCategoryPrice',
                     queryMode: 'local',
                     typeAhead: true,
                     triggerAction: 'all',

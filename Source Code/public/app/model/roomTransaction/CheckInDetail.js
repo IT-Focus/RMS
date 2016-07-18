@@ -3,7 +3,6 @@ Ext.define('App.model.roomTransaction.CheckInDetail', {
     fields: [
         'id',
         'check_in_id',
-        'service_id',
         'room_master_id',
         'categroy_price_id',
         'room_no',

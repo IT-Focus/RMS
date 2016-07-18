@@ -10,22 +10,27 @@ def create
             @user_id = session[:user_id]
             CheckIn.transaction do
                 @data = CheckIn.new(permit_data)
+                
                 @data.created_by = session[:user_id]
                 @data.status_code = 3
                 @data.save
-                
                 if @data.save
-                    # Process change room status to busy
-                    @change_room_status = @@service.change_room_status @data.room_master_id
-                    if @change_room_status == true
-                      # Process insert check in info to room transaction
-                      @@commonService = CommonService::Service.new()
-                      @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(@data.room_master_id, @user_id, @data.status_code)
-                      if @insert_to_room_transaction == true
-                            # Process keep track user process store into Auditrail 
-                            @@service.insert_into_auditrail @user_id
+                    # puts "==================room=#{@data}"
+                    
+                    # params[:permit_data].each do |data|
+                    #   puts "==================room=#{data.room_master_id}"
+                    # end
+                      # Process change room status to busy
+                      @change_room_status = @@service.change_room_status @data.room_master_id
+                      if @change_room_status == true
+                        # Process insert check in info to room transaction
+                        @@commonService = CommonService::Service.new()
+                        @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(@data.room_master_id, @user_id, @data.status_code)
+                        if @insert_to_room_transaction == true
+                              # Process keep track user process store into Auditrail 
+                              @@service.insert_into_auditrail @user_id
+                        end
                       end
-                    end
                 end
                 render json:{ data:@data ,success:true}
             end
@@ -78,8 +83,8 @@ private
 
            :check_in_detail_attributes => [
               :check_in_id,
-              :service_id,
               :room_master_id,
+              :service_id,
               :room_no,
               :categroy_price_id,
               :check_in_date,
@@ -98,6 +103,7 @@ private
               :tran_type,
               
               ],
+
         )
     end
 end

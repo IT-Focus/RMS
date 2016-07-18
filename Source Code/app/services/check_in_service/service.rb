@@ -17,15 +17,25 @@ class CheckInService::Service
 		auditrail.save
 	end
 
-	def record_check_in_to_room_transaction room_master_id, user_id, status_code
-		roomTransaction = RoomTransaction.new(
-			room_master_id:room_master_id,
-			reference_no:1,
-			transaction_date:Time.now,
-			status_code:status_code,
-			user_id:user_id,
-		)
-		roomTransaction.save
-		return true
+	def check_charge_type category_price_id
+		categoryPrice = CategoryPrice.find category_price_id
+		is_charge_by_rate = categoryPrice.is_charge_rate
+		if is_charge_rate == true
+			return true
+		else
+			return false
+		end
+
 	end
+
+	def check_in_by_day data
+		commonService = commonService::Service.new()
+		$total_amount = data.total_amount
+		$tax_rate = 
+	end
+
+	def check_in_hour data
+	end
+
+	
 end

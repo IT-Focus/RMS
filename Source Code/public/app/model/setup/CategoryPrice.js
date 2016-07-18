@@ -15,6 +15,7 @@ Ext.define('App.model.setup.CategoryPrice', {
         'seq_no',
         'remark',
         'is_include_tax',
+        'is_charge_rate',
         'created_at',
         'updated_at',
     ]

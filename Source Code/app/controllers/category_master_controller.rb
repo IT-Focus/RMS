@@ -76,6 +76,7 @@ class CategoryMasterController < ApplicationController
                   :seq_no,
                   :remark,
                   :is_include_tax,
+                  :is_charge_rate
           ],
         )
     end
@@ -108,6 +109,7 @@ class CategoryMasterController < ApplicationController
                   :is_active,
                   :seq_no,
                   :remark,
+                  :is_charge_rate,
                   :is_include_tax,
           ],
         )

@@ -19,7 +19,7 @@ Ext.define('App.model.setup.CategoryMaster', {
       'created_at',
       'updated_at',
 
-        "category_price_attributes"
+      "category_price_attributes"
     ]
 
 });
