@@ -32,23 +32,25 @@ class CheckInService::Service
 		@charge_amount = @categoryPrice.charge_amount
 		systemConfig = CfgUtility.find 14
 		@tax_rate = systemConfig.util_int
+		
 		@unit_price = @categoryPrice.charge_amount
 		@total_amount = @unit_price
 		@discount_amount = (discount.to_f*@total_amount.to_f)/100
-		@tax_amount = @tax_rate.to_f*(@total_amount.to_f-discount_amount.to_f)/100
+		@tax_amount = @tax_rate.to_f*(@total_amount.to_f-@discount_amount.to_f)/100
 		@grand_total_amount=@total_amount.to_f-@discount_amount.to_f+@tax_amount.to_f
+		
 
 		@CheckInDetail = CheckInDetail.find check_in_detail_id
 		@CheckInDetail.update_attributes(
-			check_out_date:check_in_date,
+			check_out_date:estimated_check_out_date,
 			unit_price:@unit_price,
 			total_amount:@total_amount,
-			discount:discount,
+			discount:discount.to_f,
 			discount_amount:@discount_amount,
 			tax:@tax_rate,
 			tax_amount:@tax_amount,
 			grand_total_amount:@grand_total_amount,
-			created_by:@user_id,
+			created_by:user_id,
 			tran_type:'RE'
 		)
 		@CheckInDetail.save

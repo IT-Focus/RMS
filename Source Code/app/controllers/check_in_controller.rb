@@ -27,10 +27,7 @@ def create
                           @@service.check_in_by_day(data.id,@data.estimated_check_out_date, data.categroy_price_id, @data.discount,@user_id)
                       # check in type by hour
                       else
-
                           @@service.check_in_hour data.id,@data.check_in_date,data.categroy_price_id,@data.discount,@user_id
-                          
-
                       end
                       
                       # Process change room status to busy

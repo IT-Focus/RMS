@@ -9,6 +9,7 @@ class Room::RoomMonitor
       		,chi.customer_name as customer_name
       		,DATE_FORMAT(chi.estimated_check_out_date, '%d-%b-%Y %h:%i %p' ) as estimated_check_out
       		,chi.address as address
+          ,cp.name as category_price
 
       		")
       	.joins(:floor)
@@ -23,9 +24,11 @@ class Room::RoomMonitor
 
 	def get_sql
 		query="left join check_in_details ci on ci.room_no = room_masters.room_no and ci.tran_type ='SE' 
-				LEFT JOIN
+				    LEFT JOIN
       				category_masters cm ON room_masters.category_id = cm.id
-      			LEFT JOIN
+      			LEFT JOIN 
+              category_prices cp ON ci.categroy_price_id = cp.id 
+            LEFT JOIN
     				check_ins chi ON chi.room_master_id = room_masters.id
       			LEFT JOIN
 					statuses st on st.id = room_masters.status_id  "

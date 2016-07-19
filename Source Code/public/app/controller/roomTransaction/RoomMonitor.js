@@ -36,6 +36,10 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
                 click: this.loadRoomByFloor
             },
 
+            'CheckinForm button[action=CancelCheckInForm]':{
+                click: this.backToIndex
+            },
+
             'roomMonitorIndex button[action=checkin]':{
                 click: this.showFormCheckin
             },

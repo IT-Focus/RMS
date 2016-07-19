@@ -30,7 +30,7 @@ class CategoryPriceController < ApplicationController
 
         rescue Exception => e
 
-            render json:{ message:e.message ,success:false}
+            render json:{message:e.message ,success:false}
         end
 
 	end

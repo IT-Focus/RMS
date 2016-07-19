@@ -34,6 +34,9 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
             'CheckinForm button[action=Save]': {
                 click: this.save
             },
+            // 'CheckinForm button[action=CancelCheckInForm]':{
+            //     click: this.CancelCheckInForm
+            // },
             'CheckinIndex button[action=CancelCheckIn]': {
                 click: this.cancel
             },
@@ -129,6 +132,9 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         var indexForm = conatiner.down('form');
         conatiner.setActiveItem(indexForm);
         this.refreshMonitor(btn);
+    },
+    CancelCheckInForm: function(btn){
+        alert(123);
     },
 
     loadDefaultColor:function(){

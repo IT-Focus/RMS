@@ -14,7 +14,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         action: 'Save'
     }, {
         text: 'Cancel',
-        action: 'CancelCheckIn',
+        action: 'CancelCheckInForm',
         iconCls: 'icon-cancel'
     }],
 
@@ -61,7 +61,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     value: new Date(),
                     format: 'Y-m-d',
                     autoWidth: true,
-                    submitFormat: 'Y-m-d',
+                    submitFormat: 'Y-m-d H:i',
                 }, {
                     xtype: 'timefield',
                     name: 'check_in_time',
@@ -156,6 +156,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             title: 'Rental Detail',
             // autoWidth: true,
            // height:'100%',
+            height: '525px',
             style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
@@ -325,10 +326,11 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 allowBlank: true,
                 editable: false,
                 fieldLabel: 'Discount Percentage'
-            }, 
+            },
             // {
             //     xtype: 'numberfield',
             //     name: 'discount',
+            //     disable:true,
             //     allowBlank: true,
             //     autoWidth: true,
             //     fieldLabel: 'Discount Amount',
