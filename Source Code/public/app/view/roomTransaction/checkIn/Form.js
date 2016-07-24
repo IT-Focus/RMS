@@ -50,6 +50,9 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             items: [{
                 xtype: 'hiddenfield',
                 name: 'room_master_id'
+            },{
+                xtype: 'hiddenfield',
+                name: 'id'
             }, {
 
                 xtype: 'fieldcontainer',
@@ -195,7 +198,8 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 editable: false,
                 fieldLabel: 'Nationality',
                 autoWidth: true
-            }, {
+            }, 
+            {
                 xtype: 'fieldcontainer',
                 fieldLabel: 'NO.of Persons',
                 // defaultType: 'radiofield',

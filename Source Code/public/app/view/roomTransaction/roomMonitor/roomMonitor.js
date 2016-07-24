@@ -109,7 +109,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.roomMonitor', {
                         scale: 'small',
                         action:'updateCheckIn',
                         iconCls:'icon-transfer',
-                        value:id,
+                        roomId:id,  
                         width: 200
                     },{
                         // colspan: 2,

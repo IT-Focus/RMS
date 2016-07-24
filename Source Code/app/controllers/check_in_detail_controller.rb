@@ -21,9 +21,11 @@ class CheckInDetailController < ApplicationController
 		@data.each do |f|
 			@check_in_code = f.check_in_code
 			@check_in_date = f.check_in_date.to_date
-			puts "======================#check_in_code=#{f.check_in_code}"
-			puts "======================#check_in_date=#{f.check_in_date.to_date}"
 		end
-		render json:{check_in_code:@check_in_code,check_in_date:@check_in_date, success:true}
+		render json:{checkinDetail:@data,check_in_code:@check_in_code,check_in_date:@check_in_date, success:true}
+	end
+
+	def update
+		puts"=====================testtestes"
 	end
 end

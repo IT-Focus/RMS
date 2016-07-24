@@ -6,6 +6,7 @@ end
 
 def create
         begin
+            puts"==================create"
             @@service = CheckInService::Service.new()
             @user_id = session[:user_id]
             CheckIn.transaction do
@@ -38,7 +39,7 @@ def create
                         @insert_to_room_transaction = @@commonService.record_check_in_to_room_transaction(data.room_master_id, @user_id, @data.status_code)
                         if @insert_to_room_transaction == true
                           # Process keep track user process store into Auditrail 
-                          @@service.insert_into_auditrail @user_id
+                          @@service.insert_into_auditrail @user_id, data.room_no
                         end
                       end
                     end
@@ -50,7 +51,25 @@ def create
 
             render json:{ message:e.message ,success:false}
         end
+end
 
+def update
+end
+
+def destroy
+  puts"==================delete"
+        begin
+            CheckIn.transaction do
+                @data = CheckIn.find(params[:id])
+                @data.update(edited_by:session[:user_id])
+                @data.update_attributes(permit_data_update)
+                render json:{ data:@data ,success:true}
+            end
+
+        rescue Exception => e
+
+            render json:{ message:e.message ,success:false}
+        end
 end
 
 private
@@ -115,6 +134,47 @@ private
               
               ],
 
+        )
+    end
+
+    def permit_data_update
+      params.require(:data).permit(
+           :id,
+           :code,
+           :arrival_date,
+           :no_person,
+           :adult,
+           :children,
+           :male,
+           :female,
+           :no_days,
+           :balance,
+           :no_room,
+           :room_master_id,
+           :extra_person,
+           :customer_name,
+           :national_id,
+           :charge,
+           :check_in_time,
+           :email,
+           :check_in_date,
+           :dob,
+           :address,
+           :city,
+           :phone,
+           :mobile,
+           :discount,
+           :rental_type,
+           :hourly_check_in,
+           :monthly_check_in,
+           :estimated_check_out_time,
+           :estimated_check_out_date,
+           :purpose_of_visit,
+           :paid_booking,
+           :created_by,
+           :edited_by,
+           :description,
+           :status_code,
         )
     end
 end

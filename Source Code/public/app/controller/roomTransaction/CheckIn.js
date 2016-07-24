@@ -326,7 +326,7 @@ Ext.define('App.controller.roomTransaction.CheckIn', {
         // var store = this.getRoomTransactionCheckInStore();
         // var me = this;
         // Util.saveForm(btn, store, 'roomTransaction.CheckIn', me);
-        // debugger;
+        debugger;
         me = this
         var form = btn.up('form'),
             record = form.getRecord(),

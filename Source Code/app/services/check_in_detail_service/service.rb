@@ -13,7 +13,7 @@ class CheckInDetailService::Service
 	end
 	def get_checkin_details room_no
 		@checkInDetail = CheckInDetail.joins("left join check_ins on check_ins.id = check_in_details.check_in_id").where room_master_id:room_no
-		@result = @checkInDetail.select("check_in_details.*, check_ins.code as check_in_code")
+		@result = @checkInDetail.select("check_in_details.*, check_ins.code as check_in_code, check_ins.*")
 		return @result
 	end
 

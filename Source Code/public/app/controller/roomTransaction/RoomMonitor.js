@@ -43,6 +43,9 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
             'roomMonitorIndex button[action=checkin]':{
                 click: this.showFormCheckin
             },
+            'roomMonitorIndex button[action=updateCheckIn]':{
+                click: this.updateCheckIn
+            },
             'roomMonitorIndex button[action=Refresh]':{
                 click: this.refreshMonitor
             },
@@ -84,6 +87,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
     defaultColor:{},
     activedFloorId:"ALL",
     monitorIndexTmp:{},
+    tmpCheckinDetailStore:{},
    
     backToIndex:function(btn){
         var container = btn.up("roomMonitorIndex");
@@ -101,6 +105,79 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         me.addRoomMonitor(indexPage,me.activedFloorId);
         btn.up('window').close();
          
+    },
+    updateCheckIn:function(btn){
+        
+         // debugger;
+        var me = this ; 
+        var storeCheckDetail = me.getRoomTransactionCheckInDetailStore();
+        tmpCheckinDetailStore = storeCheckDetail;
+        Util.ajax('CheckInDetail/get_checkin_detail',{room_id:btn.roomId},this.loadRecordToForm,btn)
+    },
+    loadRecordToForm:function(obj,btn){
+        var container = btn.up('roomMonitorIndex');
+        var formCheckIn = container.down('CheckinForm');
+        
+        var model = Ext.create("App.model.roomTransaction.CheckInDetail");
+        
+        formCheckIn.getForm().reset();
+  
+            obj.checkinDetail.forEach(function(rec){  
+                // formCheckIn.down('hiddenfield[name=room_master_id]').setValue(btn.roomId);
+                formCheckIn.down('hiddenfield[name=id]').setValue(rec.check_in_id);
+                // formCheckIn.getForm().loadRecord(rec);
+                
+                // Cutomer Info
+                formCheckIn.down('datefield[name=check_in_date]').setValue(obj.check_in_date);
+                formCheckIn.down('timefield[name=check_in_time]').setValue(Ext.util.Format.dateRenderer('H:i')(rec.check_in_time));
+                formCheckIn.down('datefield[name=estimated_check_out_date]').setValue(Ext.util.Format.dateRenderer('Y-m-d')(rec.estimated_check_out_date));
+                formCheckIn.down('timefield[name=estimated_check_out_time]').setValue(Ext.util.Format.dateRenderer('H:i')(rec.estimated_check_out_time));
+                formCheckIn.down('textfield[name=customer_name]').setValue(rec.customer_name);
+                formCheckIn.down('textarea[name=address]').setValue(rec.address);
+                formCheckIn.down('textfield[name=city]').setValue(rec.city);
+                formCheckIn.down('textfield[name=email]').setValue(rec.email);
+                formCheckIn.down('textfield[name=phone]').setValue(rec.phone);
+                formCheckIn.down('datefield[name=dob]').setValue(rec.dob);
+                formCheckIn.down('numberfield[name=national_id]').setValue(rec.national_id);
+                // Rantal Info
+                formCheckIn.down('numberfield[name=no_person]').setValue(rec.no_person);
+                formCheckIn.down('numberfield[name=adult]').setValue(rec.adult);
+                formCheckIn.down('numberfield[name=children]').setValue(rec.children);
+                formCheckIn.down('numberfield[name=male]').setValue(rec.male);
+                formCheckIn.down('numberfield[name=female]').setValue(rec.female);
+                formCheckIn.down('numberfield[name=paid_booking]').setValue(rec.paid_booking);
+                formCheckIn.down('textfield[name=purpose_of_visit]').setValue(rec.purpose_of_visit);
+                formCheckIn.down('numberfield[name=no_room]').setValue(rec.no_room);
+                formCheckIn.down('numberfield[name=extra_person]').setValue(rec.extra_person);
+                formCheckIn.down('numberfield[name=charge]').setValue(rec.charge);
+                formCheckIn.down('combo[name=discount]').setValue(rec.discount);
+
+                // model.set('id',rec.id);
+                model.set('room_master_id', btn.roomId);
+                model.set('check_in_id' , rec.check_in_id);
+                model.set('room_master_id' , rec.room_master_id);
+                model.set('categroy_price_id' , rec.categroy_price_id);
+                model.set('total_amount', rec.total_amount);
+                model.set('unit_price', rec.unit_price);
+                model.set('discount', rec.discount);
+                model.set('discount_amount', rec.discount_amount);
+                model.set('tax', rec.tax);
+                model.set('tax_amount', rec.tax_amount);
+                model.set('grand_total_amount', rec.grand_total_amount);
+                model.set('unit_price', rec.unit_price);
+                model.set('qty', rec.qty);
+                model.set('description' , rec.description);
+                model.set('room_no' , rec.room_no);
+                model.set('check_in_date',Ext.Date.format(obj.check_in_date,'Y-m-d'))
+                model.set('tran_type' , rec.tran_type);
+                tmpCheckinDetailStore.add(model);
+
+            
+             
+
+
+             })
+         container.setActiveItem(formCheckIn);
     },
     saveCancelCheckIn:function(btn){
         var store = this.getRoomTransactionCancelCheckinStore();
@@ -186,7 +263,7 @@ Ext.define('App.controller.roomTransaction.RoomMonitor', {
         // win.down('hiddenfield[name=room_no]').focus(true , 300 );
     },
     addRoomToCheckIn:function(roomId){
-        
+        debugger;
         var model = Ext.create("App.model.roomTransaction.CheckInDetail"), 
             storeCheckDetail = this.getRoomTransactionCheckInDetailStore(),
             storeRoom =this.getRoomTransactionRoomMonitorStore(), 

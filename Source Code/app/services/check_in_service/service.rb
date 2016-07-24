@@ -7,11 +7,11 @@ class CheckInService::Service
 		return true
 	end
 
-	def insert_into_auditrail user_id
+	def insert_into_auditrail user_id,room_no
 		auditrail = Auditrail.new(
 			module_name:'Check In',
 			action:'Create Check In',
-			description:'Room Check In',
+			description:"Check In Room #{room_no}",
 			created_by:user_id
 		)
 		auditrail.save

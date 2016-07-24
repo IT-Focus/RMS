@@ -157,7 +157,7 @@ Ext.define('App.controller.Util', {
 		var row = grid.getSelectionModel().getSelection();
 		if (row.length) {
 			var record = row[0];
-
+			console.log(record);
 			return record;
 		} else {
 			if (message) {
