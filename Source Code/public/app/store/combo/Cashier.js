@@ -9,7 +9,8 @@ Ext.define('App.store.combo.Cashier', {
 		        reader: {
 		            type: 'json',
 		            root: 'data',
-		            successProperty: 'success'
+		            successProperty: 'success',
+		            messageProperty: 'message'
 		        },
 		        writer: {
 		        	getRecordData: function(record) {

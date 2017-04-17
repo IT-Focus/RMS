@@ -11,32 +11,23 @@ Ext.define('App.view.account.openCashDrawer.Index', {
                 border: true,
                 name: 'openCashDrawerGrid',
                 store: 'account.CashierBalance',
-                title: 'Open Cash Drawer',
+                title: 'Casheir Balance',
                 tools: [
-                    // {
-                    //     xtype: 'textfield',
-                    //     fieldLabel:'<b>Search</b>',
-                    //     labelWidth:50,
-                    //     name: 'string',
-                    //     emptyText: '------Cashier------',
-                    //     width: 300,
-                    //     style: 'margin-right:50px; color:white',
-                    // },
-
+                   
                     {
                         xtype: 'button',
                         action: 'Open',
-                        text:'<b>Open Cash Drawer</b>',
+                        text:'<b>Open Balance</b>',
                         iconCls: 'icon-opencash ',
-                        tooltip: 'Open Cash Drawer'
-                    }, 
-                    // {
-                    //     xtype: 'button',
-                    //     action: 'Edit',
-                    //     style: 'margin-left:5px',
-                    //     iconCls: 'icon-edit',
-                    //     tooltip: 'Edit Floor'
-                    // },
+                        tooltip: 'Open Balance'
+                    }, {
+                        xtype: 'button',
+                        action: 'CloseBalance',
+                        text:'<b>Close Balance</b>',
+                        iconCls: 'icon-closecash ',
+                        tooltip: 'Close Balance'
+                    },
+                   
                 ],
                 columns: [{
                     header: 'NO',
@@ -60,6 +51,21 @@ Ext.define('App.view.account.openCashDrawer.Index', {
                         amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
                         return "<span style='color:black'><b>" + amount + "</b></span>"
                     }
+                },{
+                    header:"Status",
+                    dataIndex:'status',
+                    width:70 , 
+                    renderer:function(value){
+                        console.log(value);
+                        if(value == 41 ){
+                            return "Closed";
+                        }
+                        return "Openned";
+                    },
+                    isDisabled: function(view, rowIndex, colIndex, item, record) {                          
+                            var isDisabled=record.get('status')==41;
+                            return !isDisabled;
+                        }
                 }],
                 // {
                 //     xtype: 'actioncolumn',
@@ -93,7 +99,7 @@ Ext.define('App.view.account.openCashDrawer.Index', {
                 //     }
                 // ]
                 bbar: Ext.create('Ext.PagingToolbar', {
-                    // store: 'account.Cashier',
+                    store: 'account.CashierBalance',
                     displayInfo: true,
                     displayMsg: 'view {0} - {1} of {2}',
                     emptyMsg: "view 0"

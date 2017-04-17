@@ -7,6 +7,11 @@ class CategoryMasterController < ApplicationController
 		render json:{data:data, success:true}
 	end
 
+  def check_people_allowance
+        room_master_id = params[:room_master_id]
+        puts "==============room_master_id=#{room_master_id}"
+  end
+
 	def create
 		begin
             CategoryMaster.transaction do
@@ -14,7 +19,7 @@ class CategoryMasterController < ApplicationController
                 @data.created_by = session[:user_id]
                 @data.save
 
-                render json:{ data:@data ,success:true}
+                render json:{data:@data ,success:true}
             end
 
         rescue Exception => e
@@ -25,7 +30,6 @@ class CategoryMasterController < ApplicationController
 	end
 
 	def update
-
         begin
             CategoryMaster.transaction do
                 @data = CategoryMaster.find(params[:id])

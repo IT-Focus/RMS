@@ -34,6 +34,49 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
                     items: [
                         this.newCodeForm()
                     ]
+                }, {
+                    title: 'Receipt Configuration',
+                    items: [
+                        this.ReceiptPrinting(),
+                    ],
+
+                    listeners: {
+                        activate: function(t, eOpts) {
+
+                            var ctrl = App.app.getController("admin.CfgUtilities");
+                            ctrl.loadReceiptPrinting(t, eOpts);
+                        }
+                    }
+
+                },{
+                    title: 'Taxation Configuration',
+                    xtype: 'tabpanel', 
+                        items:[{
+                            title: 'VAT ',
+                            items: [
+                                this.VAT(),
+                            ],
+                            listeners: {
+                                activate: function(t, eOpts) {
+
+                                var ctrl = App.app.getController("admin.CfgUtilities");
+                                ctrl.loadVATToForm(t, eOpts)
+                                }
+                             }
+                        },{
+                            title: 'Service TAX',
+                            items: [
+                                this.SERVICE_TAX(),
+                            ],
+                            listeners: {
+                                activate: function(t, eOpts) {
+
+                                var ctrl = App.app.getController("admin.CfgUtilities");
+                                ctrl.loadServiceTaxToForm(t, eOpts)
+                            }
+                            }
+                        }]       
+
                 }]
             }]
         });
@@ -126,7 +169,6 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
 
         return CompanyProfile
     },
-
     formLogo: function() {
         logo = {
             layout: {
@@ -198,7 +240,6 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
         }
         return logo
     },
-
     loadValueToForm: function(obj, me) {
         if (obj.success) {
             var form = me.down('form');
@@ -211,7 +252,6 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
             form.down('hiddenfield[name=background_url]').setValue(obj.data.background_url);
         }
     },
-
     newCodeForm: function() {
         PosNextCode = {
             tools: [{
@@ -281,7 +321,218 @@ Ext.define('App.view.admin.CfgUtilities.Index', {
 
         }
         return PosNextCode;
-    }
+    },
+    ReceiptPrinting: function() {
+        ReceiptPrinting = {
+            xtype: 'fieldset',
+            xtype: 'form',
+            name: 'receiptForm',
+            title: 'Receipt Printing',
+            border: true,
+            // layout: {
+            //     type: 'table',
+            //     columns: 2
+            // },
+            style: 'border: 1px solid gray; margin-left:20%; margin-top:5%; border-radius:5px',
+            width: 500,
+            bodyPadding: 20,
+            buttons: [{
+                text: 'Update',
+                iconCls: 'icon-save',
+                action: 'update_receipt'
+            }, ],
+
+            items: [
+                // {
+                //     xtype: 'textfield',
+                //     name: 'recipt_url',
+                //     allowBlank: false,
+                //     fieldLabel: translate('Recipt Header URL'),
+                //     labelWidth: 170,
+                // },
+                {
+                    xtype: 'textfield',
+                    name: 'recipt_header',
+                    allowBlank: false,
+                    fieldLabel: 'Recipt Header',
+                    labelWidth: 170,
+                }, {
+                    xtype: 'checkbox',
+                    name: 'is_image',
+                    labelWidth: 170,
+                    checkedValue: true,
+                    uncheckedValue: false,
+                    fieldLabel: 'Recipt Image'
+                }, {
+                    xtype: 'form',
+                    style: 'margin-left:170px',
+                    width: 200,
+                    items: [{
+                        xtype: 'image',
+                        name: 'recipte_image',
+                        width: 180,
+                        height: 150,
+                        style: 'border: 1px solid gray; border-radius:10px',
+                    }, {
+                        xtype: 'hiddenfield',
+                        name: 'image_url'
+                    }, ],
+                    rowspan: 7,
+                    bbar: [{
+                        xtype: 'filefield',
+                        name: 'image',
+                        width: 50,
+                        buttonOnly: true,
+                    }, '->', {
+                        text: 'Remove',
+                        action: 'Remove',
+                    }],
+                },
+
+            ],
+
+
+
+        }
+        return ReceiptPrinting;
+    },
+    VAT: function() {
+        ReceiptPrinting = {
+            xtype: 'fieldset',
+            xtype: 'form',
+            name: 'vatForm',
+            title: 'VAT',
+            border: true,
+            // layout: {
+            //     type: 'table',
+            //     columns: 2
+            // },
+            style: 'border: 1px solid gray; margin-left:20%; margin-top:5%; border-radius:5px',
+            width: 500,
+            bodyPadding: 20,
+            buttons: [{
+                text: 'Update',
+                iconCls: 'icon-save',
+                action: 'update_vat'
+            }, ],
+
+            items: [
+
+                {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'VAT',
+                    labelWidth: 100,
+                    defaultType: 'radiofield',
+                    defaults: {
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Include',
+                        style: 'color:blue',
+                        name: 'is_vat',
+                        //inputValue: 1,
+                        checkedValue: true,
+                        uncheckedValue: false,
+                        checked: true
+                    }, {
+                        boxLabel: 'Exclude',
+                        style: 'color:red',
+                        name: 'is_vat',
+                        //inputValue: 0,
+                        checkedValue: false,
+                        uncheckedValue: true,
+
+                    }]
+                }, {
+                    xtype: 'numberfield',
+                    name: 'vatValue',
+                    fieldLabel: 'VAT Value'+"(%)",
+                    allowBlank: false,
+                    allowNegative: false,
+                    stripCharsRe: /[-]/,
+                    allowNegative: false,
+                    allowDecimal: true,
+                    maxLength: 3,
+                    minLength: 1,
+                    width: 350,
+                    hideTrigger: true,
+
+                },
+            ],
+
+
+
+        }
+        return ReceiptPrinting;
+    },
+    SERVICE_TAX: function() {
+        form = {
+            xtype: 'fieldset',
+            xtype: 'form',
+            name: 'vatForm1',
+            title: 'SERVICE TAX',
+            border: true,
+            // layout: {
+            //     type: 'table',
+            //     columns: 2
+            // },
+            style: 'border: 1px solid gray; margin-left:20%; margin-top:5%; border-radius:5px',
+            width: 500,
+            bodyPadding: 20,
+            buttons: [{
+                text: 'Update',
+                iconCls: 'icon-save',
+                action: 'update_service_vat'
+            }, ],
+
+            items: [
+
+                {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'TAX',
+                    labelWidth: 100,
+                    defaultType: 'radiofield',
+                    defaults: {
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Include',
+                        style: 'color:blue',
+                        name: 'is_service_vat',
+                        //inputValue: 1,
+                        checkedValue: true,
+                        uncheckedValue: false,
+                        checked: true
+                    }, {
+                        boxLabel: 'Exclude',
+                        style: 'color:red',
+                        name: 'is_service_vat',
+                        //inputValue: 0,
+                        checkedValue: false,
+                        uncheckedValue: true,
+
+                    }]
+                }, {
+                    xtype: 'numberfield',
+                    name: 'ServiceTaxValue',
+                    fieldLabel: 'Value'+"(%)",
+                    allowBlank: false,
+                    allowNegative: false,
+                    stripCharsRe: /[-]/,
+                    allowNegative: false,
+                    allowDecimal: true,
+                    maxLength: 3,
+                    minLength: 1,
+                    width: 350,
+                    hideTrigger: true,
+
+                },
+            ],
+        }
+        return form;
+    },     
 
 
 

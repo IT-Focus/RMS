@@ -1,36 +1,61 @@
 Ext.define('App.view.roomTransaction.checkIn.Form', {
     extend: 'Ext.form.Panel',
     alias: 'widget.CheckinForm',
-    // bodyPadding:20 ,
+    bodyPadding:20 ,
     // border: true,
     autoScroll: true,
     layout: {
         type: 'table',
         columns: 2
     },
-    buttons: [{
-        text: 'Save',
-        iconCls: 'icon-save',
-        action: 'Save'
-    }, {
-        text: 'Cancel',
-        action: 'CancelCheckInForm',
-        iconCls: 'icon-cancel'
-    }],
+    
+    buttons: [
+        {
+            text: 'Cancel',
+            action: 'CancelCheckInForm',
+            iconCls: 'icon-cancel'
+        },
+        {
+            text: 'Update Check In',
+            action: 'UpdateCheckIn',
+            iconCls: 'icon-save'
+        }, 
+        {
+            text: 'Check In',
+            iconCls: 'icon-save',
+            action: 'SaveCheckIn',
+            // handler:function(btn){                
+            //     var ctrl = App.app.getRoomTransactionCheckInController(); 
+            //     ctrl.saveFormCheckIn(btn); 
+            // }
+        },{
+            text:'Cancel CheckIn',
+            iconCls:'icon-terminateAccount',
+            action:'CancelCheckIn'
+        },{
+            text:'Paid',
+            iconCls:'icon-pay',
+            action:"Paid"
+        },{
+            text:'CheckOut',
+            action:"CheckOut", 
+            iconCls:'icon-cashtransfer'
+        }
+    ],
 
     initComponent: function() {
- 
-        var me = this ;  
-        Ext.apply(me, {
+
+        // var me = this;
+        Ext.apply(this, {
             items: [
 
-                me.customerInfoForm(),
-                me.rentDetailForm(),
-                me.getGrid(),
-                me.totalForm(),
+                this.customerInfoForm(),
+                this.rentDetailForm(),                
+                this.getGrid(),
+                this.totalForm(),
             ]
         });
-        me.callParent(arguments);
+        this.callParent(arguments);
     },
 
 
@@ -39,8 +64,11 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             xtype: 'fieldset',
             title: 'Customer Info',
             autoWidth: true,
-            // height:'100%',
-            style: "margin-left:10px",
+           colspan: 2, 
+            layout:{
+                type:'table', 
+                columns:2
+            },
             defaults: {
                 // style:'margin:10px',
                 allowBlank: false,
@@ -48,299 +76,255 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 style: 'margin-left:10px'
             },
             items: [{
-                xtype: 'hiddenfield',
-                name: 'room_master_id'
-            },{
-                xtype: 'hiddenfield',
-                name: 'id'
-            }, {
-
-                xtype: 'fieldcontainer',
-                fieldLabel: 'Check in Time',
-                layout: 'hbox',
-                items: [{
-                    xtype: 'datefield',
-                    name: 'check_in_date',
-                    value: new Date(),
-                    format: 'Y-m-d',
-                    autoWidth: true,
-                    submitFormat: 'Y-m-d H:i',
+                    xtype: 'hiddenfield',
+                    name: 'room_master_id'
                 }, {
-                    xtype: 'timefield',
-                    name: 'check_in_time',
-                    minValue: '6:00 AM',
-                    maxValue: '00:00 PM',
-                    increment: 30,
-                    anchor: '100%',
-                    autoWidth: true,
-                    value: '',
-                    format: "H:i",
-                    value: new Date(),
-                    itemId: 'start_time_formated',
-                    renderer: Ext.util.Format.dateRenderer('H:i'),
+                    xtype: 'hiddenfield',
+                    name: 'id'
+                },  {
+                    xtype: 'checkbox',
+                    boxLabel: 'Throught Revervation',
+                    style: 'margin-left:20%'
+                }, {
+                    layout: 'hbox',
+                    xtype: 'container',
+                    items: [{
+                        xtype: 'combo',
+                        name: 'customers_id',
+                        store: 'combo.Customer',
+                        valueField: 'id',
+                        displayField: 'customer_name',
+                        triggerAction: 'all',
+                        editable: true,
+                        fieldLabel: 'Customer',
+                        autoWidth: true,
+                        // value: 1,
+                        typeAhead: true,
+                        minChars: 2,
+                        queryMode: 'remote',
+                        allowBlank: true,
+                        width: "92%"
+                    }, {
+                        xtype: 'button',
+                        style: 'margin-left:5px; margin-bottom:10px',
+                        text: '+',
+                        action: 'AddCustomer',
+                    }]
+                }, {
+                    xtype: 'textarea',
+                    fieldLabel: 'Address',
+                    name: 'address',
+                    readOnly: true,
+                    allowBlank: true
 
-                }]
-            }, {
-                xtype: 'fieldcontainer',
-                fieldLabel: 'Es.Check Out',
-                layout: 'hbox',
-                items: [{
+                }, {
+                    xtype: 'textfield',
+                    fieldLabel: 'City',
+                    name: 'city',
+                    readOnly: true,
+                    allowBlank: true
+                }, {
+                    xtype: 'textfield',
+                    vtype: 'email',
+                    name: 'email',
+                    readOnly: true,
+                    fieldLabel: 'Email',
+                    allowBlank: true
+
+                }, {
+                    xtype: 'textfield',
+                    fieldLabel: 'Phone',
+                    name: 'phone',
+                    readOnly: true,
+                    allowBlank: true
+                }, {
                     xtype: 'datefield',
-                    name: 'estimated_check_out_date',
-                    value: new Date(),
+                    fieldLabel: 'DOB',
+                    name: 'dob',
+                    // value: new Date(),
                     format: 'Y-m-d',
-                    autoWidth: true,
+                    readOnly: true,
+                    allowBlank: true,
                     submitFormat: 'Y-m-d',
-                }, {
-                    xtype: 'timefield',
-                    name: 'estimated_check_out_time',
-                    minValue: '6:00 AM',
-                    maxValue: '00:00 PM',
-                    increment: 30,
-                    anchor: '100%',
-                    autoWidth: true,
-                    value: '',
-                    format: "H:i",
-                    value: new Date(),
-                    itemId: 'start_time_formated',
-                    renderer: Ext.util.Format.dateRenderer('H:i'),
+                },
+               
+                {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'N.ID',
+                    layout: 'hbox',
+                    width:'98%',
+                    items: [{
+                        xtype: 'numberfield',
+                        // fieldLabel: 'N.ID',
+                        name: 'national_no',
+                        allowBlank: true,
+                        width: '30%',
+                        labelWidth: '100%',
+                        readOnly: true,
+                        // autoWidth: true,
 
-                }]
-            }, {
-                xtype: 'checkbox',
-                boxLabel: 'Throught Revervation',
-                style: 'margin-left:20%'
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Customer' ,
-                name: 'customer_name', 
-                allowBlank:true 
-            }, {
-                xtype: 'textarea',
-                fieldLabel: 'Address',
-                name: 'address',
-                allowBlank: true
-
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'City',
-                name: 'city',
-                allowBlank: true
-            }, {
-                xtype: 'textfield',
-                vtype: 'email',
-                name: 'email',
-                fieldLabel: 'Email',
-                allowBlank: true
-
-            }, {
-                xtype: 'textfield',
-                fieldLabel: 'Phone' + redStar,
-                name: 'phone'
-            }, {
-                xtype: 'datefield',
-                fieldLabel: 'DOB',
-                name: 'dob',
-                value: new Date(),
-                format: 'Y-m-d',
-                submitFormat: 'Y-m-d',
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'N.ID',
-                name: 'national_id',
-                allowBlank: true
-            }]
+                    }, {
+                        xtype: 'textfield',
+                        fieldLabel: 'Passport',
+                        name: 'passport',
+                        allowBlank: true,
+                        // width:'40%'
+                        labelWidth: '100%',
+                        readOnly: true,
+                        autoWidth: true,
+                    }]
+                }
+             
+            ]
         }
         return form
-    },
+    },  
     rentDetailForm: function() {
         form = {
             xtype: 'fieldset',
             title: 'Rental Detail',
-            // autoWidth: true,
-           // height:'100%',
-            height: '525px',
-            style: "margin-left:10px",
-            defaults: {
-                // style:'margin:10px',
+           colspan: 2, 
+           layout:{
+            type:'table', 
+            columns:2
+           },
+            defaults: {      
                 allowBlank: true,
                 width: '98%',
                 style: 'margin-left:10px'
             },
             items: [
-            // {
-            //     xtype: 'fieldcontainer',
-            //     fieldLabel: 'Rental Type',
-            //     defaultType: 'radiofield',
-            //     defaults: {
-            //         flex: 1
-            //     },
-            //     layout: 'hbox',
-            //     items: [{
-            //         boxLabel: 'Day',
-            //         name: 'rental_type',
-            //         inputValue: 'Day',
-            //     }, {
-            //         boxLabel: 'Hour',
-            //         name: 'rental_type',
-            //         inputValue: 'Hour',
-            //         checked: true
-
-            //     }]
-            // }, 
             {
-                xtype: 'combo',
-                name: '',
-                store: 'combo.Nationality',
-                valueField: 'id',
-                displayField: 'name',
-                triggerAction: 'all',
-                editable: false,
-                fieldLabel: 'Nationality',
-                autoWidth: true
-            }, 
-            {
-                xtype: 'fieldcontainer',
-                fieldLabel: 'NO.of Persons',
-                // defaultType: 'radiofield',
-                defaults: {
-                    flex: 1
-                },
-                layout: {
-                    type: 'table',
-                    columns: 3
-                },
-                items: [{
-                    xtype: 'numberfield',
-                    name: 'no_person',
-                    width: 70,
-                    minValue: 0,
-                    value: 0,
-                    fieldStyle: "text-align:right;",
-                    labelWidth: 20,
-                    autoWidth: true
+
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Check in Time',
+                    layout: 'hbox',
+                    items: [{
+                        xtype: 'datefield',
+                        name: 'check_in_date',
+                        value: _now,
+                        format: 'Y-m-d',
+                        autoWidth: true,
+                        submitFormat: 'Y-m-d H:i',
+                    }, {
+                        xtype: 'timefield',
+                        name: 'check_in_time',
+                        minValue: '00:00 AM',
+                        maxValue: '24:00 PM',
+                        increment: 01,
+                        anchor: '100%',
+                        autoWidth: true,
+                        value: '',
+                        format: "H:i:s",
+                        value: _now,
+                        id: 'currtime',
+                        itemId: 'start_time_formated',
+                        renderer: Ext.util.Format.dateRenderer('H:i'),
+                        // listeners: {
+                        //     afterrender: function() {
+                        //       var task = {
+                        //         run: function() {
+                        //              Ext.getCmp('currtime').setValue(Ext.Date.format(new Date(), 'H:i:s'));
+                        //         },
+                        //         interval: 1000 //1 second
+                        //       }
+                        //       Ext.TaskManager.start(task);
+                        //     }
+                        //   },
+
+                    }]
                 }, {
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Es.Check Out',
+                    layout: 'hbox',
+                    items: [{
+                        xtype: 'datefield',
+                        name: 'estimated_check_out_date',
+                        value: new Date(),
+                        format: 'Y-m-d',
+                        autoWidth: true,
+                        submitFormat: 'Y-m-d H:i',
+                    }, {
+                        xtype: 'timefield',
+                        name: 'estimated_check_out_time',
+                        minValue: '00:00 AM',
+                        maxValue: '24:00 PM',
+                        increment: 01,
+                        anchor: '100%',
+                        autoWidth: true,
+                        value: '',
+                        format: "H:i:s",
+                        value: new Date(),
+                        itemId: 'start_time_formated',
+                        id: 'currestimated',
+                        renderer: Ext.util.Format.dateRenderer('H:i'),
+                         // listeners: {
+                         //    afterrender: function() {
+                         //      var task = {
+                         //        run: function() {
+                         //             Ext.getCmp('currestimated').setValue(Ext.Date.format(new Date(), 'H:i:s'));
+                         //        },
+                         //        interval: 1000 //1 second
+                         //      }
+                         //      Ext.TaskManager.start(task);
+                         //    }
+                         //  },
+
+                    }]
+                },/*{
                     xtype: 'numberfield',
-                    fieldLabel: 'Adult',
-                    name: 'adult',
+                    fieldLabel: 'Paid Booking',
                     minValue: 0,
                     value: 0,
-                    width: 140,
-                    fieldStyle: "text-align:right;",
-                    labelWidth: "100%",
-                    // style: "margin-left:100%"
-
-                }, {
-                    xtype: 'numberfield',
-                    fieldLabel: 'Child',
-                    name: 'children',
-                    width: 140,
-                    minValue: 0,
-                    value: 0,
-                    fieldStyle: "text-align:right;",
-                    labelWidth: "100%",
-                    // style: "margin-left:100%"
-
-                }, {}, {
-                    xtype: 'numberfield',
-                    fieldLabel: 'Male',
-                    // colspan:2,
-                    fieldStyle: "text-align:right;",
-                    name: 'male',
-                    width: 140,
-                    minValue: 0,
-                    value: 0,
-                    labelWidth: "100%",
-                    // style: "margin-left:100%"
-
-                }, {
-                    xtype: 'numberfield',
-                    fieldLabel: 'Female',
-                    name: 'female',
-                    width: 140,
-                    minValue: 0,
-                    value: 0,
-                    fieldStyle: "text-align:right;",
-                    labelWidth: "100%",
-                    // style: "margin-left:100%"
-
-                }]
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Paid Booking',
-                minValue: 0,
-                value: 0,
-                autoWidth: true,
-                name: 'paid_booking'
-            }, {
-                xtype: 'textfield',
-                name: 'purpose_of_visit',
-                autoWidth: true,
-                fieldLabel: 'Purpose of Visit',
-                allowBlank: true
-
-            }, {
-                xtype: 'fieldcontainer',
-                autoWidth: true,
-                fieldLabel: 'No. Rooms',
-                defaultType: 'numberfield',
-
-                defaults: {
-                    flex: 1,
-                    // width: 10
-                },
-                layout: {
-                    type: 'table',
-                    columns: 2
-                },
-                items: [{
-                    width: 70,
-                    fieldStyle: "text-align:right;",
-                    minValue: 0,
-                    value: 0,
-                    name: 'no_room'
-                }, {
-                    fieldLabel: 'No.of Extra Person',
-                    name: 'extra_person',
-                    labelWidth: '100%',
                     autoWidth: true,
+                    name: 'paid_booking'
+                }, */{
+                    xtype: 'textfield',
+                    name: 'purpose_of_visit',
+                    autoWidth: true,
+                    fieldLabel: 'Purpose of Visit',
+                    allowBlank: true
 
-                    minValue: 0,
-                    value: 0,
-                    // style: "margin-left:5px"
+                },{
+                    xtype: 'combo',
+                    name: 'discount',
+                    store: 'combo.Discount',
+                    valueField: 'discount_percentage',
+                    autoWidth: true,
+                    displayField: 'discount_percentage',
+                    triggerAction: 'all',
+                    allowBlank: true, 
+                    editable: false,
+                    fieldLabel: 'Discount(%)'
+                },{
+                    xtype: 'fieldcontainer',
+                    fieldLabel: 'Rental Type',
+                    defaultType: 'radiofield',
+                    defaults: {
+                        flex: 1
+                    },
+                    layout: 'hbox',
+                    items: [{
+                        boxLabel: 'Rate',
+                        name: 'rental_type',
+                        inputValue: 'rate',
+                        checked: true
+                    }, {
+                        boxLabel: 'Static Plan',
+                        style: 'margin-left:20px;margin-right:20px',
+                        name: 'rental_type',
+                        inputValue: 'static_plan',
 
-                }]
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Extra Person Charge',
-                name: 'charge',
-                minValue: 0,
-                autoWidth: true,
-                value: 0,
-                allowBlank: true
+                    }, {
+                        boxLabel: 'Dynamic Plan',
+                        style: 'margin-left:10px;margin-right:20px',
+                        name: 'rental_type',
+                        inputValue: 'dynamic_plan',
 
-            }, {
-                xtype: 'combo',
-                name: 'discount',
-                store: 'combo.Discount',
-                valueField: 'discount_percentage',
-                autoWidth: true,
-                displayField: 'discount_percentage',
-                triggerAction: 'all',
-                allowBlank: true,
-                editable: false,
-                fieldLabel: 'Discount Percentage'
-            },
-            // {
-            //     xtype: 'numberfield',
-            //     name: 'discount',
-            //     disable:true,
-            //     allowBlank: true,
-            //     autoWidth: true,
-            //     fieldLabel: 'Discount Amount',
-            //     readOnly: true, 
-            //     style:'padding-bottom:40px'
-            // }
+                    }]
+
+                },
+               
             ]
         }
         return form
@@ -349,18 +333,33 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
         grid = {
             xtype: 'tabpanel',
             autoWidth: true,
-            colspan: 2,
-
-            style: "margin-left:10px",
+            colspan: 2, 
             height: '100%',
-
-            items: [{
-                xtype: 'form',
-                title: 'Room',
+            items: [{             
+                xtype:'panel',
+                title: 'Room Charge By Static Plan',
+                hidden:true ,
+                name:'chargeByStarticPlan',
                 items: [
-                    this.roomFormInTap()
+                    this.roomChargeByStaticPlan()
                 ]
-            }, {
+            }, {             
+                xtype:'panel', 
+                title: 'Room Charge By Rate',
+                hidden:false,
+                name:'chargeByRate',
+                items: [
+                    this.roomChargeByRate()
+                ]
+            },{
+                xtype: 'panel',
+                title: 'Room Charge By Dynamic Plan',
+                hidden:false,
+                name:'chargeByDynamicPlan',
+                items: [
+                    this.roomChargeByDynamicPlan()
+                ]
+            },{
                 title: 'Item',
                 items: [
                     this.itemGrid()
@@ -379,6 +378,11 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
             plugins: Ext.create('Ext.grid.plugin.CellEditing', {
                 clicksToEdit: 1
             }),
+            viewConfig: {
+                getRowClass: function(record, id) {
+                    return record.get("service_id") == null ? "hidden" : "row-error";
+                }
+            },
             selModel: {
                 selType: 'cellmodel'
             },
@@ -390,7 +394,7 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                     action: 'AddItem',
                     iconCls: 'icon-add',
                     text: 'Add Item',
-                    tooltip: 'Check In'
+                    tooltip: 'Add Service Charge'
                 }
             ],
             columns: [{
@@ -400,25 +404,25 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 align: 'center'
             }, {
                 header: 'Description',
-                dataIndex: 'service_id',
+                dataIndex: 'service_name',
                 autoWidth: true,
                 flex: 1,
                 editor: {
                     xtype: 'combo',
                     displayField: 'service_name',
-                    valueField: 'id',
+                    valueField: 'service_name',
                     store: 'combo.RoomServiceMaster',
                     name: 'service_name',
                     queryMode: 'local',
                     typeAhead: true,
                     triggerAction: 'all',
-                    listeners: {
-                        select: function(combo, record, index) {
-                            var rec = record.data;
-                            App.app.getController("roomTransaction.CheckIn").itemRecord = rec;
+                    //  listeners: {
+                    //     select: function(combo, record, index) {
+                    //         var rec = record.data;
+                    //         App.app.getController("roomTransaction.CheckIn").itemRecord = rec;
 
-                        }
-                    },
+                    //     }
+                    // },
                 }
             }, {
                 header: 'Price',
@@ -450,9 +454,9 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 items: [{
                     xtype: 'button',
                     iconCls: 'icon-delete',
+                    action:'removeServiceFromGrid',
                     handler: function(grid, rowIndex) {
                         var ctrl = App.app.getController("roomTransaction.CheckIn");
-
                         var rec = grid.getStore().getAt(rowIndex);
                         ctrl.deleteDetailRecord(grid, rec);
                     }
@@ -464,187 +468,186 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
     totalForm: function() {
         total = {
             xtype: 'fieldset',
+
             title: 'Total',
-            colspan: 2,
-            autoWidth: true,
-            height:'100%',
-            style: "margin-left:10px",
+            // colspan: ,
+            // autoWidth: true,
+            // height: '100%',
+            // style: "margin-left:10px",
             defaults: {
                 // style:'margin:10px',
-                allowBlank: true,
+                // allowBlank: true,
                 width: '98%',
-                style: 'margin-left:10px'
+                readOnly:true,
+                labelWidth:120,
+                // style: 'margin-right:0px'
             },
-            buttons: [{
-                text: 'Calculate',
-                iconCls: 'icon-save',
-                action: 'Calculate'
-            }],
+            
             layout: {
                 type: 'table',
-                columns: 2
+                columns: 2, 
+                
             },
-            items: [{
-                xtype: 'numberfield',
-                fieldLabel: 'Total Rental Amount(+)',
-                labelWidth: '100%',
-                autoWidth: true,
-                name: '',
-                readOnly: true
-            }, {
-                xtype: 'numberfield',
-                fieldLabel: 'Total Extra Person Charge(+)',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-
-            }, {
-                xtype: 'numberfield',
+            defaultType:'numberfield',
+            items: [
+            {                
                 fieldLabel: 'Total Tax Amount(+)',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-            }, {
-                xtype: 'numberfield',
+                name: 'tax_amount',
+              
+            }, {                
                 fieldLabel: 'Discount Amount(-)',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-
-            }, {
-                xtype: 'numberfield',
+                name: 'discount_amount',
+             
+            }, {                
                 fieldLabel: 'Other Charge(+)',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-            }, {
-                xtype: 'numberfield',
+                name: 'other_charge',
+             
+            }, {                
                 fieldLabel: 'Total Amount',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-            }, {
-                xtype: 'numberfield',
+                name: 'total_amount',
+             
+            }, {               
                 fieldLabel: 'Amount Paid(-)',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-            }, {
-                xtype: 'numberfield',
+                name: 'paid_booking',
+                
+            }, {                
                 fieldLabel: 'Balance',
-                name: '',
-                labelWidth: '100%',
-                autoWidth: true,
-                readOnly: true
-            }, {
-                xtype: 'button',
-                text: 'Calculate',
-                iconCls: 'icon-save',
-                action: 'Calculate',
-                width: 100
+                name: 'grand_total_amount',
+                
             }],
 
 
         }
         return total
     },
-    roomFormInTap: function() {
+    roomChargeByStaticPlan: function() {
         itemGrid = {
             xtype: 'grid',
             border: true,
             name: 'roomDetail',
-            store:'roomTransaction.CheckInDetail',
+            store: 'roomTransaction.CheckInDetail',
             plugins: Ext.create('Ext.grid.plugin.CellEditing', {
                 clicksToEdit: 1
-            }),         
-            selModel: 'cellmodel',            
-            listeners:{
-                beforeedit:function(editor , e){
-                    var ctrl = App.app.getController("roomTransaction.CheckIn") ; 
-                    ctrl.filterItemPrice(editor , e);
+            }),
+            selModel: 'cellmodel',
+            // listeners: {
+            //     beforeedit: function(editor, e) {
+
+            //         var ctrl = App.app.getController("RoomTransactionCheckIn");
+            //         ctrl.filterItemPrice(editor, e);
+            // }
+            // },
+            viewConfig: {
+                getRowClass: function(record, id) {
+                    return record.get("room_no") == null ? "hidden" : "row-error";
                 }
             },
             colspan: 2,
-            tbar: [
-                '->', {
-                    xtype: 'button',
-                    action: 'AddRoom',
-                    iconCls: 'icon-add',
-                    text: 'Add Room',
-                    tooltip: 'Check In'
-                }
-            ],           
+
+            // tbar: [,
+            //  '->',  {
+                // xtype: 'button',
+                // action: 'AddRoomStaticPlan',
+                // iconCls: 'icon-add',
+                // text: 'Add Room',
+                // tooltip: 'Add Room',
+            // }],
             columns: [{
                 header: 'NO',
                 xtype: 'rownumberer',
                 width: 50,
                 align: 'center'
-            },{
+            }, {
                 header: 'Room Number',
-                dataIndex: 'room_master_id',            
-                flex: 1, 
+                dataIndex: 'room_no',
+                flex: 1,
                 editor: {
                     xtype: 'combo',
                     displayField: 'room_no',
-                    store: 'combo.RoomList',
-                    // valueField: 'room_no',
-                    valueField: 'id',
+                    store: 'combo.AvailableRooms',
+                    valueField: 'room_no',
+                    // valueField: 'id',
                     name: 'comboRoom',
                     queryMode: 'remote',
                     typeAhead: true,
                     triggerAction: 'all',
                     listeners: {
                         select: function(combo, rec, index) {
-                                                     
-                            var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
-                   
-                            tmpRoomData.room_master_id =rec.getId()  ;                           
+
+                            var tmpRoomData = App.app.getController("RoomTransactionCheckIn").tmpRoomData;
+
+                            tmpRoomData.room_master_id = rec.getId();
 
                         }
                     },
                 }
+            },  {
+                header: 'Adult',
+                dataIndex: 'adults',
+                flex: 1,
+                editor: {
+                    xtype: 'numberfield',
+                    minValue:0 , 
+                    name:'adults',
+                    value:0 
+                }
+            },  {
+                header: 'Children',
+                dataIndex: 'childrens',
+                flex: 1,
+                editor: {
+                    xtype: 'numberfield',
+                    minValue:0 , 
+                    name:'childrens',
+                    value:0 
+                }
             }, {
-                header:'Room Duration', 
-                dataIndex:'categroy_price_id',
-                flex: 1, 
-                 editor: {
+                header: 'Room Duration',
+                // dataIndex:'categroy_price_id',
+                dataIndex: 'category_price_name',
+                flex: 1,
+                editor: {
                     xtype: 'combo',
                     displayField: 'name',
                     store: 'combo.CategoryPrice',
-                    valueField: 'id',
+                    // valueField: 'id',
+                    valueField: 'name',
                     name: 'comboCategoryPrice',
                     queryMode: 'local',
                     typeAhead: true,
+                    // listeners: Util.firstSelect(),
                     triggerAction: 'all',
-                    listeners: {
-                        select: function(combo, rec, index) {
-                            // updateRoomInDetail                        
-                            // var rec = record.data;
-                            console.log(rec.data);
-                            var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData ; 
-                            tmpRoomData.categroy_price_id = rec.getId(); 
-                            tmpRoomData.unit_price = rec.get("charge_amount"); 
-                        }, 
-                       
-                    },
-                   
+                    // listeners: {
+                    //     select: function(combo, rec, index) {
+                    //         // updateRoomInDetail                        
+                    //         // var rec = record.data;
+                    //         console.log(rec.data);
+                    //         var tmpRoomData = App.app.getController("roomTransaction.CheckIn").tmpRoomData;
+                    //         tmpRoomData.categroy_price_id = rec.getId();
+                    //         tmpRoomData.unit_price = rec.get("charge_amount");
+
+                    //     },
+
+                    // },
+
                 }
 
-            }, {
+            },{
                 header: 'Rent Charge',
                 dataIndex: 'unit_price',
-                width:150 ,
+                width: 150,
                 renderer: function(value) {
-                            amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
-                            return "<span style='color:black'><b>" + amount + "</b></span>"
-                        }
+                    amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                    return "<span style='color:black'><b>" + amount + "</b></span>"
+                }
             }, {
+                header: 'Description',
+                dataIndex: 'description',
+                flex: 1,
+                editor: {
+                    xtype: 'textfield',
+                }
+            }, /*{
                 header: 'Action',
                 minWidth: 100,
                 autoWidth: true,
@@ -652,15 +655,237 @@ Ext.define('App.view.roomTransaction.checkIn.Form', {
                 align: 'center',
                 xtype: 'actioncolumn',
                 items: [{
-                    xtype: 'button',
+                    xtype: 'button',    
                     iconCls: 'icon-delete',
                     handler: function(grid, rowIndex) {
-                        var ctrl = App.app.getController("roomTransaction.CheckIn");
+                        var ctrl = App.app.getController("RoomTransactionCheckIn");
 
                         var rec = grid.getStore().getAt(rowIndex);
                         ctrl.deleteDetailRecord(grid, rec);
                     }
                 }]
+            }*/],
+        }
+        return itemGrid
+    }, 
+    roomChargeByRate: function() {
+        itemGrid = {
+            xtype: 'grid',
+            border: true,
+            name: 'roomDetailByRate',
+            store: 'roomTransaction.CheckInDetail',
+            plugins: Ext.create('Ext.grid.plugin.CellEditing', {
+                clicksToEdit: 1
+            }),
+            selModel: 'cellmodel',
+
+            viewConfig: {
+                getRowClass: function(record, id) {
+                    return record.get("room_no") == null || record.get("categroy_price_id") == 0 ? "hidden" : "row-error";
+                }
+            },
+            colspan: 2,
+
+            // tbar: [, '->',  {
+                // xtype: 'button',
+                // action: 'AddRoomByRate',
+                // iconCls: 'icon-add',
+                // text: 'Add Room',
+                // tooltip: 'Add Room',
+                // handler:function(btn){
+                //     alert('add room');
+                //     var ctrl = App.app.getController('roomTransaction.CheckIn');
+                //     ctrl.addRoom(btn); 
+                // }
+            // }],
+            columns: [{
+                header: 'NO',
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
+            }, {
+                header: 'Room Number',
+                dataIndex: 'room_no',
+                flex: 1,
+                editor: {
+                    xtype: 'combo',
+                    displayField: 'room_no',
+                    store: 'combo.AvailableRooms',
+                    valueField: 'room_no',
+                    // valueField: 'id',
+                    name: 'comboRoom',
+                    queryMode: 'remote',
+                    typeAhead: true,
+                    triggerAction: 'all',                  
+                }
+            },  {
+                header: 'Adult',
+                dataIndex: 'adults',
+                flex: 1,
+                editor: {
+                    xtype: 'numberfield',
+                    name:'adults',
+                    minValue:0 , 
+                    value:0 
+                }
+            },  {
+                header: 'Children',
+                dataIndex: 'childrens',
+                flex: 1,
+                editor: {
+                    xtype: 'numberfield',
+                    minValue:0 , 
+                    name:'childrens',
+                    value:0 
+                }
+            },  {
+                header: 'Nights',
+                dataIndex: 'qty',
+              
+            },{
+                header: 'Rent Charge',
+                dataIndex: 'unit_price',
+                width: 150,
+                renderer: function(value) {
+                    amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                    return "<span style='color:black'><b>" + amount + "</b></span>"
+                }
+            }, {
+                header: 'Description',
+                dataIndex: 'description',
+                flex: 1,
+                editor: {
+                    xtype: 'textfield',
+                }
+            }, ],
+        }
+        return itemGrid
+    },
+    roomChargeByDynamicPlan: function(){
+         itemGrid = {
+            xtype: 'grid',
+            border: true,
+            name: 'roomChargeByDynamicPlanGrid',
+            store: 'roomTransaction.CheckInDetail',
+            plugins: Ext.create('Ext.grid.plugin.CellEditing', {
+                clicksToEdit: 1
+            }),
+            selModel: 'cellmodel',
+            // listeners: {
+            //     beforeedit: function(editor, e) {
+            //         var ctrl = App.app.getController("RoomTransactionCheckIn");
+            //         ctrl.filterItemPrice(editor, e);
+            //     }
+            // },
+            viewConfig: {
+                getRowClass: function(record, id) {
+                    return record.get("room_no") == null ? "hidden" : "row-error";
+                }
+            },
+            colspan: 2,
+
+            // tbar: [, '->',  {
+            //     xtype: 'button',
+            //     action: 'AddRoomDynamicPlan',
+            //     iconCls: 'icon-add',
+            //     text: 'Add Room',
+            //     tooltip: 'Add Room',
+            // }],
+            columns: [{
+                header: 'NO',
+                xtype: 'rownumberer',
+                width: 50,
+                align: 'center'
+            }, {
+                header: 'Room Number',
+                dataIndex: 'room_no',
+                flex: 1,
+                editor: {
+                    xtype: 'combo',
+                    displayField: 'room_no',
+                    store: 'combo.AvailableRooms',
+                    valueField: 'room_no',
+                    // valueField: 'id',
+                    name: 'comboRoom',
+                    queryMode: 'remote',
+                    typeAhead: true,
+                    triggerAction: 'all',
+                    // listeners: {
+                    //     select: function(combo, rec, index) {
+
+                    //         var tmpRoomData = App.app.getController("RoomTransactionCheckIn").tmpRoomData;
+
+                    //         tmpRoomData.room_master_id = rec.getId();
+
+                    //     }
+                    // },
+                }
+            },  {
+                header: 'Adult',
+                dataIndex: 'adults',
+                flex: 1,
+                editor: {
+                    xtype: 'numberfield',
+                    minValue:0 , 
+                    name:'adults',
+                    value:0 
+                }
+            },  {
+                header: 'Children',
+                dataIndex: 'childrens',
+                flex: 1,
+                editor: {
+                    xtype: 'numberfield',
+                    minValue:0 , 
+                    name:'childrens',
+                    value:0 
+                }
+            }, {
+                header: 'Room Duration',
+                // dataIndex:'categroy_price_id',
+                dataIndex: 'category_price_name',
+                flex: 1,
+                editor: {
+                    xtype: 'combo',
+                    displayField: 'name',
+                    store: 'combo.CategoryPrice',
+                    // valueField: 'id',
+                    valueField: 'name',
+                    name: 'comboCategoryPrice',
+                    queryMode: 'local',
+                    typeAhead: true,
+                    // listeners: Util.firstSelect(),
+                    triggerAction: 'all',
+                    // listeners: {
+                    //     select: function(combo, rec, index) {
+                    //         // updateRoomInDetail                        
+                    //         // var rec = record.data;
+                    //         console.log(rec.data);
+                    //         var tmpRoomData = App.app.getController("RoomTransactionCheckIn").tmpRoomData;
+                    //         tmpRoomData.categroy_price_id = rec.getId();
+                    //         tmpRoomData.unit_price = rec.get("charge_amount");
+
+                    //     },
+
+                    // },
+
+                }
+
+            },{
+                header: 'Rent Charge',
+                dataIndex: 'unit_price',
+                width: 150,
+                renderer: function(value) {
+                    amount = Number(value).toFixed(2).replace(/(\d)(?=(\d{3})+\.)/g, '$1,') + " $";
+                    return "<span style='color:black'><b>" + amount + "</b></span>"
+                }
+            }, {
+                header: 'Description',
+                dataIndex: 'description',
+                flex: 1,
+                editor: {
+                    xtype: 'textfield',
+                }
             }],
         }
         return itemGrid

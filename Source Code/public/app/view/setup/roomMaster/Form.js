@@ -60,7 +60,7 @@ Ext.define('App.view.setup.roomMaster.Form', {
                     name: 'status_id',
                     store: 'combo.Status',
                     valueField: 'id',
-                    displayField: 'status_type',
+                    displayField: 'name',
                     triggerAction: 'all',
                     allowBlank: false,
                     editable: false,

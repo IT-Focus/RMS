@@ -10,7 +10,8 @@ Ext.define('App.model.setup.RoomMaster', {
     	
     	"category_name",
     	"floor_name",
-    	"status_name"
+    	"status_name",
+        "address"
 
 
 

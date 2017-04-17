@@ -51,9 +51,9 @@ Ext.define('App.view.roomTransaction.roomMonitor.CancelCheckInForm', {
                 {
                     xtype: 'textfield',
                     name: 'check_in_code',
-                    allowBlank: false,
+                    allowBlank: true,
                     readOnly:true,
-                    fieldLabel: 'Check In Code'+redStar
+                    fieldLabel: 'Check In Code'
                 },{
                     xtype: 'datefield',
                     name: 'check_in_date',

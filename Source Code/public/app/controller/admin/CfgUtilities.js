@@ -7,10 +7,12 @@ Ext.define('App.controller.admin.CfgUtilities', {
 
 	],	
 	model :[
-		'admin.NextCode'
+		'admin.NextCode',
+		'admin.CfgUtility',
 	],
 	stores:[
 		'admin.CompanyProfile',
+		'admin.CfgUtility',
 		'admin.NextCode'
 
 	],
@@ -47,10 +49,251 @@ Ext.define('App.controller.admin.CfgUtilities', {
 			'nextCodetForm button[action=Cancel]': {
 				click: this.cancel
 			},
+			'CfgUtilitiesIndex button[action=update_receipt]': {
+				click: this.update_receipt
+			},
+			'CfgUtilitiesIndex button[action=update_vat]': {
+				click: this.update_vat
+			},
+			'CfgUtilitiesIndex button[action=update_service_vat]': {
+				click: this.update_service_vat
+			},
 
 
 	    });
 	},
+
+	update_receipt: function(btn) {
+		debugger;
+		// tabPanel = btn.up('tabpanel');
+		form = btn.up('form[name=receiptForm]');
+		receiptImage = form.down('checkbox[name=is_image]');
+		receiptHeaderUrl = form.down('hiddenfield[name=image_url]');
+		receiptHeaderText = form.down('textfield[name=recipt_header]');
+
+		if (form.isValid()) {
+			var store = this.getAdminCfgUtilityStore();
+			store.load({
+				scope: this,
+				callback: function(record, operation, success) {
+					for (var i = 0; i < record.length; i++) {
+						switch (record[i].data.id) {
+							case 7:
+								record[i].set("util_boolean", receiptImage.getValue());
+								break;
+							case 8:
+								record[i].set("util_string", receiptHeaderUrl.getValue());
+								break;
+							case 9:
+								record[i].set("util_string", receiptHeaderText.getValue());
+								break;
+
+						}
+
+					}
+					if (store.getUpdatedRecords() == '') {
+						Ext.Msg.alert('Save', 'Nothing Save!');
+					}
+					store.sync({
+						success: function() {
+							Ext.Msg.alert('Save', 'Record Has Been Saved');
+							// location.reload();	
+						},
+						failure: function(batch, option) {
+							Ext.MessageBox.hide();
+							store.rejectChanges();
+							var msg = option.batch.proxy.reader.rawData.message;
+							Ext.MessageBox.show({
+								title: 'Error',
+								msg: msg,
+								icon: Ext.MessageBox.ERROR,
+								buttons: Ext.Msg.OK
+							});
+						}
+					});
+				}
+			});
+		} else {
+			Util.msg("Please entry require field!");
+		}
+	},
+	loadReceiptPrinting: function(t, eOpts) {
+		form = t.down('form[name=receiptForm]');
+		receiptImage = form.down('checkbox[name=is_image]');
+		receiptHeaderUrl = form.down('hiddenfield[name=image_url]');
+		image = form.down('image[name=recipte_image]');
+		receiptHeaderText = form.down('textfield[name=recipt_header]');
+		var store = this.getAdminCfgUtilityStore();
+		store.load({
+			scope: this,
+			callback: function(record, operation, success) {
+				for (var i = 0; i < record.length; i++) {
+					switch (record[i].data.id) {
+						case 7:
+							receiptImage.setValue(record[i].data.util_boolean);
+							break;
+						case 8:
+							// receiptHeaderUrl.setValue(record[i].data.util_string);
+							image.setSrc(record[i].data.util_string);
+							receiptHeaderUrl.setValue(record[i].data.util_string);
+
+							break;
+						case 9:
+							receiptHeaderText.setValue(record[i].data.util_string);
+							break;
+
+					}
+				}
+			}
+		});
+	},
+
+	update_vat: function(btn) {
+		// tabPanel = btn.up('tabpanel');
+		form = btn.up('form[name=vatForm]');
+		VAT = form.down('radiofield[name=is_vat]');
+		VATValue = form.down('numberfield[name=vatValue]');
+
+
+		if (form.isValid()) {
+			var store = this.getAdminCfgUtilityStore();
+			store.load({
+				scope: this,
+				callback: function(record, operation, success) {
+					for (var i = 0; i < record.length; i++) {
+						switch (record[i].data.id) {
+							case 13:
+								record[i].set("util_boolean", VAT.getValue());
+								break;
+							case 14:
+								record[i].set("util_int", VATValue.getValue());
+								break;
+
+
+						}
+
+					}
+					if (store.getUpdatedRecords() == '') {
+						Ext.Msg.alert('Save', 'Nothing Save!');
+					}
+					store.sync({
+						success: function() {
+							Ext.Msg.alert('Save', 'Record Has Been Saved');
+							// location.reload();	
+						},
+						failure: function(batch, option) {
+							Ext.MessageBox.hide();
+							store.rejectChanges();
+							var msg = option.batch.proxy.reader.rawData.message;
+							Ext.MessageBox.show({
+								title: 'Error',
+								msg: msg,
+								icon: Ext.MessageBox.ERROR,
+								buttons: Ext.Msg.OK
+							});
+						}
+					});
+				}
+			});
+		} else {
+			Util.msg("Please entry require field!");
+		}
+	},
+	update_service_vat: function(btn) {
+		// tabPanel = btn.up('tabpanel');
+		form = btn.up('form[name=vatForm1]');
+		VAT = form.down('radiofield[name=is_service_vat]');
+		VATValue = form.down('numberfield[name=ServiceTaxValue]');
+
+
+		if (form.isValid()) {
+			var store = this.getAdminCfgUtilityStore();
+			store.load({
+				scope: this,
+				callback: function(record, operation, success) {
+					for (var i = 0; i < record.length; i++) {
+						switch (record[i].data.id) {
+							case 16:
+								record[i].set("util_boolean", VAT.getValue());
+								break;
+							case 17:
+								record[i].set("util_int", VATValue.getValue());
+								break;
+
+
+						}
+
+					}
+					if (store.getUpdatedRecords() == '') {
+						Ext.Msg.alert('Save', 'Nothing Save!');
+					}
+					store.sync({
+						success: function() {
+							Ext.Msg.alert('Save', 'Record Has Been Saved');
+							// location.reload();	
+						},
+						failure: function(batch, option) {
+							Ext.MessageBox.hide();
+							store.rejectChanges();
+							var msg = option.batch.proxy.reader.rawData.message;
+							Ext.MessageBox.show({
+								title: 'Error',
+								msg: msg,
+								icon: Ext.MessageBox.ERROR,
+								buttons: Ext.Msg.OK
+							});
+						}
+					});
+				}
+			});
+		} else {
+			Util.msg("Please entry require field!");
+		}
+	},
+	loadVATToForm: function(t, eOpts) {
+		form = t.down('form[name=vatForm]');
+		VAT = form.down('radiofield[name=is_vat]');
+		VATValue = form.down('numberfield[name=vatValue]');
+		var store = this.getAdminCfgUtilityStore();
+		store.load({
+			scope: this,
+			callback: function(record, operation, success) {
+				for (var i = 0; i < record.length; i++) {
+					switch (record[i].data.id) {
+						case 13:
+							VAT.setValue(record[i].data.util_boolean);
+							break;
+						case 14:
+							VATValue.setValue(record[i].data.util_int);
+							break;
+					}
+				}
+			}
+		});
+	},
+
+	loadServiceTaxToForm: function(t, eOpts) {
+		form = t.down('form[name=vatForm1]');
+		VAT = form.down('radiofield[name=is_service_vat]');
+		VATValue = form.down('numberfield[name=ServiceTaxValue]');
+		var store = this.getAdminCfgUtilityStore();
+		store.load({
+			scope: this,
+			callback: function(record, operation, success) {
+				for (var i = 0; i < record.length; i++) {
+					switch (record[i].data.id) {
+						case 16:
+							VAT.setValue(record[i].data.util_boolean);
+							break;
+						case 17:
+							VATValue.setValue(record[i].data.util_int);
+							break;
+					}
+				}
+			}
+		});
+	},
+	
 
 	search_next_code: function(field){
 		var me = this,
@@ -60,7 +303,6 @@ Ext.define('App.controller.admin.CfgUtilities', {
 
 			Util.loadStore(store,{searchString:searchString});
 	},
-
 	add_next_code: function(btn){
 		var win = Ext.create("App.view.admin.CfgUtilities.NextCodeForm");
 		win.show();

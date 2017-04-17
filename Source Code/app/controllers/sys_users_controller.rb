@@ -1,6 +1,7 @@
 
 class SysUsersController < ApplicationController
     @@s_pss = User::ChangePassword.new()
+    @@common = Common.new
     def index
         @data = SysUser.where is_admin:false
         # SysUser.all = select * from SysUser
@@ -9,24 +10,39 @@ class SysUsersController < ApplicationController
     end
 
     def create
+        begin            
 
-        begin
-            SysUser.transaction do
-                @data = SysUser.new(permit_data)
-                @data.is_admin = false
-                @data.save
-
-                render json:{ data:@data ,success:true}
-            end
-
+                    SysUser.transaction do
+                        @data = SysUser.new(permit_data)
+                        @data.code = @@common.get_code_with_config("USER" , "")
+                        @data.is_admin = false
+                        @data.save
+                        render json:{ data:@data ,success:true}  
+                    end            
+               
+            
         rescue Exception => e
 
             render json:{ message:e.message ,success:false}
         end
 
-
     end
+    
+    def check_user_limit
+        puts "=========#{params[:test]}"
+        @@service = CfgUtilityService::Service.new()
+        maximum_user = @@service.get_maximum_user  
+        if !maximum_user.nil?
+            if SysUser.count > maximum_user and maximum_user !=0
+                render json:{max_user:maximum_user , success:false , message:"You're privilege to create #{maximum_user} user only! "}
+                    
+            else
+                render json:{ success:true}
+            end
 
+        end
+    end
+    
     def update
         @data = SysUser.find(params[:id])
 
@@ -54,11 +70,6 @@ class SysUsersController < ApplicationController
         # SysUser.find(1 ) = select * from SysUser where id=1
         render json:{ data:@data , success:true}
     end
-    
-    def destroy
-
-    end
-
     private
     def permit_data
         params.require(:data).permit(
@@ -73,6 +84,8 @@ class SysUsersController < ApplicationController
             :password,
             :address,
             :is_active,
+            :role_id,
+            :department_id,
             :is_admin
         )
     end

@@ -45,12 +45,14 @@ Ext.define('App.view.account.cashier.Index', {
                     header: 'Workshift',
                     dataIndex: 'workshift_name',
                      autoWidth:true,
-                }, {
-                    header: 'Start Time',
-                    dataIndex: 'start_time',
-                     autoWidth:true,
-                    renderer: Ext.util.Format.dateRenderer('H:i'),
-                }, {
+                }, 
+                // {
+                //     header: 'Start Time',
+                //     dataIndex: 'start_time',
+                //      autoWidth:true,
+                //     renderer: Ext.util.Format.dateRenderer('H:i'),
+                // }, 
+                {
                     header: 'Open Balance',
                     dataIndex: 'obda',
                      autoWidth:true,

@@ -29,6 +29,22 @@ def create
 
 end
 
+def check_workshift
+    @@service = WorkshiftService::Search.new()
+
+    abbr = params[:abbr]
+    workshift_name = params[:workshift_name]
+
+    is_exist = @@service.is_have_record workshift_name, abbr
+
+    if is_exist == true
+        render json:{success:false, message:"Duplicated Workshift/Abbr, Please try again!"}
+    else
+        render json:{success:true}
+    end
+
+end
+
 def update
            begin
             Workshift.transaction do

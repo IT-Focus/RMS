@@ -12,7 +12,21 @@ Ext.define('App.view.roomTransaction.cancelCheckin.Index', {
                 name: 'index',
                 store: 'roomTransaction.CancelCheckin',
                 title: 'Cancel Check In',
-                tools: [
+                tools: [{
+                        xtype: 'combo',
+                        fieldLabel: '<b>Search By</b>',
+                        store: ['Check In Code', 'Room No'],
+                        value: 'Check In Code',
+                        labelAlign: 'right',
+                        name: 'searchBy',
+                        editable: false,
+                        autoWidth: true,
+                        style: 'padding-right:10px'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'string',
+                        autoWidth: true,
+                    },
 
                     {
                         xtype: 'button',

@@ -28,7 +28,7 @@ Ext.define('App.view.admin.CfgUtilities.NextCodeForm', {
             },
             items:[
                 {
-                    xtype:'numberfield',
+                    xtype:'textfield',
                     name:'module',
                     allowBlank:false,
                     fieldLabel:'Module'+redStar
@@ -40,8 +40,8 @@ Ext.define('App.view.admin.CfgUtilities.NextCodeForm', {
                 },{
                     xtype:'numberfield',
                     name:'cet',
-                    allowBlank:false,
-                    fieldLabel:'Code Exclude Tax'+redStar
+                    allowBlank:true,
+                    fieldLabel:'Code Exclude Tax'
                 },{
                     xtype:'textfield',
                     name:'prefix',
@@ -50,8 +50,8 @@ Ext.define('App.view.admin.CfgUtilities.NextCodeForm', {
                 },{
                     xtype:'textfield',
                     name:'suffix',
-                    allowBlank:false,
-                    fieldLabel:'Suffix'+redStar
+                    allowBlank:true,
+                    fieldLabel:'Suffix'
                 },{
                     xtype:'numberfield',
                     name:'length',

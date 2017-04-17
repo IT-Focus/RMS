@@ -16,4 +16,10 @@ class CommonService::Service
 		tax_rate = systemConfig.util_int
 		return tax_rate
 	end
+
+	def get_user_name user_id
+		@user = SysUser.find user_id
+		username = @user.first_name+"  "+@user.last_name
+ 		return username
+	end
 end

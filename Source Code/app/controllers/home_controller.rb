@@ -1,8 +1,14 @@
 class HomeController < ApplicationController
-  skip_before_filter :check_session, :only => [:login,:logout]
+  skip_before_filter :check_session, :only => [:login,:logout , :getConfig]
 
+
+  def get_config
+    @data = CfgUtility.all 
+    render json:{ success:true , data:@data }
+  end
   def login
-
+    
+    # p output
     # check license
     @license_service = License::LicenseSv.new
     @username = params[:username]
@@ -21,7 +27,7 @@ class HomeController < ApplicationController
           @user = SysUser.find_by username:@username
 
           if @user.nil?
-              @message = "Encorrect User name "
+              @message = "Incorrect User name "
 
               render  '/home/login'
           elsif true # @user.password == @password
@@ -38,7 +44,7 @@ class HomeController < ApplicationController
               end
 
           else
-              @message = "Encorrect Password"
+              @message = "Incorrect Password"
 
               render  '/home/login'
           end
@@ -58,4 +64,10 @@ class HomeController < ApplicationController
     puts "========= render html in putblic page"
 
   end
+
+  def getUsername
+      @user = session[:user]
+      render json{username:@user, success:true}
+  end
+
 end

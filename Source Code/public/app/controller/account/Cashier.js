@@ -21,7 +21,7 @@ Ext.define('App.controller.account.Cashier', {
 	    		click: this.edit
 	    	},
 	    	'cashierForm button[action=Save]':{
-	    		click: this.save
+	    		click: this.checkDuplicateCashier
 	    	},
 	    	'cashierForm button[action=Cancel]':{
 	    		click: this.cancel
@@ -65,20 +65,43 @@ Ext.define('App.controller.account.Cashier', {
 
 	},
 	add:function(btn){
+		
 		var win = Ext.create("App.view.account.cashier.Form");
 		win.show();
 		win.center();
-		// win.down('textfield[name=user_id]').focus(true , 300 );
+		
 
 	},
 
-	save :function(btn){
-		var store = this.getAccountCashierStore();
+	save :function(obj , param){
+		if (obj.success == true) {
+			var store = param.me.getAccountCashierStore();
+			Util.save(param.btn,store,'account.Cashier');
+		}else{
+			Util.msg("Warning! This user is already assinged as cashier");
+		};
+	},
+
+	checkDuplicateCashier :function(btn){
+		// debugger;
 		var me = this ;
-		Util.save(btn,store,'account.Cashier');
+		var win = btn.up('window'),
+			form = win.down('form'),
+			values = form.getValues();
+
+		if (values.event_action=='add'){
+			
+			Util.ajax("Cashiers/check_duplicate_cashier",{user_id:values.user_id, workshift:values.workshift_id}, me.save , {me:me , btn:btn}  );
+		
+		}else{
+			
+			Util.ajax("Cashiers/check_update_duplicate_cashier",{cashier_id:values.id,user_id:values.user_id, workshift:values.workshift_id}, me.save , {me:me , btn:btn}  );
+			
+		}
 
 
 	},
+
 	cancel:function(btn){
 		btn.up('window').close();
 	},

@@ -1,4 +1,5 @@
 var redStar ="<span style='color:red'> * </span>"; 
+var _now = new Date(); 
 Ext.application({
     appFolder:'app',
     name:'App',
@@ -7,8 +8,10 @@ Ext.application({
     	'Login',
         'Util',
         'Menu',
+        'GlobalFunction',
         // admin module
         'admin.User',
+         'roomTransaction.CheckIn',
         // 'admin.Role',
         // 'admin.MenuProfile'
 

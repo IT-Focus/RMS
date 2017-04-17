@@ -81,7 +81,7 @@ Ext.define('App.view.setup.categoryPrice.Form', {
                     labelWidth:'100%',
                     allowBlank: false,
                     fieldLabel: 'Duration Day' + redStar,
-                    minValue:1
+                    minValue:0
                 }, 
                 {
                     xtype: 'timefield',

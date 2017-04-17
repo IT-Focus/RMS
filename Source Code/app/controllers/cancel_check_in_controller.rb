@@ -1,7 +1,11 @@
 class CancelCheckInController < ApplicationController
-	@@service = CancelCheckinService::Service.new()
+    @@service = CancelCheckinService::Service.new()
     def index
-        @data = @@service.get_index
+        search_by = params[:searchBy]
+        search_string = params[:searchString]
+
+        @data = @@service.get_index search_by, search_string
+ 
         render json:{ data:@data , success:true}
     end
     

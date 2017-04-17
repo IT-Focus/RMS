@@ -1,0 +1,2 @@
+module AuditrailHelper
+end

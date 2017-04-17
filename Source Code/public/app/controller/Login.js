@@ -12,12 +12,12 @@ Ext.define('App.controller.Login', {
 	init: function() {
 		
 	    this.control({
-	    	"fmLogin":{
-	    		afterrender:this.checkUserLogedIn
-	    	},
-	    	'fmLogin button[action=Login]':{
-	    		click: this.clickLogin
-	    	},
+	    	// "fmLogin":{
+	    	// 	afterrender:this.checkUserLogedIn
+	    	// },
+	    	// 'fmLogin button[action=Login]':{
+	    	// 	click: this.clickLogin
+	    	// },
 	    	'fmLogin textfield':{
 	    		specialkey: this.submit
 	    	},
@@ -100,7 +100,7 @@ Ext.define('App.controller.Login', {
 	},
 	showPageCustomer:function(){
 		var page = Ext.getCmp('mainPage');
-		Ext.getCmp('loggedin').update('Logged in as: ' + ' <b>' + obj.data.username + '</b>');
+		
 		page.getLayout().setActiveItem(1);
 	},
 	logInProcess:function(username, password){
@@ -110,10 +110,11 @@ Ext.define('App.controller.Login', {
 			
 			this.username=username;
 			this.password= password;
+			
 			// this.showPageCustomer();
 			Util.ajax('Login/login',{username:username,password:password},this.resultLogin,this);	
 			
-
+			
 		}
 		
 
@@ -122,10 +123,9 @@ Ext.define('App.controller.Login', {
 	resultLogin: function(obj,me){
 		
 		if (obj.success) {
-		
-			me.showPageCustomer();
-			Ext.getCmp('loggedin').update('Logged in as:');
-			Ext.Element.getById('loggedin').setText('Logged in as:');
+			alert(123);
+			// me.showPageCustomer();
+			
 			Ext.MessageBox.hide();
 
 			
@@ -137,17 +137,20 @@ Ext.define('App.controller.Login', {
 		};
 	},
 	clickLogin:function(){
+
 		var form =Ext.getCmp('mainPage').down('form');
 
 		if (form.getForm().isValid()) {
 			var values = form.getValues();
 			this.logInProcess(values.username, values.password);
-			// Ext.get('loggedin').setText(values.first_name +" "+ values.last_name);
+			App.widgets.SessionMonitor.start();
+			Ext.getCmp('loggedin').update('Logged in as: ' + ' <b>' + values.username + '</b>');
 			
 		}else{
 			Ext.Msg.alert('Inform', 'Please entry Username and Password');
 		};
 
-	}	
+	}
 
+	
 })

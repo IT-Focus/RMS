@@ -358,6 +358,8 @@ Ext.define('App.view.setup.categoryMaster.Form', {
             store: 'setup.CategoryPrice',
             title: 'Category Price Management',
 
+            
+
             tools: [
 
                 {
@@ -416,7 +418,7 @@ Ext.define('App.view.setup.categoryMaster.Form', {
                 flex: 1,
             }, {
                 header: 'Seq No',
-                dataIndex: 'Seq_no',
+                dataIndex: 'seq_no',
                 autoWidth: true,
                 flex: 1,
             }, {

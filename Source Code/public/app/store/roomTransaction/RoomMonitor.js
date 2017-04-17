@@ -2,7 +2,7 @@ Ext.define('App.store.roomTransaction.RoomMonitor', {
     extend: 'Ext.data.Store',
 //    queryMode: 'local',
     autoLoad:false,
-    model: 'App.model.roomTransaction.CancelCheckin',
+    model: 'App.model.setup.RoomMaster',
      proxy: {
         		type: 'rest',
         		url:'/RoomMaster/get_room_monitor',

@@ -9,20 +9,20 @@ default: &default
   pool: 5
   timeout: 5000
   username: root
-  password:
+  password: 
   encoding: utf8
 
 development:
   <<: *default
-  database: project_structure_development
+  database: rms
 
 # Warning: The database defined as "test" will be erased and
 # re-generated from your development database when you run "rake".
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: project_structure_test
+  database: rms_test
 
 production:
   <<: *default
-  database: project_structure
+  database: rms_production

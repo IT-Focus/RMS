@@ -9,6 +9,10 @@ Ext.define('App.view.admin.user.Form', {
         {
             text:'Save',
             iconCls:'icon-save',
+            handler:function(btn){
+                var ctrl = App.app.getController("admin.User");
+                ctrl.saveUserForm(btn);
+            }, 
             action:'Save'
         },{
             text:'Cancel',
@@ -34,13 +38,15 @@ Ext.define('App.view.admin.user.Form', {
                     labelAlign: 'right',
                     width: 350
                 },
-                items: [{
-                    xtype: 'textfield',
-                    name: 'code',
-                    emptyText: 'Employee Code',
-                    allowBlank: false,
-                    fieldLabel: 'User Code.<span style="color:red">*</span>',
-                }, {
+                items: [
+                // {
+                //     xtype: 'textfield',
+                //     name: 'code',
+                //     emptyText: 'Employee Code',
+                //     allowBlank: false,
+                //     fieldLabel: 'User Code.<span style="color:red">*</span>',
+                // }, 
+                {
                     xtype: 'datefield',
                     fieldLabel: 'Join Date<span style="color:red">*</span>',
                     allowBlank: false,
@@ -108,7 +114,8 @@ Ext.define('App.view.admin.user.Form', {
                 },{
                     xtype:'textfield',
                     fieldLabel:'Phone',
-                    name:'phone'
+                    name:'phone',
+                    allowBlank:true
                 },{
                     xtype:'textfield',
                     fieldLabel:'Address',

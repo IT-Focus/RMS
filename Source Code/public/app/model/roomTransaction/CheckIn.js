@@ -26,6 +26,7 @@ Ext.define('App.model.roomTransaction.CheckIn', {
         'phone',
         'mobile',
         'discount',
+        {name : 'discount_amount', type:'float'},
         'rental_type',
         'hourly_check_in',
         'monthly_check_in',
@@ -39,8 +40,13 @@ Ext.define('App.model.roomTransaction.CheckIn', {
         'created_at',
         'updated_at',
         'status_code',
+        'passport',
+        'passport_url',
+        'national_id_url',
 
-        'check_in_detail_attributes'
+        'check_in_detail_attributes',
+        'username',
+        'status_name'
     ]
 
 });

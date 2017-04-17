@@ -1,0 +1,275 @@
+<html><head>
+    <meta charset="utf-8">
+
+            <style>
+                .st-bold{
+                    font-weight: bold;
+                } 
+                .all-font{
+                    font-size:8pt;
+                    width:210pt;
+                }
+                .all-font th{
+                    color: white;
+                }
+                p{
+                    font-size: 10px;
+                }
+            </style>            
+
+            </head>
+
+            <body>
+                <div class="receipt" style="background:white;">
+                     <center>
+            <table class='all-font'>
+                <tr>
+                    <td>        
+                    <!-- style="padding-top:30px;margin-bottom:20px;" -->
+                        <center><%  @Utility = CfgUtility.find 8%>
+                            <div class="wrapper-logo">
+                                <div class="image">
+                                    <img class="img-responsive" src="<%=@Utility.util_string%>" alt="logo" width="80" height="80" class="img-reponsive">
+                                </div>
+                                
+                            </div>
+                        <style type="text/css">
+                        .address{
+                            padding-top: 10px;
+                        }
+                        </style>
+                        </center>
+                    </td>
+                    <% @company = CfgCompany.find 1 %>
+                    <td style="font-size:18px;color:black;padding-top:20px;" width="400px">        
+                        <%=@company.legal_name_khmer%><br>
+                        <%=@company.legal_name%>
+                    </td>
+                </tr>
+
+            </table>
+                   
+            <table>
+                
+            <!-- </table> -->
+          <!--   <tr style="font-size:9px;">
+                <td colspan='2'>                   
+                       លេខអត្តសញ្ញាណកម្ម អតប(VAT TIN): 
+                        %=@company.vatin%>
+                   
+                </td>
+            </tr> -->
+            <!--   <tr style="font-size:9px;">
+                <td colspan='2'>
+                    អាស្រ័យដ្ធាន %=@company.address_khmer%>
+                </td>   
+            </tr> -->
+            <!--  <tr style="font-size:9px;">
+                <td colspan='2'>
+                    Address: %=@company.address%>
+                </td>   
+            </tr> -->
+           <!--  <tr style="font-size:9px;">
+                <td>
+                    ទូរស័ព្ទ %=@company.mobile%>
+                </td>
+            </tr> -->
+           <!--  <tr style="font-size:9px;">
+                <td>
+                    Phone: <%=@company.mobile%>
+                </td>
+            </tr> -->
+           <!--  <tr style="font-size:9px;"> 
+                <td>
+                    អីុម៉ែល %=@company.email%>
+                </td>
+            </tr> -->
+           <!--  <tr style="font-size:9px;">
+                <td>
+                    Email: %=@company.email%>
+                </td>
+            </tr> -->
+           
+                
+              <table class='all-font'>
+            
+             <tr >
+                <td ><center><span class='st-bold'><%=@company.address%></span></center> </td>
+               <!--  <td>Phone  :  <span class='st-bold'><%=@company.mobile%> </span> </td> -->
+            </tr>
+          
+            <tr>
+                <td colspan='3' >
+                <center>Tel : (+855)<span class='st-bold'><%=@company.mobile%> </span></center>
+
+                </td>
+            </tr>
+            
+            </table>   
+          
+
+            </table>
+              <table class='all-font'>
+            <tr>
+                <td colspan='2' style='border-bottom:dotted;font-size:11pt;height:5pt;font-weight:bold;'>
+                </td>
+            </tr>
+
+             <tr>
+                <td colspan="3">
+                    <center><h2 class="title-reciep" style="color:black;"><b>Receipt</b></h2></center>
+                </td>
+            </tr>
+            
+         <tr>
+             
+        <tr>
+            <td>Receipt#  :  <span class='st-bold'><%=@customer_payment.receipt_no%></span></td>
+            <!-- <td width='200'><span class='st-bold'>%=@customer_payment.receipt_no%></span></td> -->
+        
+        </tr>
+             <tr>
+                <td >Cashier  : <span class='st-bold'><%=@cashier.sys_user.first_name%>  <%=@cashier.sys_user.last_name%></span> </td>
+                <td><span class='st-bold'></span></td>
+            </tr>
+          
+            <tr>
+                <td>Check in  :  <span class='st-bold'><%=@check_in.check_in_date .strftime('%d/%m/%Y')%>  <%=@check_in.check_in_time .strftime('%H:%M')%></span> </td>
+            </tr>
+            
+            <tr>
+                <td>Check Out  :  <span class='st-bold'><%=@customer_payment.created_at.strftime('%d/%m/%Y %H:%M')%></span> </td>
+                 <td></td>
+            </tr>
+            </table>         
+           
+            
+            <table class='all-font'>
+               <thead  style="border-bottom:1px solid black">
+                    <tr style="background:black;">
+                        
+                        <th>No</th>
+                        <th>Description</th>
+                        <th>Price</th>
+                        <th>E.Charge</th>
+                        <th>QTY</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <!-- loop menu list -->
+               
+                <tbody >
+                <%i=1;%>
+                <% @check_in_detail.each do |d| %>
+                    <%@discount = d.discount
+                      @discount_amount = d.discount_amount  %>
+                        <tr>
+                            <td><%=i%></td>
+                            <td><%=d.description%></td>
+                            <td><%=d.unit_price%></td>
+                            <td><%=d.extra_charge%></td>
+                            <td><%=d.qty%></td>
+                            <td><%=d.total_amount%></td>
+                        </tr>
+                     
+                <% i = i +1;%>
+                <% end %>
+                </tbody>
+              
+
+        </table>
+
+        <table  class='all-font'>
+             <tr>
+                        <td colspan='4' style='border-bottom:dotted;font-size:11pt;height:10pt;font-weight:bold;'></td>
+                        <td colspan='4' style='border-bottom:dotted;font-size:11pt;height:10pt;font-weight:bold;'></td>
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right">Total  :</td>
+                        <td >$ <%= @check_in.total_amount %></td>               
+                    </tr>
+                   <!--  <tr>
+                        <td colspan="4" style="text-align: right">Discount(%)  :</td>
+                        <td ></td>                
+                    </tr> -->
+                    <tr>
+                        <!-- % @discount=(@check_in.discount_amount*100)/@check_in.total_amount%> -->
+                        <td colspan="4" style="text-align: right;">Discount(<%= @discount %> %)  :</td>
+                        <td >$ <%= @discount_amount %></td>                
+                    </tr>
+                   <!--  <tr>
+                        <td colspan="4" style="text-align: right">Vat(%)  :</td>
+                        <td ></td>             
+                    </tr> -->
+                    <tr>
+                         <% @vat=(@check_in.tax_amount.to_d*100)/@check_in.total_amount%>
+                        <td colspan="4" style="text-align: right">Vat(<%= @vat %> %)  :</td>
+                        <td >$ <%= @check_in.tax_amount %></td>             
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right; font-size:8pt"><b>Grand Total USD  :</b></td>
+                        <td ><b>$ <%= @check_in.grand_total_amount %></b></td>             
+                    </tr>
+                    <% @currency = Currency.find 1 
+                       @r_rate = @currency.exchange_rate 
+                    %>
+                      <tr>
+                        <td colspan="4" style="text-align: right; font-size:8pt"><b>Grand Total KHR  :</b></td>
+                        <td ><b>R <%= ((@check_in.grand_total_amount.to_f*@r_rate)+@check_in.tax_amount)-@check_in.discount_amount %></b></td>             
+                    </tr>
+                    
+
+                    <tr>
+                        <td colspan="4" style="text-align: right">Cash Receive  :</td>
+                        <td >$ <%= @customer_payment.base_currency_amount %></td>             
+                    </tr>
+                    <tr>
+                        <td colspan="4" style="text-align: right">Change  :</td>
+                        <td >$ <%= @customer_payment.base_currency_amount - @check_in.total_amount %></td>             
+                    </tr>
+        </table>
+
+           <table class="all-font">
+                <% if @check_in.customers_id
+                        @customer = @check_in.customer.customer_name
+                    else
+                        @customer = ''
+                    end
+                %>
+                 <tr>
+                    <td>ឈ្មោះភ្ញៀវ <%= @customer %></td>
+                </tr> 
+                <tr>
+                    <td>Guess's name: <%= @customer%> </td>
+                </tr> 
+                <tr>
+                    <td>ហត្ថលេខាភ្ញៀវ</td>
+                    <!-- <td>......................</td> -->
+                </tr> 
+                <tr>
+                    <td>Signature: ..........................................................................</td>    
+                </tr>
+           </table>
+            <br>
+            <p>
+                Thank you! Come back again .
+                <div style="font-size:12px" align="center">
+                    Powerd by IT FOCUS TEAM
+                </div>
+            </p>
+            <br>
+</center>
+                
+                    
+                </div>
+            </body>
+
+            </html>
+
+<script type="text/javascript">
+    // var url = "";
+    window.print();
+    // window.close();
+    // window.location = url;
+</script>
+          <!--   %= render("form", order:@order , sub_total:@sub_total,receipt_id:@receipt_id ) %> -->

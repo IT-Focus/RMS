@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style type="text/css">
+html body{
+	margin: 0 auto;
+}
+table {
+    width:100%;
+    margin: 0px auto;
+}
+table #t2{
+    width:50%;
+    margin: 0px auto;
+}
+table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+}
+th, td {
+    padding: 5px;
+    text-align: left;
+}
+
+/*---table 1-*/
+table#t1 th{
+    background-color: black;
+    color: white;
+
+}
+
+</style>
+
+</head>
+<body>
+<div style="padding-top:10px;text-align:center;padding-bottom:10px;">
+	<h2>Audit Trail Report</h2>
+	<div class="wrapper_tittle" style="padding-bottom:30px;">
+		<div class="date">
+			<h5>
+				From Date: <%=@from_date%>    To Date:  <%=@to_date%>
+			</h5>
+		</div>
+		<div class="date1">
+				
+					User:  <%=@username%>
+		</div>
+	</div>
+	
+	<table id="t1">
+	  <tr>
+	    <th>
+	    	<center>
+	    			CREATED BY
+	    	</center>
+	    </th>
+	    <th>
+	    	<center>
+	    			MODULE NAME
+	    	</center>
+	    </th>
+	     <th>
+	    	<center>
+	    			ACTION
+	    	</center>
+	    </th>			
+	    <th>
+	    	<center>
+	    			Description
+	    	</center>
+	    </th>
+	     <th>
+	    	<center>
+	    			ACTION DATE
+	    	</center>
+	    </th>	
+	  </tr>
+	
+	  	<% @auditrailReport.each do |d| %>
+			<tr>
+				<td><%=d.user_name%></td>
+				<td><%=d.module_name%></td>
+				<td><%=d.action%></td>
+				<td><%=d.description%></td>
+				<td><%=d.created_at%></td>
+			</tr>
+	  	<% end %>
+	
+	  	
+	</table>
+	
+</div>
+
+</body>
+</html>
+<style type="text/css">
+.wrapper_tittle{
+	margin-bottom: 30px;
+}
+.date{
+	float:left;
+	/*padding-left: 280px;*/
+	display: inline-block;
+}
+.date1{
+	float:right;
+	padding-left: 150px;
+	padding-top: 20px;
+	display: inline-block;
+}
+.tittle_date{
+	float: right;
+	padding-right: 80px;
+	padding-top: 20px;
+}
+.dollar{
+	padding-right: 10px;
+}
+</style>

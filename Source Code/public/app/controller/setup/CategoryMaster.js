@@ -60,6 +60,22 @@ Ext.define('App.controller.setup.CategoryMaster', {
 	edit_Category_Price: function(btn){
 		var rec = Util.getRecord(btn,"Please select record for edit ");
 		if (rec) {
+			if (rec.get('is_active') == false) {
+				rec.set('is_active', 0);
+			} else {
+				rec.set('is_active', 1);
+			}
+			if (rec.get('is_include_tax') == false) {
+				rec.set('is_include_tax', 0);
+			} else {
+				rec.set('is_include_tax', 1);
+			}
+			if (rec.get('is_charge_rate') == false) {
+				rec.set('is_charge_rate', 0);
+			} else {
+				rec.set('is_charge_rate', 1);
+			}
+
 			var win = Ext.create("App.view.setup.categoryPrice.Form");
 			duration_time = Ext.util.Format.dateRenderer('H:i')(rec.data.duration_time);
 			allow_late = Ext.util.Format.dateRenderer('H:i')(rec.data.allow_late);
@@ -125,6 +141,21 @@ Ext.define('App.controller.setup.CategoryMaster', {
 	edit: function(btn) {
 		var rec = Util.getRecord(btn, "Please select record for edit ");
 		if (rec) {
+			if (rec.get('is_include_tax') == false) {
+				rec.set('is_include_tax', 0);
+			} else {
+				rec.set('is_include_tax', 1);
+			}
+			if (rec.get('is_include_tax_hour') == false) {
+				rec.set('is_include_tax_hour', 0);
+			} else {
+				rec.set('is_include_tax_hour', 1);
+			}
+			if (rec.get('is_include_tax_month') == false) {
+				rec.set('is_include_tax_month', 0);
+			} else {
+				rec.set('is_include_tax_month', 1);
+			}
 			var conatiner = btn.up('categoryMasterIndex');
 			var form = conatiner.down('categoryMasterForm');
 			var category_id = rec.data.id;
@@ -159,6 +190,7 @@ Ext.define('App.controller.setup.CategoryMaster', {
 	// },
 
 	save: function(btn) {
+		debugger;
 		me = this
 		var form = btn.up('form'),
 			record = form.getRecord(),

@@ -5,7 +5,7 @@ Ext.define('App.store.admin.CfgUtility', {
     model: 'App.model.admin.CfgUtility',
      proxy: {
         		type: 'rest',
-        		url:'/CfgUtility',
+        		url:'/cfg_utilities',
 		        reader: {
 		            type: 'json',
 		            root: 'data',

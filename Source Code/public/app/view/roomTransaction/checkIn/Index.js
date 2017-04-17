@@ -12,8 +12,22 @@ Ext.define('App.view.roomTransaction.checkIn.Index', {
                 name: 'index',
                 store: 'roomTransaction.CheckIn',
                 title: 'Check In',
-                tools: [
-
+                
+                tools: [{
+                        xtype: 'combo',
+                        fieldLabel: '<b>Search By</b>',
+                        store: ['Check In Code', 'Room No'],
+                        value: 'Check In Code',
+                        labelAlign: 'right',
+                        name: 'searchBy',
+                        editable: false,
+                        autoWidth: true,
+                        style: 'padding-right:10px'
+                    }, {
+                        xtype: 'textfield',
+                        name: 'string',
+                        autoWidth: true,
+                    },
                     {
                         xtype: 'button',
                         action: 'Add',
@@ -28,6 +42,11 @@ Ext.define('App.view.roomTransaction.checkIn.Index', {
                     width: 50,
                     align: 'center'
                 }, {
+                    header: 'Check In Code',
+                    dataIndex: 'code',
+                    autoWidth: true,
+                    flex: 1
+                },{
                     header: 'Room No',
                     dataIndex: 'room_no',
                     autoWidth: true,
@@ -37,9 +56,24 @@ Ext.define('App.view.roomTransaction.checkIn.Index', {
                     dataIndex: 'check_in_date',
                     autoWidth: true,
                     flex: 1,
-                },],
+                },{
+                    header: 'Price Plan',
+                    dataIndex: 'price_plan',
+                    autoWidth: true,
+                    flex: 1
+                },{
+                    header: 'Status',
+                    dataIndex: 'status_name',
+                    autoWidth: true,
+                    flex: 1
+                },{
+                    header: 'Created By',
+                    dataIndex: 'username',
+                    autoWidth: true,
+                    flex: 1
+                }],
                 bbar: Ext.create('Ext.PagingToolbar', {
-                    // store: 'roomTransaction.CancelCheckin',
+                    store: 'roomTransaction.CheckIn',
                     displayInfo: true,
                     displayMsg: 'view {0} - {1} of {2}',
                     emptyMsg: "view 0"

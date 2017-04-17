@@ -24,13 +24,31 @@ Ext.define('App.controller.roomTransaction.CancelCheckin', {
             },
             'cancelCheckinForm combo[name=room_no]':{
                 select: this.filterCancelInDetail
+            },
+            'cancelCheckinIndex combo[name=searchBy]' : {
+                change: this.advanceSearch
+            },
+            'cancelCheckinIndex textfield[name=string]' : {
+                change: this.advanceSearch
             }
+
             // 'Viewport > fmMenu':{
             //  // afterrender
             // }
 
         });
     },
+
+    advanceSearch: function(field){
+        var me = this,
+            form = field.up('gridpanel'),
+            searchBy = form.down('combo[name=searchBy]').getValue(),
+            searchString = form.down('textfield[name=string]').getValue()
+            store = me.getRoomTransactionCancelCheckinStore();
+
+            Util.loadStore(store,{searchString:searchString,searchBy:searchBy});
+    },
+    
     filterCancelInDetail: function(field) {
         value = field.getValue()
         Util.ajax('CheckInDetail/get_checkin_detail',{room_id:value},this.loadRecordToTextfield,field)

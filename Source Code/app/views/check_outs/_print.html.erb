@@ -1,0 +1,58 @@
+<html>
+	<head>
+		
+	</head>
+	<body>
+		<div>
+			<h1>Company Profile </h1>
+		</div>
+		<hr>
+		<table>
+			<tr>
+				<td>Customer: <%= @check_in.customer_name %> </td>
+				<td>Check In:<%= @check_in.check_in_date %> </td>
+			</tr>
+			<tr>
+				<td>Receipt No: <%= @customer_payment.receipt_no %></td>
+				<td>Date: <%= @customer_payment.transaction_date %></td>				
+			</tr>
+		</table>
+		<table border="1" style="width:500px;border-collapse: collapse">
+			<tr>
+				<th>No</th>
+				<th>Description</th>
+				<th>QTY</th>
+				<th>Price</th>
+				<th>Amount</th>
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: right">Total  :</td>
+				<td >$ <%= @check_in.total_amount %></td>				
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: right"> Discount  :</td>
+				<td >$ <%= @check_in.discount_amount %></td>				
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: right">Vat  :</td>
+				<td >$ <%= @check_in.tax_amount %></td>				
+			</tr>
+			<tr>
+				<td colspan="4" style="text-align: right">Grand Total  :</td>
+				<td >$ <%= @check_in.grand_total_amount %></td>				
+			</tr>
+		</table>
+		<table style="width:500px;text-align: right;">
+			<tr>
+				<td>Paid Amount</td>
+				<td>$ <%= @customer_payment.base_currency_amount %></td>
+			</tr>
+			<tr>
+				<td>Return Amount</td>				
+				<td>$ <%= @customer_payment.base_currency_amount - @customer_payment.total_amount %></td>
+			</tr>
+		</table>
+	Thank you! Come back again .<br>	
+	Provide by IT-FOCUS
+	</body>
+</html>

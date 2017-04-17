@@ -17,6 +17,7 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
                     xtype: 'form',
                     name:'indexPage',
                     title: "Room Monitor",
+                    autoScroll:true,
                     tbar:[
                         
                         {
@@ -33,14 +34,20 @@ Ext.define('App.view.roomTransaction.roomMonitor.Index', {
 
                 },{
                     xtype:'CheckinForm'
+                },{
+                    xtype:'checkOutForm'
+                },{
+                    xtype:'CustomersForm'
                 }
                 //Ext.create("App.view.roomTransaction.checkIn.Form")
             ],
             
         });
         this.callParent(arguments);
+
         ctrl.showButtonFloor(me);
-        ctrl.addRoomMonitor(me, "ALL");
+        ctrl.getRoomData(me);
+        // ctrl.addRoomMonitor(me,"ALL");
         ctrl.addRoomStatusColor(me);
 
         // Util.ajax("default_color", {}, me.loadValueToForm, me)

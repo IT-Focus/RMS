@@ -1,0 +1,145 @@
+<html><head>
+    <meta charset="utf-8">
+
+            <style>
+                .st-bold{
+                    font-weight: bold;
+                } 
+                .all-font{
+                    font-size:12pt;
+                    width:100%;
+                }
+                .all-font th{
+                    color: white;
+                }
+                p{
+                    font-size: 10px;
+                }
+            </style>            
+            <center><h1>Print Close Balance</h1></center>
+            </head>
+
+	<body>
+           	<div class="receipt" style="background:white;">
+            	<h2 style='border-bottom:dotted;font-size:14pt;height:20pt;font-weight:bold;'>Cashier Information</h2>
+
+            	<table border="0">
+            		<tr>
+            			<td style="width:100px;">Shift</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@cashier.workshift.name%><b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:100px;">Cashier Name</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@user.first_name + @user.last_name%><b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:50px;">Opened Date</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@cashierBalance.opened_date.strftime('%d/%m/%Y %H:%M %p')%><b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:50px;">Closed Date</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@cashierBalance.closed_date.strftime('%d/%m/%Y %H:%M %p')%><b></td>
+            		</tr>
+            	</table>
+            	<br>
+            	<h2 style='border-bottom:dotted;font-size:14pt;height:20pt;font-weight:bold;'>Cashier Balance</h2>
+
+            	<table border="0">
+            		<tr>
+            			<td style="width:150px;">Open Amount</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@open_balance%> $<b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;">Sale Amount</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@sale_amount%> $<b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;">Total Amount</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@sale_amount + @open_balance%> $<b></td>
+            		</tr>
+            		<tr></tr>
+            		<tr>
+            			<td style="width:150px;">Discount Amount</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@discount_amount%> $<b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;">Vat Amount</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@vat_amount%> $<b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;"><b>Grand Total Amount</b></td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@grand_total_amount%> $<b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;"><b>Net Receive Amount</b></td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b>0 $<b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;"><b>Total Paid</b></td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@paid_amount.round(2)%> $<b></td>
+            		</tr>
+            	</table>
+            	<br>
+            	<h2 style='border-bottom:dotted;font-size:14pt;height:20pt;font-weight:bold;'>Room Transaction</h2>
+
+            	<table border="0">
+            		<tr>
+            			<td style="width:150px;">Total Check In</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@total_check_in%><b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:150px;">Total Check Out</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@total_check_out.count%><b></td>
+            		</tr>
+            		<tr>
+            			<td style="width:50px;">Total Cancel</td>
+            			<td style="width:20px;">:</td>
+            			<td style="width:200px;"><b><%=@total_cancel.count%><b></td>
+            		</tr>
+            	</table>
+
+            	<fieldset style="height:200px">
+  					<legend>Remarks:</legend>
+
+ 				</fieldset>
+                <br><br>
+
+                <table border="0">
+                    <tr>
+                        <td style="width:400px;">Cashier Name:<%=@user.first_name + @user.last_name%></td>
+                        <td style="width:200px;">Supervisor Name:</td>
+                    </tr>
+                    <tr><td style="width:400px;">Date: <%=@cashierBalance.closed_date.strftime('%d/%m/%Y')%></td>
+                        <td style="width:200px;">Date: <%=@cashierBalance.closed_date.strftime('%d/%m/%Y')%></td>
+                    </tr>
+                    <tr> <td style="width:400px;"><b>Signature:<b></td>
+                    <td style="width:200px;"><b>Signature:<b></td></tr>
+                </table>
+            	
+            	       
+            </div>
+    </body>
+
+</html>
+
+<script type="text/javascript">
+    // var url = "";
+    window.print();
+    // window.close();
+    // window.location = url;
+</script>
+          <!--   %= render("form", order:@order , sub_total:@sub_total,receipt_id:@receipt_id ) %> -->

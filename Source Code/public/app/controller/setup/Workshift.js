@@ -19,7 +19,7 @@ Ext.define('App.controller.setup.Workshift', {
 	    		click: this.edit
 	    	},
 	    	'workshiftForm button[action=Save]':{
-	    		click: this.save
+	    		click: this.check_workshift
 	    	},
 	    	'workshiftForm button[action=Cancel]':{
 	    		click: this.cancel
@@ -67,12 +67,30 @@ Ext.define('App.controller.setup.Workshift', {
 
 	},
 
-	save :function(btn){
-		var store = this.getSetupWorkshiftStore();
+	save :function(obj, params){
+		
+		if (obj.success == true){
+
+			var store = params.me.getSetupWorkshiftStore();
+			Util.save(params.btn,store,'setup.Workshift');
+
+		}else{
+			
+		}
+
+
+	},
+
+	check_workshift:function(btn){
+
 		var me = this ;
-		Util.save(btn,store,'setup.Workshift');
+		var win = btn.up('window'),
+			form = win.down('form'),
+			values = form.getValues();
 
-
+			Util.ajax("Workshifts/check_workshift",{abbr:values.abbr, workshift_name:values.name}, me.save , {me:me , btn:btn}  );
+		
+	
 	},
 	cancel:function(btn){
 		btn.up('window').close();

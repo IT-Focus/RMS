@@ -31,13 +31,14 @@ Ext.define('App.view.admin.user.Index', {
                                         }
                                     ],
                                     columns:[
-                                        {header:'NO', xtype:'rownumberer', width:50, align:'center'},
-                                        {header:'FIRST NAME ',width:120,dataIndex:'first_name'},
-                                        {header:'LAST NAME ',width:100,dataIndex:'last_name'},
-                                        {header:'PHONE',width:200,dataIndex:'phone'},
-                                        {header:'EMAIL',width:200,dataIndex:'email'},
-                                        {header:'USERNAME',width:200,dataIndex:'username'},
-                                        {header:'STATUS',width:200,dataIndex:'is_active',
+                                        {header:'NO', xtype:'rownumberer', width:50,flex:1, align:'center'},
+                                        {header:'USER ID',autoWidth:true,flex:1,dataIndex:'code'},
+                                        {header:'FIRST NAME ',autoWidth:true,flex:1,dataIndex:'first_name'},
+                                        {header:'LAST NAME ',autoWidth:true,flex:1,dataIndex:'last_name'},
+                                        {header:'PHONE',autoWidth:true,flex:1,dataIndex:'phone'},
+                                        {header:'EMAIL',autoWidth:true,flex:1,dataIndex:'email'},
+                                        {header:'USERNAME',autoWidth:true,flex:1,dataIndex:'username'},
+                                        {header:'STATUS',autoWidth:true,flex:1,dataIndex:'is_active',
 
                                             renderer:function(val, meta, record){
                                                 console.log(record );
@@ -51,22 +52,22 @@ Ext.define('App.view.admin.user.Index', {
                                             }
                                         },
 
-                                        {header:'ACTION',xtype:'actioncolumn',width:100,align:'center',
-                                            items:[
-                                                {
-                                                   icon:'images/edit.png',
-                                                    tooltip:'Edit' ,
-                                                    handler: function(grid, rowIndex, colIndex) {
-                                                        var rec = grid.getStore().getAt(rowIndex);
-                                                        var controller =App.app.getController("admin.User");
-                                                        controller.edit(rec,grid);
+                                    //     {header:'ACTION',xtype:'actioncolumn',width:100,align:'center',
+                                    //         items:[
+                                    //             {
+                                    //                icon:'images/edit.png',
+                                    //                 tooltip:'Edit' ,
+                                    //                 handler: function(grid, rowIndex, colIndex) {
+                                    //                     var rec = grid.getStore().getAt(rowIndex);
+                                    //                     var controller =App.app.getController("admin.User");
+                                    //                     controller.edit(rec,grid);
 
-                                                    }
+                                    //                 }
 
-                                                },
+                                    //             },
 
-                                            ]
-                                    },
+                                    //         ]
+                                    // },
                                     ],
                                     bbar:Ext.create('Ext.PagingToolbar', {
                                         store:'admin.User',

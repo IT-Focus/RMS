@@ -1,3 +1,4 @@
+
 .icon-calendar{
     background-image: url( ../images/icons/calendar.png ) !important;
 }
@@ -90,6 +91,12 @@
 }
 .icon-ok{
     background-image:url(../images/icons/Ok.png) !important;
+}
+.icon-addressbook{
+    background-image:url(../images/icons/address_book.png) !important;
+}
+.icon-nightaudit{
+    background-image:url(../images/icons/night_audit.png) !important;
 }
 .icon-nonetrade {
     background-image: url( ../images/icons/nonetrade.png ) !important;
@@ -300,4 +307,27 @@
 .icon-close_cash_drawer{
    background-image:url(../images/icons/close_cash_drawer.png) !important; 
 }
+.icon-room-monitor{
+   background-image:url(../images/icons/room_monitor.png) !important; 
+}
+.icon-attachment{
+   background-image:url(../images/icons/clip.png) !important; 
+}
+.icon-room_monitor{
+   background-image:url(../images/icons/room_monitor.png) !important; 
+}
+.icon-discount{
+   background-image:url(../images/icons/discount.png) !important; 
+}
+.icon-update_check_in{
+   background-image:url(../images/icons/update_check_in.png) !important; 
+}
+.icon-check_out{
+   background-image:url(../images/icons/check_out.png) !important; 
+}
+.icon-audi{
+   background-image:url(../images/icons/audi.png) !important; 
+}
+
+
 

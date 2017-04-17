@@ -30,6 +30,7 @@ class License::LicenseSv
 		else
 			if (license_date.to_date ) > (Date.today)
 				return true 
+				puts "=========================date"
 			else
 				return false 
 			end			
@@ -88,8 +89,11 @@ class License::LicenseSv
 		key ="softexpert"
 	end
 	def get_mac
-		mac_address = MacAddress.address
-		return mac_address
+		# mac_address = MacAddress.address
+
+	    output = `wmic bios get serialnumber`
+	    ob=  output.split("\n")     
+		return ob[2]
 	end
 	def get_date_from_secret_key key_code
 		string_decrypted = decrypt(key_code)

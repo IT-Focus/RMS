@@ -6,7 +6,7 @@ class CreateCashierBalances < ActiveRecord::Migration
     	t.datetime :closed_date
     	t.float :open_balance
     	t.float :close_balance
-      	t.timestamps null: false
+      t.timestamps null: false
     end
   end
 

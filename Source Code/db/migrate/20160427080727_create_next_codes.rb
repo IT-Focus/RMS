@@ -1,7 +1,7 @@
 class CreateNextCodes < ActiveRecord::Migration
   def up
     create_table :next_codes do |t|
-    	t.integer :module
+    	t.string :module
     	t.integer :cit
     	t.integer :cet
       	t.string :prefix
@@ -11,6 +11,6 @@ class CreateNextCodes < ActiveRecord::Migration
     end
   end
   def down
-  	drop_table :next_code
+  	drop_table :next_codes
   end
 end

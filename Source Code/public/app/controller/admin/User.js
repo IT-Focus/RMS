@@ -7,20 +7,23 @@ Ext.define('App.controller.admin.User', {
 
 	],
 	stores:[
-		'admin.User'
+		'admin.User',
+		'combo.Role',
+		'combo.Department',
+		
 	],
 	init: function() {
 
 	    this.control({
 	    	'userIndex button[action=Add]':{
-	    		click: this.add
+	    		click: this.checkLimit
 	    	},
 	    	'userIndex button[action=Edit]':{
 	    		click: this.edit
 	    	},
-	    	'userForm button[action=Save]':{
-	    		click: this.save
-	    	},
+	    	// 'userForm button[action=Save]':{
+	    	// 	click: this.save
+	    	// },
 	    	'userForm button[action=Cancel]':{
 	    		click: this.cancel
 	    	},
@@ -41,20 +44,70 @@ Ext.define('App.controller.admin.User', {
 		};
 
 	},
-	add:function(btn){
-		var conatiner = btn.up('userIndex');
-		var form = conatiner.down('userForm');
-		form.getForm().reset();
-		conatiner.setActiveItem(form);
+	// add:function(btn){
+	// 	var conatiner = btn.up('userIndex');
+	// 	var form = conatiner.down('userForm');
+	// 	form.getForm().reset();
+	// 	conatiner.setActiveItem(form);
+
+	// },
+
+	setCode: function(obj, form) {
+
+		if (obj.success) {
+			var txtCode = form.down("textfield[name=sale_quotation_no]");
+			// check form is do action for add new or edit
+			if (form.getRecord()) {
+				// for edit form
+				if (obj.is_manaul) {
+
+					txtCode.setReadOnly(false);
+				} else {
+					txtCode.setReadOnly(true);
+				}
+
+			} else {
+				// for add new form
+				if (obj.is_manaul) {
+					txtCode.setReadOnly(false);
+					txtCode.setValue('');
+					txtCode.focus(true, 200);
+				} else {
+					txtCode.setValue(obj.code);
+					txtCode.setReadOnly(true);
+					form.down('combo[name=customer_id]').focus(true, 300);
+				};
+
+			};
+
+		} else {
+			Ext.Msg.alert("Error", "System Can't Get Code");
+		};
+	},
+
+	checkLimit :function(btn){
+		// debugger;
+		var me = this ;
+		Util.ajax("SysUsers/check_user_limit",{test:1}, me.add , {me:me , btn:btn}  );
+
 
 	},
 
-	save :function(btn){
-		var store = this.getAdminUserStore();
+	saveUserForm :function(btn){
 		var me = this ;
+		var store = me.getAdminUserStore();
 		Util.saveForm(btn,store,'admin.User', me);
-
-
+	},
+	add :function(obj , param){
+		// alert(obj.max_user);
+		if (obj.success == true) {
+			var conatiner = param.btn.up('userIndex');
+			var form = conatiner.down('userForm');
+			form.getForm().reset();
+			conatiner.setActiveItem(form);
+		}else{
+			Util.msg("You're privilege to create "+obj.max_user+" only!");
+		};
 	},
 	cancel:function(btn){
 		var conatiner = btn.up('userIndex');

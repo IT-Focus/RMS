@@ -9,7 +9,7 @@ class ApplicationController < ActionController::Base
     begin
         if session[:user_id]
           
-            if session[:expiry_time] && session[:expiry_time].to_time < 15.minutes.ago
+            if session[:expiry_time] && session[:expiry_time].to_time < 24.hours.ago
                 reset_session
                 flash[:warning] = 'You was logout.'
                 redirect_to '/home/login'

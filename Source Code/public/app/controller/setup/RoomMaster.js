@@ -16,7 +16,7 @@ Ext.define('App.controller.setup.RoomMaster', {
 
 	    this.control({
 	    	'roomMasterIndex button[action=Add]':{
-	    		click: this.add
+	    		click: this.check_room_limit
 	    	},
 	    	'roomMasterIndex button[action=Edit]':{
 	    		click: this.edit
@@ -60,12 +60,21 @@ Ext.define('App.controller.setup.RoomMaster', {
 		};
 
 	},
-	add:function(btn){
-		var win = Ext.create("App.view.setup.roomMaster.Form");
-		win.show();
-		win.center();
-		win.down('textfield[name=room_no]').focus(true , 300 );
+	add:function(obj, params){
+		if (obj.success==true){
+			var win = Ext.create("App.view.setup.roomMaster.Form");
+			win.show();
+			win.center();
+			win.down('textfield[name=room_no]').focus(true , 300 );
+		}else{
+			Util.msg("You're privilege to create "+obj.maximum_room+" only!");
+		}
 
+	},
+
+	check_room_limit:function(btn){
+		var me = this ;
+		Util.ajax("RoomMaster/check_room_limit",{test:1}, me.add , {me:me , btn:btn}  );
 	},
 
 	save :function(btn){

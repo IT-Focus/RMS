@@ -48,12 +48,14 @@ Ext.define('App.view.setup.roomServiceMaster.Form', {
                     xtype: 'checkbox',
                     name: 'is_include_tax',
                     fieldLabel: 'Include tax?',
-                }, {
-                    xtype: 'numberfield',
-                    name: 'tax',
-                    fieldLabel: 'Tax',
-                    visible:false,
-                },{
+                }, 
+                // {
+                //     xtype: 'numberfield',
+                //     name: 'tax',
+                //     fieldLabel: 'Tax',
+                //     visible:false,
+                // },
+                {
                     xtype: 'numberfield',
                     name: 'charge_amount',
                     fieldLabel: 'Charge Amount'+redStar

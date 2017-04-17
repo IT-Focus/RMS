@@ -2,9 +2,7 @@ var me, myVar;
 
 Ext.define('App.controller.Util', {
 	extend: 'Ext.app.Controller',
-	//stores: ['Leads','Nationals','LeadSources','Cities'],
-	//model:['Lead'],
-
+	
 	init: function() {
 
 		this.control({
@@ -36,13 +34,35 @@ Ext.define('App.controller.Util', {
 
 
 	},
+
+	// msg: function(message) {
+
+	// 	toastr["warning"](message)
+
+	// },
 	msgSave: function(message) {
-		$("<div />", {
-			'class': 'topBarSave',
-			text: message
-		}).hide().prependTo("body").slideDown('fast').delay(3000).slideUp(function() {
-			$(this).remove();
+		var title = "Success";
+
+		var win = Ext.create('Ext.window.Window', {
+			// layout:'hbox',
+			header: false,
+			// width:'90%',
+			style: " background-color: antiquewhite;text-align: center;border: 2px solid gray;   border-radius: 10px;",
+			bodyStyle: 'border-radius:10px',
+			items: [{
+				style: 'border-radius:10px; ',
+				html: " <div style=' padding: 10px 30px 10px 30px;font-size: 15px ; font-weight:bold;color:green;'><center>  " + title + "</center></div> <div style='color:green;padding:10px; font-size: 12px '> <center><b> " + message + "</b></center> </div> "
+			}]
+
 		});
+		win.show();
+		win.alignTo(Ext.getBody(), "tr-tr", ['-10%', 20]);
+
+
+		setTimeout(function() {
+			win.close();
+		}, 5000);
+
 	},
 
 	openMask: function() {
@@ -207,14 +227,16 @@ Ext.define('App.controller.Util', {
 					store.load();
 
 				},
-				failure: function(batch, option) {
+				failure: function(batch, option, operation) {
 					Ext.MessageBox.hide();
 					store.rejectChanges();
 
-					var msg = option.batch.proxy.reader.rawData.message;
+					// var msg = "Testing message";
+					var msg = batch.operations[0].error;
+					console.log(msg);
 					Ext.MessageBox.show({
 						title: 'Error',
-						msg: msg,
+						message: msg,
 						icon: Ext.MessageBox.ERROR,
 						buttons: Ext.Msg.OK
 					});

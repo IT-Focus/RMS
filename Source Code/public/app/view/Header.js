@@ -8,6 +8,15 @@ Ext.define('App.view.Header', {
   id: 'header',
   bodyStyle: 'background-color:#003366 ;color:white',
   bodyPadding: 5,
+  listeners: {
+    afterrender: function() {
+         
+
+          Ext.getCmp('loggedin').setText('Logged in as: ');
+  
+        
+    }
+  },
   items: [
 
     {
@@ -20,13 +29,13 @@ Ext.define('App.view.Header', {
         //        	   html:'<h3> Document Management System</h3>',
     }, {
       xtype: 'label',
-      width: 160,
-      // text: 'Current User:',
+      flex: 1,
       id: 'loggedin',
-      style: ' text-align: left;font-weight:bold',
+      text: 'test',
+      style: ' text-align:right;font-weight:bold',
       margin: '10 0 0 0',
 
-    }, 
+    },
     // {
     //   xtype: 'label',
     //   style: 'font-size: 15px;margin-top:10px; margin-right:20px',
@@ -36,7 +45,7 @@ Ext.define('App.view.Header', {
     {
       text: 'Option',
       xtype: 'button',
-      autoWidth:true,
+      autoWidth: true,
       iconCls: 'icon-option',
       menu: {
         xtype: 'menu',

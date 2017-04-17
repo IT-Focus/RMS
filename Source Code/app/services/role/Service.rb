@@ -16,7 +16,7 @@ class Role::Service
 				FROM
 				    sys_menus m
 				        LEFT JOIN
-				    project_structure_development.rel_menu_roles rm ON m.id = rm.menu_id and rm.role_id = #{ role_id }
+				    rel_menu_roles rm ON m.id = rm.menu_id and rm.role_id = #{ role_id }
 				        LEFT JOIN
 				    sys_menus ms ON ms.id = m.parent_id
 				    where m.parent_id > 0 and m.is_active = true

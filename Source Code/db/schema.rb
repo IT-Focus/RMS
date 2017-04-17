@@ -11,7 +11,15 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160702152600) do
+ActiveRecord::Schema.define(version: 20161228113434) do
+
+  create_table "account_categories", force: :cascade do |t|
+    t.integer  "code",          limit: 4
+    t.string   "category_name", limit: 255
+    t.string   "main_group",    limit: 255
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+  end
 
   create_table "auditrails", force: :cascade do |t|
     t.string   "module_name", limit: 255
@@ -25,9 +33,9 @@ ActiveRecord::Schema.define(version: 20160702152600) do
   create_table "cancel_check_ins", force: :cascade do |t|
     t.string   "code",          limit: 255
     t.string   "check_in_code", limit: 255
-    t.date     "check_in_date"
+    t.datetime "check_in_date"
     t.string   "room_no",       limit: 255
-    t.date     "cancel_date"
+    t.datetime "cancel_date"
     t.string   "reason",        limit: 255
     t.string   "cancelled_by",  limit: 255
     t.datetime "created_at",                null: false
@@ -40,8 +48,10 @@ ActiveRecord::Schema.define(version: 20160702152600) do
     t.datetime "closed_date"
     t.float    "open_balance",  limit: 24
     t.float    "close_balance", limit: 24
-    t.datetime "created_at",               null: false
-    t.datetime "updated_at",               null: false
+    t.datetime "created_at",                null: false
+    t.datetime "updated_at",                null: false
+    t.string   "close_by",      limit: 255
+    t.integer  "status",        limit: 4
   end
 
   create_table "cashiers", force: :cascade do |t|
@@ -84,6 +94,7 @@ ActiveRecord::Schema.define(version: 20160702152600) do
     t.integer  "seq_no",         limit: 4
     t.string   "remark",         limit: 255
     t.boolean  "is_include_tax"
+    t.boolean  "is_charge_rate"
     t.datetime "created_at",                                null: false
     t.datetime "updated_at",                                null: false
   end
@@ -124,13 +135,14 @@ ActiveRecord::Schema.define(version: 20160702152600) do
 
   create_table "check_in_details", force: :cascade do |t|
     t.integer  "check_in_id",        limit: 4
-    t.integer  "service_id",         limit: 4
     t.integer  "room_master_id",     limit: 4
-    t.string   "room_no",            limit: 255
+    t.string   "rental_type",        limit: 1
     t.integer  "categroy_price_id",  limit: 4
     t.datetime "check_in_date"
     t.datetime "check_out_date"
     t.string   "description",        limit: 255
+    t.integer  "adults",             limit: 4
+    t.integer  "childrens",          limit: 4
     t.integer  "qty",                limit: 4
     t.float    "unit_price",         limit: 24
     t.float    "total_amount",       limit: 24
@@ -144,46 +156,36 @@ ActiveRecord::Schema.define(version: 20160702152600) do
     t.string   "tran_type",          limit: 255
     t.datetime "created_at",                     null: false
     t.datetime "updated_at",                     null: false
+    t.integer  "extra_charge",       limit: 4
+    t.integer  "service_id",         limit: 4
   end
 
   create_table "check_ins", force: :cascade do |t|
     t.string   "code",                     limit: 45
     t.datetime "arrival_date"
-    t.integer  "no_person",                limit: 4
-    t.integer  "adult",                    limit: 4
-    t.integer  "children",                 limit: 4
-    t.integer  "male",                     limit: 4
-    t.integer  "female",                   limit: 4
-    t.integer  "no_days",                  limit: 4
+    t.integer  "customers_id",             limit: 4
     t.float    "balance",                  limit: 24
-    t.integer  "no_room",                  limit: 4
-    t.integer  "room_master_id",           limit: 4
-    t.integer  "extra_person",             limit: 4
-    t.string   "customer_name",            limit: 255
-    t.integer  "national_id",              limit: 4
-    t.float    "charge",                   limit: 24
     t.time     "check_in_time"
-    t.string   "email",                    limit: 255
     t.date     "check_in_date"
-    t.date     "dob"
-    t.text     "address",                  limit: 65535
-    t.string   "city",                     limit: 45
-    t.string   "phone",                    limit: 45
-    t.string   "mobile",                   limit: 45
     t.float    "discount",                 limit: 24
-    t.boolean  "rental_type"
-    t.datetime "hourly_check_in"
+    t.string   "rental_type",              limit: 255
     t.datetime "monthly_check_in"
     t.time     "estimated_check_out_time"
     t.date     "estimated_check_out_date"
     t.text     "purpose_of_visit",         limit: 65535
     t.float    "paid_booking",             limit: 24
+    t.text     "description",              limit: 65535
+    t.integer  "status_code",              limit: 4
+    t.decimal  "total_amount",                           precision: 10
+    t.integer  "discount_percentage",      limit: 4
+    t.decimal  "discount_amount",                        precision: 10
+    t.integer  "tax_percentage",           limit: 4
+    t.decimal  "tax_amount",                             precision: 10
+    t.decimal  "grand_total_amount",                     precision: 10
     t.string   "created_by",               limit: 45
     t.string   "edited_by",                limit: 45
-    t.text     "description",              limit: 65535
-    t.datetime "created_at",                             null: false
-    t.datetime "updated_at",                             null: false
-    t.integer  "status_code",              limit: 4
+    t.datetime "created_at",                                            null: false
+    t.datetime "updated_at",                                            null: false
   end
 
   create_table "cities", force: :cascade do |t|
@@ -200,6 +202,48 @@ ActiveRecord::Schema.define(version: 20160702152600) do
     t.integer  "seq_num",       limit: 4
     t.datetime "created_at",                null: false
     t.datetime "updated_at",                null: false
+  end
+
+  create_table "customer_payment_details", force: :cascade do |t|
+    t.integer  "customer_payment_id", limit: 4
+    t.integer  "check_in_id",         limit: 4
+    t.decimal  "amount",                        precision: 10
+    t.datetime "created_at",                                   null: false
+    t.datetime "updated_at",                                   null: false
+  end
+
+  create_table "customer_payments", force: :cascade do |t|
+    t.string   "receipt_no",           limit: 255
+    t.date     "transaction_date"
+    t.decimal  "base_currency_amount",               precision: 10
+    t.decimal  "change_rate",                        precision: 10
+    t.decimal  "total_amount",                       precision: 10
+    t.integer  "payment_method",       limit: 4
+    t.string   "status_code",          limit: 255
+    t.integer  "created_by",           limit: 4
+    t.text     "remark",               limit: 65535
+    t.integer  "eod_id",               limit: 4
+    t.integer  "cashier_id",           limit: 4
+    t.datetime "created_at",                                        null: false
+    t.datetime "updated_at",                                        null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.integer  "national_id",     limit: 4
+    t.string   "customer_name",   limit: 255
+    t.string   "email",           limit: 255
+    t.text     "address",         limit: 65535
+    t.date     "dob"
+    t.string   "city",            limit: 255
+    t.string   "phone",           limit: 255
+    t.string   "mobile",          limit: 255
+    t.string   "national_no",     limit: 255
+    t.string   "passport_no",     limit: 255
+    t.text     "description",     limit: 65535
+    t.datetime "created_at",                    null: false
+    t.datetime "updated_at",                    null: false
+    t.string   "passport_url",    limit: 255
+    t.string   "national_id_url", limit: 255
   end
 
   create_table "day_ends", force: :cascade do |t|
@@ -274,7 +318,7 @@ ActiveRecord::Schema.define(version: 20160702152600) do
   end
 
   create_table "next_codes", force: :cascade do |t|
-    t.integer  "module",     limit: 4
+    t.string   "module",     limit: 255
     t.integer  "cit",        limit: 4
     t.integer  "cet",        limit: 4
     t.string   "prefix",     limit: 255
@@ -282,6 +326,15 @@ ActiveRecord::Schema.define(version: 20160702152600) do
     t.integer  "length",     limit: 4
     t.datetime "created_at",             null: false
     t.datetime "updated_at",             null: false
+    t.boolean  "is_manaul"
+  end
+
+  create_table "night_audits", force: :cascade do |t|
+    t.datetime "date"
+    t.integer  "created_by", limit: 4
+    t.text     "comment",    limit: 65535
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   create_table "rel_menu_roles", force: :cascade do |t|
@@ -387,12 +440,6 @@ ActiveRecord::Schema.define(version: 20160702152600) do
 
   add_index "sys_users", ["department_id"], name: "fk_users_departments_idx", using: :btree
   add_index "sys_users", ["role_id"], name: "fk_users_roles1_idx", using: :btree
-
-  create_table "tbl_position", force: :cascade do |t|
-    t.string  "name",      limit: 50,                 null: false
-    t.string  "remark",    limit: 150
-    t.boolean "is_active",             default: true
-  end
 
   create_table "workshifts", force: :cascade do |t|
     t.string   "abbr",        limit: 255
